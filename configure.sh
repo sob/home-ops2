@@ -226,7 +226,7 @@ verify_ansible_hosts() {
     local node_hostname=
     local default_control_node_prefix=
     local default_worker_node_prefix=
-    
+
     default_control_node_prefix="BOOTSTRAP_ANSIBLE_DEFAULT_CONTROL_NODE_HOSTNAME_PREFIX"
     default_worker_node_prefix="BOOTSTRAP_ANSIBLE_DEFAULT_NODE_HOSTNAME_PREFIX"
     _has_optional_envar "${default_control_node_prefix}"
@@ -241,11 +241,11 @@ verify_ansible_hosts() {
         node_hostname="BOOTSTRAP_ANSIBLE_HOSTNAME_${node_id}"
         _has_envar "${node_addr}"
         _has_envar "${node_username}"
-        _has_envar "${node_password}"
+        _has_optional_envar "${node_password}"
         _has_envar "${node_control}"
         _has_optional_envar "${node_hostname}"
 
-        if ssh -q -o BatchMode=yes -o ConnectTimeout=5 "${!node_username}"@"${!var}" "true"; then
+        if ssh -q -o BatchMode=yes -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "${!node_username}"@"${!var}" "true"; then
             _log "INFO" "Successfully SSH'ed into host '${!var}' with username '${!node_username}'"
         else
             _log "ERROR" "Unable to SSH into host '${!var}' with username '${!node_username}'"
