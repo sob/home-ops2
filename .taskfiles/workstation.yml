@@ -1,0 +1,87 @@
+---
+version: '3'
+
+vars:
+  GITHUB_USER:
+    sh: cat ~/.secret/github_username
+  GITHUB_TOKEN:
+    sh: cat ~/.secret/github_access_token
+
+tasks:
+  silent:
+    true
+
+  github-install-binary:
+    silent: false
+    label: workstation:{{.BINARY}}
+    cmds:
+      - echo Installing {{.BINARY}} @ {{.VERSION}}
+      - curl -u {{.GITHUB_USER}}:{{.GITHUB_TOKEN}} -sL {{.BINARY_URL}} -o /tmp/{{.BINARY}}
+      - sudo install /tmp/{{.BINARY}} /usr/local/bin/{{.BINARY}}
+      - rm -rf /tmp/{{.BINARY}}
+    status:
+      - test -f /usr/local/bin/{{.BINARY}}
+      - test "{{.VERSION}}"="{{.INSTALLED}}"
+    vars:
+      TARGET_VERSION: latest
+      ENDPOINT: https://api.github.com/repos/{{.PROJECT}}/releases/{{.TARGET_VERSION}}
+      VERSION:
+        sh: curl -u {{.GITHUB_USER}}:{{.GITHUB_TOKEN}} -s {{.ENDPOINT}} | jq -r '.tag_name' | tr -d '[:blank:]'
+      BINARY_URL:
+        sh: curl -u {{.GITHUB_USER}}:{{.GITHUB_TOKEN}} -s {{.ENDPOINT}} | jq -r '.assets[] | {name, browser_download_url} | select(.name =="{{.BINARY_NAME}}")["browser_download_url"]'
+
+  github-install-tarball:
+    silent:
+      false
+    label: workstation:{{.BINARY}}
+    cmds:
+      - echo Installing {{.BINARY}} @ {{.VERSION}}
+      - curl -u {{.GITHUB_USER}}:{{.GITHUB_TOKEN}} -sL {{.BINARY_URL}} -o /tmp/{{.TARBALL}}
+      - tar -zxf /tmp/{{.TARBALL}} {{.BINARY}}
+      - sudo install {{.BINARY}} /usr/local/bin/{{.BINARY}}
+      - rm -rf /tmp/{{.TARBALL}} ./{{.BINARY}}
+    status:
+      - test -f /usr/local/bin/{{.BINARY}}
+      - test "{{.VERSION}}"="{{.INSTALLED}}"
+    vars:
+      TARGET_VERSION: latest
+      ENDPOINT: https://api.github.com/repos/{{.PROJECT}}/releases/{{.TARGET_VERSION}}
+      VERSION:
+        sh: curl -u {{.GITHUB_USER}}:{{.GITHUB_TOKEN}} -s {{.ENDPOINT}} | jq -r '.tag_name' | tr -d '[:blank:]'
+      BINARY_URL:
+        sh: curl -u {{.GITHUB_USER}}:{{.GITHUB_TOKEN}} -s {{.ENDPOINT}} | jq -r '.assets[] | {name, browser_download_url} | select(.name =="{{.TARBALL}}")["browser_download_url"]'
+
+  k9s:
+    desc: install k9s (local)
+    cmds:
+      - task: github-install-tarball
+        vars: { BINARY: 'k9s', PROJECT: 'derailed/k9s', TARBALL: 'k9s_Linux_x86_64.tar.gz', INSTALLED: "{{.INSTALLED}}" }
+    vars:
+      INSTALLED:
+        sh: /usr/local/bin/k9s version -s | grep Version | tr -d '[:blank:][Version]'
+  flux:
+    desc: install flux (local)
+    cmds:
+      - task: github-install-tarball
+        vars: { BINARY: 'flux', PROJECT: 'fluxcd/flux2', TARBALL: "{{.TARBALL}}", INSTALLED: "{{.INSTALLED}}" }
+    vars:
+      TARBALL:
+        sh: curl -s https://api.github.com/repos/fluxcd/flux2/releases/latest | jq -r '.assets[] | {name, browser_download_url} | select(.name | index("linux_amd64.tar.gz"))["name"]'
+      INSTALLED:
+        sh: flux --version | cut -d' ' -f 3
+  popeye:
+    desc: install popeye (local)
+    cmds:
+      - task: github-install-tarball
+        vars: { BINARY: 'popeye', PROJECT: 'derailed/popeye', TARBALL: 'popeye_Linux_x86_64.tar.gz', INSTALLED: "{{.INSTALLED}}" }
+    vars:
+      INSTALLED:
+        sh: popeye version -c | grep Version | tr -d '[:blank:][Version]' | cut -d';' -f 5 | cut -d'm' -f 2 || echo "0.0.0"
+  sops:
+    desc: install sops (local)
+    cmds:
+      - task: github-install-binary
+        vars: { BINARY: 'sops', PROJECT: 'mozilla/sops', BINARY_NAME: 'sops-v3.7.1.linux', INSTALLED: "{{.INSTALLED}}" }
+    vars:
+      INSTALLED:
+        sh: sops --version | cut -d' ' -f 2
