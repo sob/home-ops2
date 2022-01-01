@@ -24,6 +24,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: rook-ceph
+                name: rook-ceph-mgr-dashboard
                 port:
-                  number: 9000
+                  number: 7000
