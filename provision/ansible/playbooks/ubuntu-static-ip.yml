@@ -1,0 +1,40 @@
+---
+- hosts:
+    - master
+    - worker
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  tasks:
+    - name: disable cloud-init networking
+      ansible.builtin.copy:
+        content: |
+          { config: disabled }
+        dest: /etc/cloud/cloud.cfg.d/99-disable-network.cfg
+        owner: root
+        mode: 0644
+
+    - name: remove cloud-init netplan config file
+      ansible.builtin.file:
+        path: /etc/netplan/50-cloud-init.yaml
+        state: absent
+
+    - name: create static ip netplan config file
+      ansible.builtin.copy:
+        content: |
+          network:
+            ethernets:
+              eno1:
+                dhcp4: no
+                addresses:
+                  - {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}/24
+                gateway4: {{ hostvars[inventory_hostname]['ansible_default_ipv4']['gateway'] }}
+                nameservers:
+                  addresses:
+                    - 8.8.8.8
+                    - 8.8.4.4
+        dest: /etc/netplan/99-static-ip.yaml
+
+    - name: apply netplan
+      ansible.builtin.command:
+        cmd: netplan apply
