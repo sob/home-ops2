@@ -71,7 +71,7 @@ spec:
       existingSecret: home-assistant-influxdb
       persistence:
         enabled: true
-        existingClaim: home-assistant-influxdb-v1
+        existingClaim: home-assistant-influxdb-v2
     mariadb:
       enabled: true
       primary:
