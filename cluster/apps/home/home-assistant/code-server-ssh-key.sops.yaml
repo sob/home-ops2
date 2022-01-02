@@ -1,0 +1,29 @@
+# yamllint disable
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: code-server
+    namespace: home
+stringData:
+    id_ed25519: ENC[AES256_GCM,data:EMd6yt3uu30jxNnuyeFg1bEU9RTQu3poBTHz9DufY9yUikqY2xlToWp4bfgPdandpEFxdNnHfTafCDchOH83Jb75+ufL8RWK946enQQmHhI=,iv:QM3YE4QF1AuDSzHg4WS7AtFsdvNTwxn+hMZJSfpQ2b4=,tag:cbJG9qJ505C2899Pb2Zhdg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age179qz74lpav0lcywkjzujhnlu3ukq9kgz9jdxm2u59w47j337kc2q0e8q20
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJOGFuNDlSdUxPMXU5OWhT
+            dm5HeVdnNEV6dzU2dnRuMDVPclloQ2Y2SkJVCnlQZWk1T2VsRGlSNnZVbjEwZ0c2
+            ei92b0F4dUoxcXM2c081UE91SFdPWVkKLS0tIGJORm5jeUppQmVYS04rc1NuWHR1
+            UW9QWVppZzdUa25RUmVBL3FwVnMyUnMKe8d2c46C3sN+VcJAIb7IWJgejQjMImJx
+            4ugIEYcosLe7jRWvyEefu/SdekyeQK7b3v1OxsqeGEAsMBufFUxk5w==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-01-02T05:15:56Z"
+    mac: ENC[AES256_GCM,data:SlXSuNeLdqenH5kWazApGJw0sKRgPdTkp/95J2AkPW54P+fIaNrB1nditSWGeWGDjtxCKcOhx7HoXm9VjNTKCsYMtUQwU9BLL7LGNdmhwuHTD5Asd9mL6CXhHQk7o3cY/VCW+cHf8wnub1nE4lNjoGmX4eHpZjLsXd9scws4bTk=,iv:H6+EFLfo+r5kv0fpShMA2KIxk8LFFZMIfURIXYvQfQU=,tag:MqqOPGreE7Cghh5MG3iqUQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.1
