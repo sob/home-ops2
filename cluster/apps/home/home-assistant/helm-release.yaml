@@ -69,11 +69,6 @@ spec:
         persistence:
           enabled: true
           existingClaim: home-assistant-mariadb-v1
-    postgresql:
-      enabled: true
-      persistence:
-        enabled: true
-        existingClaim: home-assistant-postgresql-v1
     addons:
       codeserver:
         enabled: true
