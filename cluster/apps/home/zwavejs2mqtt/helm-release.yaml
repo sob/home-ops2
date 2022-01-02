@@ -50,6 +50,7 @@ spec:
         tls:
           - hosts:
               - "zwave.${SECRET_DOMAIN}"
+            secretName: "zwavejs2mqtt-tls"
     securityContext:
       privileged: true
     persistence:
