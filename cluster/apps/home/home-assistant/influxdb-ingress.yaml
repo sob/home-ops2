@@ -23,6 +23,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: home-assistant-influxdb
+                name: home-assistant-influxdb.home.svc.cluster.local
                 port:
                   number: 8086
