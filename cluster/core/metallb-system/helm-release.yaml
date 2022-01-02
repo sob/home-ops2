@@ -22,3 +22,6 @@ spec:
           protocol: layer2
           addresses:
             - "${METALLB_LB_RANGE}"
+        - name: traefik
+          protocol: layer2
+            - "${METALLB_TRAEFIK_ADDR}"
