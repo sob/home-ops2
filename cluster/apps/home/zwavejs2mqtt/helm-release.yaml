@@ -34,6 +34,9 @@ spec:
       main:
         enabled: true
         ingressClassName: "traefik"
+        annotations:
+          hajimari.io/enable: "true"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "zwavejs2mqtt.${SECRET_DOMAIN}"
             paths:
