@@ -5,6 +5,7 @@ resources:
   - code-server-ssh-key.sops.yaml
   - config-pvc.yaml
   - home-assistant.sops.yaml
+  - home-assistant-influxdb.sops.yaml
   - helm-release.yaml
   - influxdb-pvc.yaml
   - mariadb-pvc.yaml
