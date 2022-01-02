@@ -68,17 +68,6 @@ spec:
       persistence:
         enabled: true
         existingClaim: home-assistant-influxdb-v1
-      ingress:
-        enabled: true
-        hosts:
-          - host: "hass-influx.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - "hass-influx.${SECRET_DOMAIN}"
-            secretName: "hass-influx-tls"
     mariadb:
       enabled: true
       primary:
