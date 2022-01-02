@@ -67,7 +67,8 @@ spec:
       enabled: true
       architecture: standalone
       database: home_assistant
-      authEnabled: false
+      authEnabled: true
+      existingSecret: home-assistant-influxdb
       persistence:
         enabled: true
         existingClaim: home-assistant-influxdb-v1
