@@ -38,13 +38,13 @@ spec:
           hajimari.io/enable: "true"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "zwavejs2mqtt.${SECRET_DOMAIN}"
+          - host: "zwave${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "zwavejs2mqtt.${SECRET_DOMAIN}"
+              - "zwave.${SECRET_DOMAIN}"
     securityContext:
       privileged: true
     persistence:
