@@ -7,4 +7,3 @@ resources:
   - home-assistant.sops.yaml
   - helm-release.yaml
   - mariadb-pvc.yaml
-  - postgresql-pvc.yaml
