@@ -20,14 +20,15 @@ spec:
     ingress:
       enabled: true
       annotations:
-        kubernetes.io/ingress.class: "nginx"
+        kubernetes.io/ingress.class: "traefik"
       hosts:
-        - host: "loki.${SECRET_PUBLIC_DOMAIN}"
+        - host: "loki.${SECRET_DOMAIN}"
           paths:
             - /
       tls:
         - hosts:
-            - "loki.${SECRET_PUBLIC_DOMAIN}"
+            - "loki.${SECRET_DOMAIN}"
+          secretName: loki-tls
     serviceMonitor:
       enabled: true
     # extraArgs:
