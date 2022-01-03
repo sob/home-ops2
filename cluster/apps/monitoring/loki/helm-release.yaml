@@ -47,7 +47,6 @@ spec:
         ingestion_rate_mb: 16
         ingestion_burst_size_mb: 24
       storage_config:
-        # TODO: fix storage config
         azure:
           environment: AzureGlobal
           container_name: loki
@@ -57,7 +56,7 @@ spec:
           active_index_directory: /data/loki/index
           cache_location: /data/loki/index_cache
           resync_interval: 5s
-          shared_store: s3
+          shared_store: azure
       ruler:
         storage:
           type: local
