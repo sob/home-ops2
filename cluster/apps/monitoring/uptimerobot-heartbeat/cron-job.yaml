@@ -12,14 +12,14 @@ spec:
   jobTemplate:
     metadata:
       annotations:
-        botkube.io/disable: true
+        botkube.io/disable: "true"
     spec:
       backoffLimit: 3
       ttlSecondsAfterFinished: 300
       template:
         metadata:
           annotations:
-            botkube.io/disable: true
+            botkube.io/disable: "true"
         spec:
           restartPolicy: Never
           containers:
