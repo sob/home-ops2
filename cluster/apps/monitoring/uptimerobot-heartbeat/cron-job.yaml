@@ -29,7 +29,6 @@ spec:
                 - secretRef:
                     name: uptimerobot-heartbeat-url
               command:
-                - "/bin/sh"
                 - "/app/uptimerobot-heartbeat.sh"
               volumeMounts:
                 - name: uptimerobot-heartbeat
