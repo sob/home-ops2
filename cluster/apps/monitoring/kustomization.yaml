@@ -9,4 +9,5 @@ resources:
   - snmp-exporter
   - speedtest-exporter
   - thanos
+  - uptimerobot-heartbeat
   - vector-agent
