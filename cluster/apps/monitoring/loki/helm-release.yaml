@@ -48,13 +48,11 @@ spec:
         ingestion_burst_size_mb: 24
       storage_config:
         # TODO: fix storage config
-        aws:
-          bucketnames: loki
-          endpoint: "s3.${SECRET_PRIVATE_DOMAIN}"
-          access_key_id: "${SECRET_MINIO_ACCESS_KEY}"
-          secret_access_key: "${SECRET_MINIO_SECRET_KEY}"
-          s3forcepathstyle: true
-          insecure: false
+        azure:
+          environment: AzureGlobal
+          container_name: loki
+          account_name: ${SECRET_AZURE_ACCOUNT_NAME}
+          account_key: ${SECRET_AZURE_ACCOUNT_KEY}
         boltdb_shipper:
           active_index_directory: /data/loki/index
           cache_location: /data/loki/index_cache
