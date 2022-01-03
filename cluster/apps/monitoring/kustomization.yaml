@@ -10,5 +10,6 @@ resources:
   - snmp-exporter
   - speedtest-exporter
   - thanos
+  - unifi-poller
   - uptimerobot-heartbeat
   - vector-agent
