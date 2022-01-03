@@ -58,16 +58,16 @@ spec:
       targets:
         - module: icmp
           name: hue-bridge-0
-          url: hue-bridge-0
+          url: ${EXT_HUE_BRIDGE_0_ADDR}
         - module: icmp
           name: cyberpower-pdu-0
-          url: cyberpower-pdu-0
+          url: ${EXT_CYBERPOWER_PDU_0_ADDR}
         - module: icmp
           name: unifi
-          url: unifi
+          url: ${EXT_UNIFI_ADDR}
         - module: icmp
           name: stone-maas
-          url: stone-maas
+          url: ${EXT_STONE_MAAS_ADDR}
     prometheusRule:
       enabled: true
       additionalLabels:
