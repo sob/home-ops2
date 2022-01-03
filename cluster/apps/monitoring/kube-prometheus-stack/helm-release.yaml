@@ -29,7 +29,7 @@ spec:
             slack_configs:
               - channel: "#system-monitoring"
                 icon_url: https://avatars3.githubusercontent.com/u/3380462
-                username: "Prometheus"
+                username: "prometheus"
                 send_resolved: true
                 title: |-
                   [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
