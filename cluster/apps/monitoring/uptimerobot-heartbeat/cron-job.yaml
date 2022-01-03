@@ -4,6 +4,8 @@ kind: CronJob
 metadata:
   namespace: monitoring
   name: uptimerobot-heartbeat
+  annotations:
+    botkube.io/disable: true
 spec:
   schedule: "* * * * *"
   concurrencyPolicy: "Forbid"
@@ -13,8 +15,6 @@ spec:
     spec:
       backoffLimit: 3
       ttlSecondsAfterFinished: 300
-      annotations:
-          botkube.io/disable: true
       template:
         spec:
           restartPolicy: Never
