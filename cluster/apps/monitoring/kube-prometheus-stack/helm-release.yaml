@@ -52,12 +52,12 @@ spec:
           group_wait: 30s
           group_interval: 5m
           repeat_interval: 6h
-          receiver: "discord"
+          receiver: "slack"
           routes:
             - receiver: "null"
               match:
                 alertname: Watchdog
-            - receiver: "discord"
+            - receiver: "slack"
               match_re:
                 severity: critical
               continue: true
