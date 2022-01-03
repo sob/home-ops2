@@ -63,7 +63,6 @@ spec:
           name: cyberpower-pdu-0
           url: 10.1.0.197
         - module: icmp
-        - module: icmp
           name: unifi
           url: 10.1.0.1
         - module: icmp
