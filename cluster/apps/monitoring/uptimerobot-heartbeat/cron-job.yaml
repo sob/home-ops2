@@ -7,16 +7,16 @@ metadata:
 spec:
   schedule: "* * * * *"
   concurrencyPolicy: "Forbid"
-  successfulJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 5
   jobTemplate:
+    metadata:
+      annotations:
+        botkube.io/disable: true
     spec:
       backoffLimit: 3
       ttlSecondsAfterFinished: 300
       template:
-        metadata:
-          annotations:
-            botkube.io/disable: true
         spec:
           restartPolicy: Never
           containers:
