@@ -23,6 +23,14 @@ spec:
     ingress:
       enabled: true
       className: traefik
+      annotations:
+        kubernetes.io/ingress.class: "traefik"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "home-assistant"
       hosts:
         - host: "blackbox.${SECRET_DOMAIN}"
           paths:
@@ -31,6 +39,7 @@ spec:
       tls:
         - hosts:
             - "blackbox.${SECRET_DOMAIN}"
+          secretName: blackbox-tls
     allowIcmp: true
     config:
       modules:
