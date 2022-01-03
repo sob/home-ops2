@@ -18,7 +18,7 @@ metadata:
   name: "cyberpower-pdu-0"
 subsets:
   - addresses:
-    - ip: "${EXT_CYBERPOWER-PDU-0_ADDR}"
+    - ip: "${EXT_CYBERPOWER_PDU_0_ADDR}"
     ports:
       - port: 161
         name: "snmp"
