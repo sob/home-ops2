@@ -57,17 +57,17 @@ spec:
         scrapeTimeout: 30s
       targets:
         - module: icmp
-          name: hue-bridge
-          url: 10.1.88.193
+          name: hue-bridge-0
+          url: hue-bridge-0
         - module: icmp
           name: cyberpower-pdu-0
-          url: 10.1.0.197
+          url: cyberpower-pdu-0
         - module: icmp
           name: unifi
-          url: 10.1.0.1
+          url: unifi
         - module: icmp
           name: stone-maas
-          url: 10.1.10.99
+          url: stone-maas
     prometheusRule:
       enabled: true
       additionalLabels:
