@@ -4,6 +4,7 @@ resources:
   - default
   - home
   - kube-system
+  - monitoring
   - networking
   - rook-ceph
   - system-upgrade
