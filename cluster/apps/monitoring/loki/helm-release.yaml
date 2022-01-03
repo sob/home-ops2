@@ -40,6 +40,7 @@ spec:
         ingestion_rate_mb: 16
         ingestion_burst_size_mb: 24
       storage_config:
+        # TODO: fix storage config
         aws:
           bucketnames: loki
           endpoint: "s3.${SECRET_PRIVATE_DOMAIN}"
