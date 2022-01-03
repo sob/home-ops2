@@ -57,23 +57,18 @@ spec:
         scrapeTimeout: 30s
       targets:
         - module: icmp
-          name: zigbee-controller
-          url: zigbee-controller
-        - module: icmp
           name: hue-bridge
-          url: hue-bridge
+          url: 10.1.88.193
         - module: icmp
           name: cyberpower-pdu-0
-          url: cyberpower-pdu-0
+          url: 10.1.0.197
         - module: icmp
-          name: apc-ups-0
-          url: apc-ups-0
         - module: icmp
           name: unifi
-          url: unifi
+          url: 10.1.0.1
         - module: icmp
-          name: stone-pie-01
-          url: stone-pie-01
+          name: stone-maas
+          url: 10.1.10.99
     prometheusRule:
       enabled: true
       additionalLabels:
