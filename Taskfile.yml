@@ -7,6 +7,10 @@ vars:
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
+  K3S_PRIMARY_NODE_USERNAME: "ubuntu"
+  K3S_PRIMARY_NODE_ADDR: "10.1.10.101"
+  K3S_LB_ADDR: "10.1.10.254"
+
 
 env:
   KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"

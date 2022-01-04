@@ -11,6 +11,13 @@ tasks:
   silent:
     true
 
+  kubeconfig:
+    desc: Remotely fetch kubeconfig from cluster
+    cmds:
+      - rsync --partial --rsync-path="sudo rsync" {{.K3S_PRIMARY_NODE_USERNAME}}@{{.K3S_PRIMARY_NODE_ADDR}}:/etc/rancher/k3s/k3s.yaml "{{.PROJECT_DIR}}/provision/kubeconfig"
+      - sed -i 's/127.0.0.1/{{.K3S_LB_ADDR}}/g' "{{.PROJECT_DIR}}/provision/kubeconfig"
+      - chmod go-r "{{.PROJECT_DIR}}/provision/kubeconfig"
+
   github-install-binary:
     silent: false
     label: workstation:{{.BINARY}}
