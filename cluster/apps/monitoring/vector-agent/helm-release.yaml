@@ -30,6 +30,7 @@ spec:
         journal_logs:
           type: journald
           journal_directory: /var/log/journal
+          journalctl_path: /usr/bin/journalctl
         kubernetes_logs:
           type: kubernetes_logs
       # Sinks
