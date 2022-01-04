@@ -11,6 +11,7 @@ kubeconfig
 *.agekey
 # Ansible
 xanmanning.k3s*
+GROG.reboot*
 # Terraform
 .terraform
 .terraform.tfstate*
