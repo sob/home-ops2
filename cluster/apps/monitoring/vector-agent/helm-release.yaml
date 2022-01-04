@@ -22,12 +22,14 @@ spec:
       - name: VECTOR_WATCH_CONFIG
         value: "true"
     customConfig:
+      data_dir: /vector-data-dir
       api:
         enabled: false
       # Sources
       sources:
         journal_logs:
           type: journald
+          journalctl_path: /usr/bin/journalctl
         kubernetes_logs:
           type: kubernetes_logs
       # Sinks
