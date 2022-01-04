@@ -66,6 +66,8 @@ spec:
                 path: /spec/rules/0/http/paths/0/backend/service
                 value:
                   name: gateway
+                  port:
+                    name: http
               - op: remove
                 path: /spec/rules/0/http/paths/0/backend/servicePort
               - op: remove
