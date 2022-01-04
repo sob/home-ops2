@@ -63,8 +63,9 @@ spec:
                 path: /spec/rules/0/http/paths/0/pathType
                 value: Prefix
               - op: add
-                path: /spec/rules/0/http/paths/0/backend/service/name
-                value: gateway
+                path: /spec/rules/0/http/paths/0/backend/service
+                value:
+                  name: gateway
               - op: remove
                 path: /spec/rules/0/http/paths/0/backend/servicePort
               - op: remove
