@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - default
   - home
+  - kasten
   - kube-system
   - monitoring
   - networking
