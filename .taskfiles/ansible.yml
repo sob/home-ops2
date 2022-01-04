@@ -22,11 +22,11 @@ tasks:
     cmds:
       - "ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --list-hosts"
 
-  playbook:ubuntu-prepare:
+  playbook:ubuntu:
     desc: Prepare all the k8s nodes for running k3s
     dir: provision/ansible
     cmds:
-      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/ubuntu-prepare.yml"
+      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/ubuntu.yml"
 
   playbook:ubuntu-upgrade:
     desc: Upgrade all the k8s nodes operating system
@@ -68,7 +68,7 @@ tasks:
     desc: Reboot all the k8s nodes
     dir: provision/ansible
     cmds:
-      - "ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml -a '/usr/bin/systemctl reboot' --become"
+      - "ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml reboot.yml -e 'rolling_reboot_group=kubernetes rolling_reboot_wait_port=22 rolling_reboot_wait_delay=30 rolling_reboot_pause=30"
 
   adhoc:poweroff:
     desc: Shutdown all the k8s nodes
