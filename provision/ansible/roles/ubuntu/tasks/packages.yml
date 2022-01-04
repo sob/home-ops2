@@ -1,41 +1,81 @@
 ---
-- name: Upgrade all system packages
-  ansible.builtin.apt:
-    upgrade: full
-    update_cache: true
-    cache_valid_time: 3600
-    autoclean: true
-    autoremove: true
-  register: apt_upgrade
-  retries: 5
-  until: apt_upgrade is success
+- name: remove curtin proxy info
+  ansible.builtin.file:
+    state: absent
+    path: /etc/apt/apt.conf.d/90curtin-aptproxy
 
-- name: Install common packages
+- name: install common packages
   ansible.builtin.apt:
-    name:
-      - apt-transport-https
-      - arptables
-      - ca-certificates
-      - curl
-      - ebtables
-      - iputils-ping
-      - ipvsadm
-      - lvm2
-      - net-tools
-      - nfs-common
-      - open-iscsi
-      - psmisc
-      - smartmontools
-      - software-properties-common
-      - unattended-upgrades
+    name: "{{ item }}"
     install_recommends: false
-    update_cache: true
-    cache_valid_time: 3600
     autoclean: true
     autoremove: true
-  register: apt_install_common
-  retries: 5
-  until: apt_install_common is success
+  with_items:
+    - "{{ ubuntu_common_packages | join (',') }}"
+
+- name: disable apt recommends
+  ansible.builtin.blockinfile:
+    path: /etc/apt/apt.conf.d/10-no-recommends
+    mode: 0644
+    create: true
+    block: |
+      APT::Install-Recommends "false";
+      APT::Install-Suggests "false";
+      APT::Get::Install-Recommends "false";
+      APT::Get::Install-Suggests "false";
+
+- name: gather installed packages
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: remove packages
+  block:
+    - name: check if snap is installed
+      ansible.builtin.debug:
+        msg: "snapd is installed"
+      register: snapd_check
+      when:
+        - "'snapd' in ubuntu_common_packages_remove"
+        - "'snapd' in ansible_facts.packages"
+
+    - name: remove snap packages
+      ansible.builtin.command: snap remove {{ item }}
+      loop:
+        - lxd
+        - core18
+        - core20
+        - snapd
+      when:
+        - "'snapd' in ubuntu_common_packages_remove"
+        - "'snapd' in ansible_facts.packages"
+        - snapd_check.failed is defined
+
+    - name: remove packages
+      ansible.builtin.apt:
+        name: "{{ ubuntu_common_packages_remove }}"
+        state: absent
+        autoremove: true
+
+    - name: remove files
+      ansible.builtin.file:
+        state: absent
+        path: "{{ item }}"
+      loop:
+        - "/home/{{ ansible_user }}/.snap"
+        - "/snap"
+        - "/var/snap"
+        - "/var/lib/snapd"
+        - "/var/cache/snapd"
+        - "/usr/lib/snapd"
+        - "/etc/cloud"
+        - "/var/lib/cloud"
+      when:
+        - "'snapd' in ubuntu_common_packages_remove"
+        - "'cloud-init' in ubuntu_common_packages_remove"
+  when:
+    - ubuntu_common_packages_remove is defined
+    - ubuntu_common_packages_remove is iterable
+    - ubuntu_common_packages_remove | length > 0
 
 - name: Copy 20auto-upgrades unattended-upgrades config
   ansible.builtin.blockinfile:
