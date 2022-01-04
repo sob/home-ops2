@@ -24,4 +24,5 @@ spec:
             - "${METALLB_LB_RANGE}"
         - name: traefik
           protocol: layer2
+          addresses:
             - "${METALLB_TRAEFIK_ADDR}"
