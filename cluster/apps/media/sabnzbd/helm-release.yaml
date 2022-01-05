@@ -57,8 +57,8 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: "expanse.${SECRET_PRIVATE_DOMAIN}"
-            path: /tycho/Media
+            server: "10.1.0.254"
+            path: /volume1/Media
         mountPath: /media
     resources:
       requests:
