@@ -5,6 +5,7 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
+  TIMEZONE: "America/Chicago"
   METALLB_LB_RANGE: 10.1.10.201-10.1.10.225
   METALLB_TRAEFIK_ADDR: 10.1.10.200
   SVC_MOSQUITTO_ADDR: 10.1.10.230

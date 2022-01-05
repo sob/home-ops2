@@ -5,6 +5,7 @@ resources:
   - home
   - kasten
   - kube-system
+  - media
   - monitoring
   - networking
   - rook-ceph
