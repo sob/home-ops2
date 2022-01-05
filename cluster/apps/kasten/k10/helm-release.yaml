@@ -24,6 +24,7 @@ spec:
       email: sean@obrienfamily.org
     global:
       persistence:
+        enabled: true
         storageClass: ceph-block
     auth:
       tokenAuth:
