@@ -78,7 +78,7 @@ spec:
         volumeSpec:
           nfs:
             server: "10.1.0.254"
-            path: /volume1/Data/Backups/radarr
+            path: /volume1/Data/backups/radarr
         mountPath: /config/Backups
         readOnly: false
     resources:
