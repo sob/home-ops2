@@ -7,3 +7,5 @@ resources:
   - radarr
   - radarr-uhd
   - sabnzbd
+  - sonarr
+  - sonarr-uhd
