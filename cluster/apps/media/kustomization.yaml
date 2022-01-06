@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - overseerr
   - plex
+  - prowlarr
   - radarr
   - radarr-uhd
   - sabnzbd
