@@ -44,8 +44,6 @@ spec:
             secretName: "authentik-tls"
       redis:
         enabled: true
-    env:
-      AUTHENTIK_COOKIE_DOMAIN: ".${SECRET_DOMAIN}"
     prometheus:
       serviceMonitor:
         create: true
