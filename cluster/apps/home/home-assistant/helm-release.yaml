@@ -41,6 +41,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/enable: "true"
           hajimari.io/icon: "home-assistant"
+          hajimari.io/group: "home automation"
         hosts:
           - host: "hass.${SECRET_DOMAIN}"
             paths:
