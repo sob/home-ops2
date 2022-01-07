@@ -38,3 +38,6 @@ spec:
       auth:
         enabled: true
         password: password
+      image:
+        repository: redis
+        tag: 6.2.3
