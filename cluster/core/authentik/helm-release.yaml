@@ -8,13 +8,17 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://metallb.github.io/metallb
+      # renovate: registryUrl=https://charts.goauthentik.io
       chart: authentik
       version: 5.1.1
       sourceRef:
         kind: HelmRepository
         name: authentik-charts
         namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: traefik
+      namespace: network
   values:
     fullnameOverride: authentik
     image:
@@ -25,16 +29,17 @@ spec:
       postgresql:
         password: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
       redis:
-        password: password
+        host: authentik-redis-master
     postgresql:
       enabled: true
-      postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
+      postgresqlUsername: authentik
+      postgresqlDatabase: authentik
+      postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASSWORD}"
       persistence:
         enabled: true
         existingClaim: authentik-postgresql-v1
     redis:
-      enabled: "true"
-      architecture: standalone
-      auth:
-        enabled: true
-        password: password
+      enabled: true
+    prometheus:
+      serviceMonitor:
+        create: false
