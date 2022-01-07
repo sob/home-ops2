@@ -10,3 +10,4 @@ resources:
   - sabnzbd
   - sonarr
   - sonarr-uhd
+  - tautulli
