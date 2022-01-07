@@ -33,9 +33,11 @@ spec:
         - name: UNIFi Controller
           url: https://10.1.0.1
           icon: router-network
+          group: infrastructure
         - name: Synology
           url: https://10.1.0.254:5000
           icon: nas
+          group: infrastructure
       groups:
         - name: Communicate
           links:
