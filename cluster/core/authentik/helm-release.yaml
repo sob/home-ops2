@@ -24,6 +24,8 @@ spec:
       secret_key: "${SECRET_AUTHENTIK_KEY}"
       postgresql:
         password: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
+      redis:
+        password: password
     postgresql:
       enabled: true
       postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
@@ -34,4 +36,5 @@ spec:
       enabled: true
       architecture: standalone
       auth:
-        enabled: false
+        enabled: true
+        password: password
