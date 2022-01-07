@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://metallb.github.io/metallb
+      chart: authentik
+      version: 0.11.0
+      sourceRef:
+        kind: HelmRepository
+        name: authentik-charts
+        namespace: flux-system
+  values:
+    authentik:
+      secret_key: "${SECRET_AUTHENTIK_KEY}"
+      error_reporting:
+        enabled: true
+      postgresql:
+        password: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
+    ingress:
+      enabled: true
+      ingressClassName: "traefik"
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "home-assistant"
+        hajimari.io/group: "infrastructure"
+      hosts:
+        - host: authentik.${SECRET_DOMAIN}
+          paths:
+            - path: "/"
+              pathType: Prefix
+      tls:
+        - hosts:
+            - "authentik.${SECRET_DOMAIN}"
+          secretName: "authentik-tls"
+    postgresql:
+      enabled: true
+      postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
+    redis:
+      enabled: true
+  env:
+  prometheus:
+    serviceMonitor:
+      create: true
+    rules:
+      create: true
+  postgresql:
+    enabled: true
+    postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
+    persistence:
+      enabled: true
+      existingClaim: authentik-postgresq1-v1
+  redis:
+    enabled: true
