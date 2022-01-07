@@ -29,6 +29,6 @@ spec:
       postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
       persistence:
         enabled: true
-        existingClaim: authentik-postgresq1-v1
+        existingClaim: authentik-postgresql-v1
     redis:
       enabled: true
