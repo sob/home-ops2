@@ -40,7 +40,7 @@ spec:
                 pathType: Prefix
         tls:
           - hosts:
-              - "readarr.${SECRET_PUBLIC_DOMAIN}"
+              - "readarr.${SECRET_DOMAIN}"
             secretName: readarr-tls
     podSecurityContext:
       supplementalGroups:
