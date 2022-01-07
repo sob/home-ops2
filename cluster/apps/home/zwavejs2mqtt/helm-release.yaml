@@ -38,6 +38,8 @@ spec:
         ingressClassName: "traefik"
         annotations:
           hajimari.io/enable: "true"
+          hajimari.io/icon: "router-wireless"
+          hajimari.io/group: "automation"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns/is-public: "true"
