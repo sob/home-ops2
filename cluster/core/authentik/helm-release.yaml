@@ -32,3 +32,6 @@ spec:
         existingClaim: authentik-postgresql-v1
     redis:
       enabled: true
+      architecture: standalone
+      auth:
+        enabled: false
