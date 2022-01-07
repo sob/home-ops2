@@ -30,6 +30,24 @@ spec:
         password: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
       redis:
         host: authentik-redis-master
+    ingress:
+      enabled: true
+      ingressClassName: "traefik"
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        external-dns/is-public: "true"
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "passport"
+      hosts:
+        - host: "id.${SECRET_DOMAIN}"
+          paths:
+            - path: "/"
+              pathType: Prefix
+      tls:
+        - hosts:
+            - "id.${SECRET_DOMAIN}"
+          secretName: authentik-tls
     postgresql:
       enabled: true
       postgresqlUsername: authentik
