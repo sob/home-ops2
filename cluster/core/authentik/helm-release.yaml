@@ -23,7 +23,12 @@ spec:
     authentik:
       secret_key: "${SECRET_AUTHENTIK_KEY}"
       postgresql:
-        host: "authentik-postgres"
-        name: "authentik"
-        user: "authentik"
         password: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
+    postgresql:
+      enabled: true
+      postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
+      persistence:
+        enabled: true
+        existingClaim: authentik-postgresq1-v1
+    redis:
+      enabled: true
