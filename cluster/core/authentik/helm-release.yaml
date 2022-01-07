@@ -16,37 +16,14 @@ spec:
         name: authentik-charts
         namespace: flux-system
   values:
+    fullnameOverride: authentik
+    image:
+      repository: ghcr.io/goauthentik/server
+      tag: 2021.12.5
     authentik:
       secret_key: "${SECRET_AUTHENTIK_KEY}"
-      error_reporting:
-        enabled: true
       postgresql:
+        host: "authentik-postgres"
+        name: "authentik"
+        user: "authentik"
         password: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
-    ingress:
-      enabled: true
-      ingressClassName: "traefik"
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-        external-dns/is-public: "true"
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "home-assistant"
-        hajimari.io/group: "infrastructure"
-      hosts:
-        - host: authentik.${SECRET_DOMAIN}
-          paths:
-            - path: "/"
-              pathType: Prefix
-      tls:
-        - hosts:
-            - "authentik.${SECRET_DOMAIN}"
-          secretName: "authentik-tls"
-    postgresql:
-      enabled: true
-      postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
-      persistence:
-        enabled: true
-        existingClaim: authentik-postgresq1-v1
-    redis:
-      enabled: true
