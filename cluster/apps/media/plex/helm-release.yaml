@@ -48,17 +48,11 @@ spec:
           hajimari.io/icon: "plex"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-authentik@kubernetescrd"
         hosts:
           - host: "plex.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
-              - path: /akprox
-                pathType: Prefix
-                service:
-                  name: ak-outpost-authentik-embedded-outpost
-                  port: 9000
         tls:
           - hosts:
               - "plex.${SECRET_DOMAIN}"
