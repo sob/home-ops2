@@ -6,7 +6,7 @@ metadata:
   namespace: networking
 spec:
   forwardAuth:
-    address: https://id.56kbps.io/akprox/auth/traefik
+    address: http://ak-outpost-authentik-embedded-outpost:9000/akprox/auth/traefik
     trustForwardHeader: true
     authResponseHeaders:
       - X-authentik-username
