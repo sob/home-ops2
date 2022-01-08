@@ -54,6 +54,11 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+              - path: /akprox
+                pathType: Prefix
+                service:
+                  name: ak-outpost-authentik-embedded-outpost
+                  port: 9000
         tls:
           - hosts:
               - "plex.${SECRET_DOMAIN}"
