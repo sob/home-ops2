@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  ring-mqtt:
+    container_name: ring-mqtt
+    restart: unless-stopped
+    image: tsightler/ring-mqtt
+    ports:
+      - 8554:8554                      # Enable RTSP port for external media player access
+    volumes:
+      - /etc/ring-mqtt:/data           # Mapping of local folder to provide persistant storage
+    environment:
+      - RINGTOKEN=                     # Required for initial startup, see: https://github.com/tsightler/ring-mqtt/blob/main/docs/DOCKER.md#authentication
+      - MQTTHOST=localhost             # Hostname or IP of MQTT Broker
+      - MQTTPORT=1883                  # TCP port for MQTT Broker
+      - MQTTUSER=mqtt_user             # CHANGE ME -- Username for MQTT Broker (remove for anonymous)
+      - MQTTPASSWORD=mqtt_password     # CHANGE ME -- Password for MQTT Broker (remove for anonymous)
+      - ENABLECAMERAS=true             # Enable camera support
+      - SNAPSHOTMODE=all               # Snapshot options (see: https://github.com/tsightler/ring-mqtt#snapshot-options)
+      - LIVESTREAMUSER=stream_user     # CHANGE ME -- Highly recommended if RTSP server is exposed
+      - LIVESTREAMPASSWORD=stream_pass # CHANGE ME -- Highly recommended if RTSP server is exposed
+    logging:                           #limit logs to 10m and 3 files
+      options:
+        max-size: 10m
+        max-file: "3"
