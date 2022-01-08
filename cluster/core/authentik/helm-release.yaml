@@ -30,6 +30,8 @@ spec:
         password: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
       redis:
         host: authentik-redis-master
+    env:
+      AUTHENTIK_FOOTER_LINKS: '[{"name": "Powered by Authentik","href":"https://goauthentik.io"}]'
     ingress:
       enabled: true
       ingressClassName: "traefik"
