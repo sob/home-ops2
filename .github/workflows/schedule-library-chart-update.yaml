@@ -28,7 +28,7 @@ jobs:
           signoff: true
           committer: "Sean O'Brien <sob@users.noreply.github.com>"
           author: "Sean O'Brien <sob@users.noreply.github.com>"
-          assigness: "sob"
+          assignees: "sob"
           commit-message: "chore(ci) update k8s-at-home library chart"
           body: |
             Update the k8s-at-home library chart
