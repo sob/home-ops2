@@ -22,10 +22,6 @@ spec:
       tag: 1.25.0
     env:
       TZ: "${TIMEZONE}"
-      DATABASE_USER: "teslamate"
-      DATABASE_NAME: "teslamate"
-      DATABASE_HOST: teslamate-postgresql
-      DISABLE_MQTT: "false"
       MQTT_HOST: "mosquitto.home"
       MQTT_USERNAME: "mqtt"
     ingress:
@@ -48,6 +44,10 @@ spec:
           - hosts:
               - "tesla.${SECRET_DOMAIN}"
             secretName: tesla-tls
+    persistence:
+      import:
+        enabled: true
+        existingClaim: teslamate-v1
     resources:
       requests:
         memory: 250Mi
@@ -70,12 +70,6 @@ spec:
           periodSeconds: 10
     postgresql:
       enabled: true
-      image:
-        repository: postgres
-        tag: "13.4"
-      postgresqlUsername: teslamate
-      postgresqlDatabase: teslamate
-      postgresqlDataDir: "/data/pgdata"
       persistence:
         enabled: true
         existingClaim: teslamate-postgresql-v1
