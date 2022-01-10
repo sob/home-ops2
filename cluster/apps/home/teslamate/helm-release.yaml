@@ -72,7 +72,7 @@ spec:
       enabled: true
       persistence:
         enabled: true
-        existingClaim: teslamate-postgresql-v1
+        existingClaim: teslamate-postgresql-v2
   valuesFrom:
     - kind: Secret
       name: "teslamate-helm-values"
