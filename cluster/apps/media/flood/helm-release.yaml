@@ -1,0 +1,158 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: flood
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: flood
+      version: 6.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: jesec/flood
+      tag: 4.7.0
+    env:
+      FLOOD_OPTION_RUNDIR: /config
+      FLOOD_OPTION_AUTH: "none"
+      FLOOD_OPTION_RTSOCKET: "/tmp/rtorrent.sock"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "cloud-download"
+        hosts:
+          - host: torrent.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: flood.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - torrent.${SECRET_DOMAIN}
+              - flood.${SECRET_DOMAIN}
+            secretName: flood-tls
+    persistence:
+      data:
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "10.1.0.254"
+            path: /volume1/Media
+      config:
+        enabled: true
+        existingClaim: flood-config-v1
+      socket:
+        enabled: true
+        type: emptyDir
+        # medium: Memory
+        mountPath: /tmp
+    probes:
+      liveness:
+        enabled: true
+        initialDelaySeconds: 30
+        failureThreshold: 5
+        timeoutSeconds: 10
+      readiness:
+        enabled: true
+        initialDelaySeconds: 30
+        failureThreshold: 5
+        timeoutSeconds: 10
+      startup:
+        enabled: true
+        initialDelaySeconds: 5
+        failureThreshold: 30
+        periodSeconds: 10
+    resources:
+      requests:
+        memory: 50Mi
+        cpu: 50m
+      limits:
+        memory: 640Mi
+    additionalContainers:
+      - name: rtorrent
+        # image: billimek/alpine-rtorrent:0.9.8-1
+        image: billimek/rtorrent:latest
+        env:
+          - name: TZ
+          - name: PUID
+            value: "1001"
+          - name: PGID
+            value: "1001"
+        livenessProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: bt
+          timeoutSeconds: 1
+        ports:
+          - name: bt
+            containerPort: 49161
+            protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: bt
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 200Mi
+        startupProbe:
+          failureThreshold: 60
+          periodSeconds: 10
+          initialDelaySeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: bt
+          timeoutSeconds: 1
+        tty: true
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /data
+            name: data
+          - mountPath: /session
+            name: data
+            subPath: .session
+          - mountPath: /watch
+            name: data
+            subPath: watch
+          - mountPath: /download
+            name: data
+            subPath: torrents
+          - mountPath: /socket
+            name: socket
+    service:
+      bt:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${METALLB_QBITTORRENT_ADDR}
+        ports:
+          bt:
+            enabled: true
+            port: 49161
+            protocol: TCP
+            targetPort: 49161
