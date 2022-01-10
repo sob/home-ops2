@@ -121,7 +121,6 @@ spec:
               /^count(ers?)?[0-9]*[_.-]/
               /^mads\./
               /^pixels?[-.]/
-              /^stat(s|istics)?[0-9]*[_.-]/
             - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
             - http://sysctl.org/cameleon/hosts
             - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
