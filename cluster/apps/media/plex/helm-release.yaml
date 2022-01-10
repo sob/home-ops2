@@ -33,7 +33,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: "${SVC_PLEX_ADDR}"
+        loadBalancerIP: "${METALLB_PLEX_ADDR}"
         externalTrafficPolicy: Local
     ingress:
       main:

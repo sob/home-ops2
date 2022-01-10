@@ -34,3 +34,7 @@ spec:
           protocol: layer2
           addresses:
             - "${METALLB_BLOCKY_ADDR}/32"
+        - name: qbittorrent
+          protocol: layer2
+          addresses:
+            - "${METALLB_QBITTORRENT_ADDR}/32"
