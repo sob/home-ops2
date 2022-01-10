@@ -79,10 +79,6 @@ spec:
       persistence:
         enabled: true
         existingClaim: teslamate-postgresql-v1
-      shmVolume:
-        enabled: false
-      volumePermissions:
-        enabled: false
   valuesFrom:
     - kind: Secret
       name: "teslamate-helm-values"
