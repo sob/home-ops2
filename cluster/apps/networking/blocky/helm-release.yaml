@@ -21,34 +21,43 @@ spec:
       repository: ghcr.io/0xerr0r/blocky
       tag: v0.17
     controller:
-      enabled: true
-      type: deployment
       strategy: RollingUpdate
-      replicas: 1
+      replicas: 3
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
     service:
       main:
         ports:
           http:
             port: 4000
-      dns:
+      dns-tcp:
         enabled: true
         type: LoadBalancer
         externalIPs:
           - "${SVC_BLOCKY_ADDR}"
         ports:
-          tcp:
+          dns-tcp:
             enabled: true
             port: 53
             protocol: TCP
             targetPort: 53
-          udp:
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
+      dns-udp:
+        enabled: true
+        type: LoadBalancer
+        externalIPs:
+          - "${SVC_BLOCKY_ADDR}"
+        ports:
+          dns-udp:
             enabled: true
             port: 53
             protocol: UDP
             targetPort: 53
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
     metrics:
       enabled: true
       serviceMonitor:
@@ -56,10 +65,44 @@ spec:
         scrapeTimeout: 10s
       prometheusRule:
         enabled: true
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "blocky-config"
+    persistence:
+      whitelists:
+        enabled: true
+        mountPath: /app/whitelists
+        type: custom
+        volumeSpec:
+          configMap:
+            name: blocky-whitelist
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - blocky
+              topologyKey: kubernetes.io/hostname
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 750Mi
     config: |
+      bootstrapDns: tcp+udp:1.1.1.1
       upstream:
         default:
-          - tcp+udp:1.1.1.1
+          - tcp-tls:${SECRET_NEXTDNS_ID}.dns.nextdns.io
+          - https://dns.nextdns.io/${SECRET_NEXTDNS_ID}
+      conditional:
+        mapping:
+          status.${SECRET_DOMAIN}: tcp+udp:1.1.1.1
+          ${SECRET_DOMAIN}: tcp+udp:${METALLB_COREDNS_ADDR}
       blocking:
         blackLists:
           ads:
@@ -79,9 +122,16 @@ spec:
               /^mads\./
               /^pixels?[-.]/
               /^stat(s|istics)?[0-9]*[_.-]/
+            - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+            - http://sysctl.org/cameleon/hosts
+            - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+          kids:
+            - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
+          none:
         whiteLists:
           ads:
             - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+            - https://raw.githubusercontent.com/sob/home-ops/master/cluster/apps/networking/blocky/whitelist.txt
         clientGroupsBlock:
           default:
             - ads
@@ -94,31 +144,3 @@ spec:
       httpPort: 4000
       logFormat: json
       logLevel: info
-    persistence:
-      whitelists:
-        enabled: true
-        mountPath: /app/whitelists
-        type: custom
-        volumeSpec:
-          configMap:
-            name: blocky-whitelist
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "blocky-config"
-    affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values:
-                      - blocky
-              topologyKey: kubernetes.io/hostname
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 100m
-      limits:
-        memory: 750Mi
