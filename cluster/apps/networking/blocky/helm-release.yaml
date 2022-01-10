@@ -27,9 +27,15 @@ spec:
       TZ: "${TIMEZONE}"
     service:
       main:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: "${METALLB_BLOCKY_ADDR}"
         ports:
           http:
             port: 4000
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
       dns-tcp:
         enabled: true
         type: LoadBalancer
