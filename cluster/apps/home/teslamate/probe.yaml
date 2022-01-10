@@ -1,0 +1,18 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: teslamate
+  namespace: home
+spec:
+  jobName: teslamate-http
+  interval: 1m
+  scrapeTimeout: 5s
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring:9115
+  targets:
+    staticConfig:
+      static:
+        - "http://teslamate.home:4000"
+        - "https://teslamate.${SECRET_DOMAIN}"
