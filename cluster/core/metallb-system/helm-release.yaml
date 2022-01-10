@@ -30,3 +30,7 @@ spec:
           protocol: layer2
           addresses:
             - "${METALLB_COREDNS_ADDR}/32"
+        - name: blocky
+          protocol: layer2
+          addresses:
+            - "${METALLB_BLOCKY_ADDR}/32"
