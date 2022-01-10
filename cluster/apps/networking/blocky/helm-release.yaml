@@ -39,8 +39,7 @@ spec:
       dns-tcp:
         enabled: true
         type: LoadBalancer
-        externalIPs:
-          - "${METALLB_BLOCKY_ADDR}"
+        loadBalancerIP: "${METALLB_BLOCKY_ADDR}"
         ports:
           dns-tcp:
             enabled: true
@@ -53,8 +52,7 @@ spec:
       dns-udp:
         enabled: true
         type: LoadBalancer
-        externalIPs:
-          - "${METALLB_BLOCKY_ADDR}"
+        loadBalancerIP: "${METALLB_BLOCKY_ADDR}"
         ports:
           dns-udp:
             enabled: true
