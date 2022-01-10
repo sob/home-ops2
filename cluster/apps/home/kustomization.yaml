@@ -6,4 +6,5 @@ resources:
   - mosquitto
   - node-red
   - ring-mqtt
+  - teslamate
   - zwavejs2mqtt

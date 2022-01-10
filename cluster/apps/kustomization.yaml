@@ -10,4 +10,3 @@ resources:
   - networking
   - rook-ceph
   - system-upgrade
-  - teslamate
