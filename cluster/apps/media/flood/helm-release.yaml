@@ -91,10 +91,9 @@ spec:
     additionalContainers:
       - name: rtorrent
         # image: billimek/alpine-rtorrent:0.9.8-1
-        image: ghcr.io/sob/alpine-rtorrent:master
+        image: jesec/rtorrent
         env:
           - name: TZ
-            value: "${TIMEZONE}"
           - name: PUID
             value: "1001"
           - name: PGID
@@ -143,4 +142,3 @@ spec:
             enabled: true
             port: 49161
             protocol: TCP
-            targetPort: 49161
