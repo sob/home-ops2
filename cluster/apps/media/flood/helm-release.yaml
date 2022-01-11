@@ -57,7 +57,7 @@ spec:
           nfs:
             server: "10.1.0.254"
             path: /volume1/Media
-          mountPath: /media
+        mountPath: /media
       config:
         enabled: true
         existingClaim: flood-config-v1
