@@ -60,7 +60,7 @@ spec:
         mountPath: /media
       config:
         enabled: true
-        existingClaim: flood-config-v1
+        existingClaim: flood-config-v2
       socket:
         enabled: true
         type: emptyDir
