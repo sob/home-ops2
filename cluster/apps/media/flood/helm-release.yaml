@@ -90,10 +90,15 @@ spec:
         memory: 640Mi
     additionalContainers:
       - name: rtorrent
+        # image: billimek/alpine-rtorrent:0.9.8-1
         image: billimek/rtorrent:latest
         env:
           - name: TZ
             value: "${TIMEZONE}"
+          - name: PUID
+            value: "1001"
+          - name: PGID
+            value: "1001"
         livenessProbe:
           failureThreshold: 3
           periodSeconds: 10
