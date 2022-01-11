@@ -91,7 +91,7 @@ spec:
     additionalContainers:
       - name: rtorrent
         # image: billimek/alpine-rtorrent:0.9.8-1
-        image: ghcr.io/sob/alpine-rtorrent:latest
+        image: ghcr.io/sob/alpine-rtorrent:master
         env:
           - name: TZ
             value: "${TIMEZONE}"
