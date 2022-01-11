@@ -65,7 +65,7 @@ spec:
         enabled: true
         type: emptyDir
         # medium: Memory
-        mountPath: /tmp
+        mountPath: /config/temp
     probes:
       liveness:
         enabled: true
