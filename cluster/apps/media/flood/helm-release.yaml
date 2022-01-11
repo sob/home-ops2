@@ -134,17 +134,6 @@ spec:
         volumeMounts:
           - mountPath: /config
             name: config
-          - mountPath: /data
-            name: data
-          - mountPath: /session
-            name: data
-            subPath: .session
-          - mountPath: /watch
-            name: data
-            subPath: watch
-          - mountPath: /download
-            name: data
-            subPath: torrents
           - mountPath: /socket
             name: socket
     service:
