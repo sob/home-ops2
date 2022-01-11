@@ -56,7 +56,7 @@ spec:
         volumeSpec:
           nfs:
             server: "10.1.0.254"
-            path: /volume1/Media
+            path: /volume1/Media/Downloads/rtorrent
         mountPath: /media
       config:
         enabled: true
@@ -132,10 +132,21 @@ spec:
           timeoutSeconds: 1
         tty: true
         volumeMounts:
-          - mountPath: /config
-            name: config
-          - mountPath: /socket
-            name: socket
+          - name: config
+            mountPath: /config
+          - name: data
+            mountPath: /data
+          - name: data
+            mountPath: /session
+            subPath: .session
+          - name: data
+            mountPath: /watch
+            subPath: watch
+          - name: data
+            mountPath: /download
+            subPath: torrents
+          - name: socket
+            mountPath: /socket
     service:
       bt:
         enabled: true
