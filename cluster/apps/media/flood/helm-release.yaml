@@ -51,13 +51,13 @@ spec:
             secretName: flood-tls
     persistence:
       data:
+        enabled: true
         type: custom
         volumeSpec:
           nfs:
             server: "10.1.0.254"
             path: /volume1/Media
           mountPath: /media
-          name: data
       config:
         enabled: true
         existingClaim: flood-config-v1
@@ -140,7 +140,7 @@ spec:
       bt:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: ${METALLB_QBITTORRENT_ADDR}
+        loadBalancerIP: ${METALLB_FLOOD_RTORRENT_ADDR}
         ports:
           bt:
             enabled: true
