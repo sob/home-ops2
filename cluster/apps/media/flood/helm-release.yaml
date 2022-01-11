@@ -123,14 +123,6 @@ spec:
           requests:
             cpu: 50m
             memory: 200Mi
-        startupProbe:
-          failureThreshold: 60
-          periodSeconds: 10
-          initialDelaySeconds: 5
-          successThreshold: 1
-          tcpSocket:
-            port: bt
-          timeoutSeconds: 1
         tty: true
         volumeMounts:
           - name: config
