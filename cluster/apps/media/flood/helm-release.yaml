@@ -98,38 +98,16 @@ spec:
             value: "1001"
           - name: PGID
             value: "1001"
-        livenessProbe:
-          failureThreshold: 3
-          periodSeconds: 10
-          successThreshold: 1
-          tcpSocket:
-            port: bt
-          timeoutSeconds: 1
         ports:
           - name: bt
             containerPort: 49161
             protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          periodSeconds: 10
-          successThreshold: 1
-          tcpSocket:
-            port: bt
-          timeoutSeconds: 1
         resources:
           limits:
             memory: 1Gi
           requests:
             cpu: 50m
             memory: 200Mi
-        startupProbe:
-          failureThreshold: 60
-          periodSeconds: 10
-          initialDelaySeconds: 8
-          successThreshold: 1
-          tcpSocket:
-            port: bt
-          timeoutSeconds: 1
         tty: true
         volumeMounts:
           - mountPath: /config
