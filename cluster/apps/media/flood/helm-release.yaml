@@ -57,7 +57,7 @@ spec:
           nfs:
             server: "10.1.0.254"
             path: /volume1/Media/Downloads/rtorrent
-        mountPath: /downloads
+        mountPath: /media
       config:
         enabled: true
         existingClaim: flood-config-v2
@@ -66,6 +66,10 @@ spec:
         type: emptyDir
         # medium: Memory
         mountPath: /tmp
+    volumeMounts:
+      - mountPath: /download
+        name: data
+        subPath: torrents
     probes:
       liveness:
         enabled: true
