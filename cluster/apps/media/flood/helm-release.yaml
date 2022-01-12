@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: flood
-      version: 6.0.0
+      version: 6.1.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -65,7 +65,7 @@ spec:
         enabled: true
         type: emptyDir
         # medium: Memory
-        mountPath: /config/temp
+        mountPath: /tmp
     probes:
       liveness:
         enabled: true
@@ -91,7 +91,7 @@ spec:
     additionalContainers:
       - name: rtorrent
         # image: billimek/alpine-rtorrent:0.9.8-1
-        image: jesec/rtorrent
+        image: billimek/rtorrent:latest
         env:
           - name: TZ
           - name: PUID
