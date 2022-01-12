@@ -23,7 +23,8 @@ spec:
     env:
       FLOOD_OPTION_RUNDIR: /config
       FLOOD_OPTION_AUTH: "none"
-      FLOOD_OPTION_RTSOCKET: "/tmp/rtorrent.sock"
+      # FLOOD_OPTION_RTSOCKET: "/tmp/rtorrent.sock"
+      FLOOD_OPTION_QBURL: http://qbittorrent.media:8080
     ingress:
       main:
         enabled: true
