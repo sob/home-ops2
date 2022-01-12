@@ -60,7 +60,7 @@ spec:
             path: /volume1/Media/Downloads/rtorrent
       config:
         enabled: true
-        existingClaim: flood-config-v2
+        existingClaim: flood-config-v1
       socket:
         enabled: true
         type: emptyDir
