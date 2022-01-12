@@ -7,7 +7,6 @@ resources:
   - overseerr
   - plex
   - prowlarr
-  - qbittorrent
   - radarr
   - radarr-uhd
   - readarr
