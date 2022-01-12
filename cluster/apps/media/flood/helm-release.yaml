@@ -23,8 +23,7 @@ spec:
     env:
       FLOOD_OPTION_RUNDIR: /config
       FLOOD_OPTION_AUTH: "none"
-      # FLOOD_OPTION_RTSOCKET: "/tmp/rtorrent.sock"
-      FLOOD_OPTION_QBURL: http://qbittorrent.media:8080
+      FLOOD_OPTION_RTSOCKET: "/tmp/rtorrent.sock"
     ingress:
       main:
         enabled: true
@@ -88,6 +87,43 @@ spec:
         cpu: 50m
       limits:
         memory: 640Mi
+    additionalContainers:
+      - name: rtorrent
+        # image: billimek/alpine-rtorrent:0.9.8-1
+        image: billimek/rtorrent:latest
+        env:
+          - name: TZ
+          - name: PUID
+            value: "1001"
+          - name: PGID
+            value: "1001"
+        ports:
+          - name: bt
+            containerPort: 49161
+            protocol: TCP
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 200Mi
+        tty: true
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /data
+            name: data
+          - mountPath: /session
+            name: data
+            subPath: .session
+          - mountPath: /watch
+            name: data
+            subPath: watch
+          - mountPath: /download
+            name: data
+            subPath: torrents
+          - mountPath: /socket
+            name: socket
     service:
       bt:
         enabled: true
