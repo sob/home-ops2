@@ -17,6 +17,14 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    controller:
+      resources:
+        limits:
+          cpu: 25m
+          memory: 64Mi
+        requests:
+          cpu: 25m
+          memory: 32Mi
     dashboard:
       enabled: true
       replicaCount: 2
