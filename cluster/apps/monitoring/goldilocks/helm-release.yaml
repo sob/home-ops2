@@ -20,11 +20,11 @@ spec:
     controller:
       resources:
         limits:
-          cpu: 25m
-          memory: 64Mi
+          cpu: 35m
+          memory: 164Mi
         requests:
-          cpu: 25m
-          memory: 32Mi
+          cpu: 35m
+          memory: 164Mi
     dashboard:
       enabled: true
       replicaCount: 2
