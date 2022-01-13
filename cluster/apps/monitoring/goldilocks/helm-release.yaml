@@ -35,7 +35,7 @@ spec:
           - host: "goldilocks.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                type: Prefix
         tls:
           - hosts:
               - "goldilocks.${SECRET_DOMAIN}"
