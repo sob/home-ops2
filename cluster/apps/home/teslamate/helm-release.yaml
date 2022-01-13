@@ -48,11 +48,11 @@ spec:
         existingClaim: teslamate-v1
     resources:
       requests:
-        cpu: 23m
-        memory: 204M
+        cpu: 100m
+        memory: 500M
       limits:
-        cpu: 23m
-        memory: 204M
+        cpu: 100m
+        memory: 500M
     probes:
       liveness:
         spec:
