@@ -23,6 +23,6 @@ spec:
           http://thanos-query.monitoring.svc.cluster.local:9090
         storage: prometheus
     updater:
-      enabled: false
+      enabled: true
     admissionController:
-      enabled: false
+      enabled: true
