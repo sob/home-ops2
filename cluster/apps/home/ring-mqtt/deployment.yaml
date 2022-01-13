@@ -27,7 +27,7 @@ spec:
             - name: LIVESTREAMUSER
               value: stream_user
             - name: MQTTHOST
-              value: "${SVC_MOSQUITTO_ADDR}"
+              value: "mosquitto.home"
             - name: MQTTPASSWORD
               value: "${SECRET_MQTT_PASSWORD}"
             - name: MQTTPORT
