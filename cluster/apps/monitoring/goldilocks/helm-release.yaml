@@ -19,9 +19,10 @@ spec:
   values:
     dashboard:
       enabled: true
-      replicaCount: 1
+      replicaCount: 2
       ingress:
         enabled: true
+        ingressClassName: "traefik"
         annotations:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
