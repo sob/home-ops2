@@ -118,7 +118,8 @@ spec:
             mountPath: /config
     resources:
       requests:
-        cpu: 100m
-        memory: 100Mi
+        cpu: 23m
+        memory: 352Mi
       limits:
-        memory: 4000Mi
+        cpu: 23m
+        memory: 352Mi
