@@ -1,0 +1,82 @@
+---
+- name: remove cloud-init file
+  ansible.builtin.file:
+    state: absent
+    path: "{{ item }}"
+  loop:
+    - "/etc/systemd/timesyncd.conf.d/cloud-init.conf"
+  when:
+    - "'cloud-init' in ubuntu_common_packages_remove"
+  notify:
+    - reload timesyncd ntp
+    - restart timesyncd
+    - sync RTC
+  tags: time
+
+- name: Set timezone
+  ansible.builtin.timezone:
+    name: "{{ timezone }}"
+  notify: systemd-timesyncd configuration changed
+  tags: time
+
+- name: configure /etc/systemd/timesyncd.conf
+  ansible.builtin.lineinfile:
+    dest: /etc/systemd/timesyncd.conf
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+    insertafter: '\[Time\]'
+    backrefs: true
+    create: true
+    state: present
+  with_items:
+    - regexp: '^\s*#?\s*(NTP=).*$'
+      line: 'NTP={{ ubuntu_ntp_servers | join(" ") }}'
+    - regexp: '^\s*#?\s*(FallbackNTP=).*$'
+      line: 'FallbackNTP={{ ubuntu_fallback_ntp_servers | join(" ") }}'
+    - regexp: '^\s*#?\s*(RootDistanceMaxSec=).*$'
+      line: 'RootDistanceMaxSec={{ ubuntu_root_distance_max_sec }}'
+    - regexp: '^\s*#?\s*(PollIntervalMinSec=).*$'
+      line: 'PollIntervalMinSec={{ ubuntu_poll_interval_min_sec }}'
+    - regexp: '^\s*#?\s*(PollIntervalMaxSec=).*$'
+      line: 'PollIntervalMaxSec={{ ubuntu_poll_interval_max_sec }}'
+  notify:
+    - reload timesyncd ntp
+    - restart timesyncd
+    - sync RTC
+  tags: time
+
+- name: check if systemd-timesyncd unit is enabled
+  ansible.builtin.command:
+    systemctl is-enabled systemd-timesyncd
+  register: timesyncd_is_enabled
+  failed_when: false
+  changed_when: false
+  tags: time
+
+- name: enable systemd-timesyncd unit
+  ansible.builtin.service:
+    name: systemd-timesyncd
+    enabled: yes
+  when: timesyncd_is_enabled.stdout != 'enabled'
+  failed_when: false
+  notify:
+    - reload timesyncd ntp
+    - restart timesyncd
+    - sync RTC
+  tags: time
+
+- name: flush handlers
+  meta: flush_handlers
+  tags: time
+
+- name: wait until systemd-timesyncd has synchronized with NTP servers
+  ansible.builtin.command: systemctl status systemd-timesyncd
+  retries: 60
+  delay: 3
+  ignore_errors: true
+  changed_when: false
+  register: task_result
+  until:
+    - task_result.rc == 0
+    - task_result.stdout is search ('[Ss]ynchroniz.* to time server')
+  tags: time

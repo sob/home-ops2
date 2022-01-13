@@ -45,3 +45,19 @@ ubuntu_common_packages_remove:
   - sosreport
   - ubuntu-advantage-tools
   - ufw
+
+ubuntu_ntp_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+  - 2.pool.ntp.org
+  - 3.pool.ntp.org
+
+ubuntu_fallback_ntp_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+  - 2.pool.ntp.org
+  - 3.pool.ntp.org
+
+ubuntu_root_distance_max_sec: 5
+ubuntu_poll_interval_max_sec: 2048
+ubuntu_poll_interval_min_sec: 32

@@ -17,5 +17,8 @@
 - include_tasks: user.yml
   tags: user
 
+- include_tasks: time.yml
+  tags: time
+
 - include_tasks: security.yml
   tags: security
