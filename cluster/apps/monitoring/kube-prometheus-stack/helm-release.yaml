@@ -21,11 +21,11 @@ spec:
     alertmanager:
       config:
         global:
-          slack_api_url: "${SECRET_ALERT_MANAGER_SLACK_WEBHOOK}"
+          slack_api_url: "${SECRET_ALERT_MANAGER_DISCORD_WEBHOOK}"
           resolve_timeout: 5m
         receivers:
           - name: "null"
-          - name: "slack"
+          - name: "discord"
             slack_configs:
               - channel: "#system-monitoring"
                 icon_url: https://avatars3.githubusercontent.com/u/3380462
