@@ -19,6 +19,7 @@ spec:
   values:
     fullnameOverride: prometheus
     alertmanager:
+      fullnameOverride: prometheus-alertmanager
       config:
         global:
           slack_api_url: "${SECRET_ALERT_MANAGER_DISCORD_WEBHOOK}"
