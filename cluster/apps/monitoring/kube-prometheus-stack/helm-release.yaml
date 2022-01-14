@@ -27,7 +27,7 @@ spec:
           - name: "null"
           - name: "discord"
             slack_configs:
-              - channel: "system-monitoring"
+              - channel: "#system-monitoring"
                 icon_url: https://avatars3.githubusercontent.com/u/3380462
                 username: "prometheus"
                 send_resolved: true
