@@ -38,3 +38,11 @@ spec:
           protocol: layer2
           addresses:
             - "${METALLB_QBITTORRENT_ADDR}/32"
+        - name: plex
+          protocol: layer2
+          addresses:
+            - "${METALLB_PLEX_ADDR}/32"
+        - name: flood-rtorrent
+          protocol: layer2
+          addresses:
+            - "${METALLB_FLOOD_RTORRENT_ADDR}"
