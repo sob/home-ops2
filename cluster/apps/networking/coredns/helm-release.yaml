@@ -90,9 +90,9 @@ spec:
           ${SECRET_PRIVATE_DOMAIN}.        IN SOA ns1-03.azure-dns.com. azuredns-hostmaster.microsoft.com 1 3600 300 2419200 300
           mordor.${SECRET_PRIVATE_DOMAIN}. IN A ${EXT_NAS_01_ADDR}
           gw.${SECRET_PRIVATE_DOMAIN}.     IN A ${EXT_GATEWAY_ADDR}
-          stone-metal-01.${SECRET_DOMAIN}. IN A ${STONE_METAL_01_ADDR}
-          stone-metal-02.${SECRET_DOMAIN}. IN A ${STONE_METAL_02_ADDR}
-          stone-metal-03.${SECRET_DOMAIN}. IN A ${STONE_METAL_03_ADDR}
+          stone-metal-01.${SECRET_DOMAIN}. IN A ${EXT_STONE_METAL_01_ADDR}
+          stone-metal-02.${SECRET_DOMAIN}. IN A ${EXT_STONE_METAL_02_ADDR}
+          stone-metal-03.${SECRET_DOMAIN}. IN A ${EXT_STONE_METAL_03_ADDR}
           stone-pdu-01.${SECRET_DOMAIN}.   IN A ${EXT_PDU_01_ADDR}
           stone-ups-01.${SECRET_DOMAIN}.   IN A ${EXT_UPS_01_ADDR}
           hue-bridge-01.${SECRET_DOMAIN}.  IN A ${EXT_HUE_BRIDGE_01_ADDR}
