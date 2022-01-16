@@ -45,4 +45,4 @@ spec:
         - name: flood-rtorrent
           protocol: layer2
           addresses:
-            - "${METALLB_FLOOD_RTORRENT_ADDR}"
+            - "${METALLB_FLOOD_RTORRENT_ADDR}/32"
