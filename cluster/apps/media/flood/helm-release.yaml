@@ -33,7 +33,7 @@ spec:
           external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          hajimari.io/enable: "true"
+          hajimari.io/enable: "false"
           hajimari.io/icon: "cloud-download"
         hosts:
           - host: torrent.${SECRET_DOMAIN}
