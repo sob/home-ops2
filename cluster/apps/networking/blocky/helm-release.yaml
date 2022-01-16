@@ -22,7 +22,7 @@ spec:
       tag: v0.17
     controller:
       strategy: RollingUpdate
-      replicas: 3
+      replicas: 1
     env:
       TZ: "${TIMEZONE}"
     service:
