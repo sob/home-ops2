@@ -96,3 +96,4 @@ spec:
           stone-pdu-01.${SECRET_DOMAIN}.   IN A ${EXT_PDU_01_ADDR}
           stone-ups-01.${SECRET_DOMAIN}.   IN A ${EXT_UPS_01_ADDR}
           hue-bridge-01.${SECRET_DOMAIN}.  IN A ${EXT_HUE_BRIDGE_01_ADDR}
+          stone-maas.${SECRET_DOMAIN}.     IN A ${EXT_STONE_MAAS_ADDR}

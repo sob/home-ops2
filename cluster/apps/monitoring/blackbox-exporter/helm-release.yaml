@@ -58,13 +58,13 @@ spec:
       targets:
         - module: icmp
           name: hue-bridge-0
-          url: ${EXT_HUE_BRIDGE_0_ADDR}
+          url: ${EXT_HUE_BRIDGE_01_ADDR}
         - module: icmp
           name: cyberpower-pdu-0
-          url: ${EXT_CYBERPOWER_PDU_0_ADDR}
+          url: ${EXT_PDU_01_ADDR}
         - module: icmp
           name: unifi
-          url: ${EXT_UNIFI_ADDR}
+          url: ${EXT_GATEWAY_ADDR}
         - module: icmp
           name: stone-maas
           url: ${EXT_STONE_MAAS_ADDR}
