@@ -37,6 +37,9 @@ spec:
           - zone: ${SECRET_DOMAIN}.
             scheme: dns://
             use_tcp: false
+          - zone: ${SECRET_PRIVATE_DOMAIN}.
+            scheme: dns://
+            use_tcp: false
         port: 53
         plugins:
           - name: errors
@@ -61,6 +64,8 @@ spec:
           - name: loadbalance
           - name: file
             parameters: /etc/coredns/${SECRET_DOMAIN}
+          - name: file
+            parameters: /etc/coredns/${SECRET_PRIVATE_DOMAIN}
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -79,3 +84,15 @@ spec:
         contents: |
           ${SECRET_DOMAIN}.   IN SOA etta.ns.cloudflare.com. dns.cloudflare.com. 2020100600 10000 2400 604800 3600
           *.${SECRET_DOMAIN}. IN A ${METALLB_TRAEFIK_ADDR}
+      - filename: ${SECRET_PRIVATE_DOMAIN}
+        domain: ${SECRET_PRIVATE_DOMAIN}
+        contents: |
+          ${SECRET_PRIVATE_DOMAIN}.        IN SOA ns1-03.azure-dns.com. azuredns-hostmaster.microsoft.com 1 3600 300 2419200 300
+          mordor.${SECRET_PRIVATE_DOMAIN}. IN A ${EXT_NAS_01_ADDR}
+          gw.${SECRET_PRIVATE_DOMAIN}.     IN A ${EXT_GATEWAY_ADDR}
+          stone-metal-01.${SECRET_DOMAIN}. IN A ${STONE_METAL_01_ADDR}
+          stone-metal-02.${SECRET_DOMAIN}. IN A ${STONE_METAL_02_ADDR}
+          stone-metal-03.${SECRET_DOMAIN}. IN A ${STONE_METAL_03_ADDR}
+          stone-pdu-01.${SECRET_DOMAIN}.   IN A ${EXT_PDU_01_ADDR}
+          stone-ups-01.${SECRET_DOMAIN}.   IN A ${EXT_UPS_01_ADDR}
+          hue-bridge-01.${SECRET_DOMAIN}.  IN A ${EXT_HUE_BRIDGE_01_ADDR}
