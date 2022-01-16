@@ -107,6 +107,7 @@ spec:
         mapping:
           status.${SECRET_DOMAIN}: tcp+udp:1.1.1.1
           ${SECRET_DOMAIN}: tcp+udp:${METALLB_COREDNS_ADDR}
+          ${SECRET_PRIVATE_DOMAIN}: tcp+udp:${METALLB_COREDNS_ADDR}
       blocking:
         blackLists:
           ads:
