@@ -17,9 +17,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    image:
-      repository: photoprism/photoprism
-      tag: 20211018
     env:
       TZ: "${TIMEZONE}"
       PHOTOPRISM_STORAGE_PATH: /media/Library/photos
