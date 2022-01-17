@@ -6,6 +6,7 @@ resources:
   - flood
   - media-browser
   - overseerr
+  - photoprism
   - plex
   - prowlarr
   - radarr
