@@ -4,18 +4,27 @@ kind: Plan
 metadata:
   name: k3s-server
   namespace: system-upgrade
-  labels:
-    k3s-upgrade: server
 spec:
-  concurrency: 1 # Batch size (roughly maps to maximum number of unschedulable nodes)
-  version: v1.20.11+k3s1
+  concurrency: 1
+  cordon: true
   nodeSelector:
     matchExpressions:
-      - {key: k3s-upgrade, operator: Exists}
-      - {key: k3s-upgrade, operator: NotIn, values: ["disabled", "false"]}
-      - {key: k3os.io/mode, operator: DoesNotExist}
-      - {key: node-role.kubernetes.io/control-plane, operator: Exists}
+      - key: node-role.kubernetes.io/master
+        operator: In
+        values:
+          - "true"
+      - { key: k3os.io/mode, operator: DoesNotExist }
+      - { key: k3s-upgrade, operator: NotIn, values: ["disabled", "false"] }
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+          - "amd64"
   serviceAccountName: system-upgrade
-  cordon: true
+  tolerations:
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
+  drain:
+    force: true
   upgrade:
     image: rancher/k3s-upgrade
+  channel: https://update.k3s.io/v1-release/channels/stable
