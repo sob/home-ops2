@@ -31,3 +31,11 @@ spec:
           enabled: false
         LowNodeUtilization:
           enabled: false
+        HighNodeUtilization:
+          enabled: true
+          params:
+            nodeResourceUtilizationThresholds:
+              thresholds:
+                "cpu": 20
+                "memory": 20
+                "pods": 20
