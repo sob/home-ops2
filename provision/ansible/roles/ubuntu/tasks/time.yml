@@ -56,7 +56,7 @@
 - name: enable systemd-timesyncd unit
   ansible.builtin.service:
     name: systemd-timesyncd
-    enabled: yes
+    enabled: true
   when: timesyncd_is_enabled.stdout != 'enabled'
   failed_when: false
   notify:

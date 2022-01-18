@@ -1,7 +1,8 @@
+---
 - hosts: "{{ rolling_reboot_group }}"
-  become: yes
+  become: true
   serial: 1
   roles:
     - role: GROG.reboot
-      reboot_interval: 'yes'
+      reboot_interval: 'true'
       reboot_interval_seconds: 60
