@@ -44,6 +44,9 @@ spec:
           - hosts:
               - "homebridge.${SECRET_DOMAIN}"
             secretName: "homebridge-tls"
+    service:
+      main:
+        type: LoadBalancer
     persistence:
       config:
         enabled: true
