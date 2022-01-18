@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/oznu/homebridge
-      tag: latest@sha256:4703dca68510307587361f4312e6bad0e765e85f8986a7517e0f393d8d0e2410
+      tag: latest
     env:
       TZ: "America/Chicago"
       HOMEBRIDGE_CONFIG_UI: 1
