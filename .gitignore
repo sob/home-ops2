@@ -16,3 +16,5 @@ GROG.reboot*
 .terraform
 .terraform.tfstate*
 terraform.tfstate*
+node_modules
+package*.json

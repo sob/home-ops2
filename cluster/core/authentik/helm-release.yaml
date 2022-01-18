@@ -31,7 +31,7 @@ spec:
       redis:
         host: authentik-redis-master
     env:
-      AUTHENTIK_FOOTER_LINKS: '[]'
+      AUTHENTIK_FOOTER_LINKS: "[]"
     ingress:
       enabled: true
       ingressClassName: "traefik"

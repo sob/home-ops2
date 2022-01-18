@@ -1,6 +1,6 @@
 # Home Operations
 
-This repository *is* my home k8s cluster managed managed by [Flux](https://github.com/fluxcd/flux2)
+This repository _is_ my home k8s cluster managed managed by [Flux](https://github.com/fluxcd/flux2)
 based on the YAML configuration files in my [cluster](./cluster) folder.
 
 This repository was made possible by the fine folks at [k8s-at-home/template-cluster/k3s](https://github.com/k8s-at-home/template-cluster-k3s) and their template repository.
@@ -15,22 +15,22 @@ This repository was made possible by the fine folks at [k8s-at-home/template-clu
 
 ### Compute Hardware
 
-| Device            | Count | OS Disk    | Data Disk   | RAM  | Purpose        |
-|-------------------|-------|------------|-------------|------|----------------|
-| Intel NUC7i5BNH   | 3     | 512GB NVMe | 1 x 2TB SSD | 32GB | k3s nodes      |
-| Raspberry PI 4B   | 1     | 32GB SD    |             | 4GB  | Canonical MAAS |
+| Device          | Count | OS Disk    | Data Disk   | RAM  | Purpose        |
+| --------------- | ----- | ---------- | ----------- | ---- | -------------- |
+| Intel NUC7i5BNH | 3     | 512GB NVMe | 1 x 2TB SSD | 32GB | k3s nodes      |
+| Raspberry PI 4B | 1     | 32GB SD    |             | 4GB  | Canonical MAAS |
 
 ### Storage Hardware
 
-| Device                | Count | Disk Size   | RAM  | Purpose            |
-|-----------------------|-------|-------------|------|--------------------|
-| Synology DS1511       | 1     | 5 x 4TB HDD | 4GB  | NAS storage        |
-| Synology D513         | 1     | 2 x 4TB HDD | -    | NAS expansion unit |
+| Device          | Count | Disk Size   | RAM | Purpose            |
+| --------------- | ----- | ----------- | --- | ------------------ |
+| Synology DS1511 | 1     | 5 x 4TB HDD | 4GB | NAS storage        |
+| Synology D513   | 1     | 2 x 4TB HDD | -   | NAS expansion unit |
 
 ### Other Hardware
 
-| Device                     | Count | Type  | Purpose                   |
-|----------------------------|-------|-------|---------------------------|
-| CyberPower PDU41001        | 1     | PDU   | SNMP controlled PDU       |
-| CyberPower OR1500LCDRTXL2U | 1     | UPS   | SNMP controlled UPS       |
-| TESmart KVM Switch 16      | 1     | KVM   | 16 Port HDMI KVM Switch   |
+| Device                     | Count | Type | Purpose                 |
+| -------------------------- | ----- | ---- | ----------------------- |
+| CyberPower PDU41001        | 1     | PDU  | SNMP controlled PDU     |
+| CyberPower OR1500LCDRTXL2U | 1     | UPS  | SNMP controlled UPS     |
+| TESmart KVM Switch 16      | 1     | KVM  | 16 Port HDMI KVM Switch |

@@ -22,8 +22,8 @@
 - name: configure /etc/systemd/timesyncd.conf
   ansible.builtin.lineinfile:
     dest: /etc/systemd/timesyncd.conf
-    regexp: '{{ item.regexp }}'
-    line: '{{ item.line }}'
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
     insertafter: '\[Time\]'
     backrefs: true
     create: true
@@ -34,11 +34,11 @@
     - regexp: '^\s*#?\s*(FallbackNTP=).*$'
       line: 'FallbackNTP={{ ubuntu_fallback_ntp_servers | join(" ") }}'
     - regexp: '^\s*#?\s*(RootDistanceMaxSec=).*$'
-      line: 'RootDistanceMaxSec={{ ubuntu_root_distance_max_sec }}'
+      line: "RootDistanceMaxSec={{ ubuntu_root_distance_max_sec }}"
     - regexp: '^\s*#?\s*(PollIntervalMinSec=).*$'
-      line: 'PollIntervalMinSec={{ ubuntu_poll_interval_min_sec }}'
+      line: "PollIntervalMinSec={{ ubuntu_poll_interval_min_sec }}"
     - regexp: '^\s*#?\s*(PollIntervalMaxSec=).*$'
-      line: 'PollIntervalMaxSec={{ ubuntu_poll_interval_max_sec }}'
+      line: "PollIntervalMaxSec={{ ubuntu_poll_interval_max_sec }}"
   notify:
     - reload timesyncd ntp
     - restart timesyncd
@@ -46,8 +46,7 @@
   tags: time
 
 - name: check if systemd-timesyncd unit is enabled
-  ansible.builtin.command:
-    systemctl is-enabled systemd-timesyncd
+  ansible.builtin.command: systemctl is-enabled systemd-timesyncd
   register: timesyncd_is_enabled
   failed_when: false
   changed_when: false

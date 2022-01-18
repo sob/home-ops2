@@ -1,5 +1,5 @@
 ---
-version: '3'
+version: "3"
 
 vars:
   GITHUB_USER:
@@ -8,8 +8,7 @@ vars:
     sh: cat ~/.secret/github_access_token
 
 tasks:
-  silent:
-    true
+  silent: true
 
   kubeconfig:
     desc: Remotely fetch kubeconfig from cluster
@@ -38,8 +37,7 @@ tasks:
         sh: curl -u {{.GITHUB_USER}}:{{.GITHUB_TOKEN}} -s {{.ENDPOINT}} | jq -r '.assets[] | {name, browser_download_url} | select(.name =="{{.BINARY_NAME}}")["browser_download_url"]'
 
   github-install-tarball:
-    silent:
-      false
+    silent: false
     label: workstation:{{.BINARY}}
     cmds:
       - echo Installing {{.BINARY}} @ {{.VERSION}}
@@ -62,7 +60,13 @@ tasks:
     desc: install k9s (local)
     cmds:
       - task: github-install-tarball
-        vars: { BINARY: 'k9s', PROJECT: 'derailed/k9s', TARBALL: 'k9s_Linux_x86_64.tar.gz', INSTALLED: "{{.INSTALLED}}" }
+        vars:
+          {
+            BINARY: "k9s",
+            PROJECT: "derailed/k9s",
+            TARBALL: "k9s_Linux_x86_64.tar.gz",
+            INSTALLED: "{{.INSTALLED}}",
+          }
     vars:
       INSTALLED:
         sh: /usr/local/bin/k9s version -s | grep Version | tr -d '[:blank:][Version]'
@@ -70,7 +74,13 @@ tasks:
     desc: install flux (local)
     cmds:
       - task: github-install-tarball
-        vars: { BINARY: 'flux', PROJECT: 'fluxcd/flux2', TARBALL: "{{.TARBALL}}", INSTALLED: "{{.INSTALLED}}" }
+        vars:
+          {
+            BINARY: "flux",
+            PROJECT: "fluxcd/flux2",
+            TARBALL: "{{.TARBALL}}",
+            INSTALLED: "{{.INSTALLED}}",
+          }
     vars:
       TARBALL:
         sh: curl -s https://api.github.com/repos/fluxcd/flux2/releases/latest | jq -r '.assets[] | {name, browser_download_url} | select(.name | index("linux_amd64.tar.gz"))["name"]'
@@ -80,7 +90,13 @@ tasks:
     desc: install popeye (local)
     cmds:
       - task: github-install-tarball
-        vars: { BINARY: 'popeye', PROJECT: 'derailed/popeye', TARBALL: 'popeye_Linux_x86_64.tar.gz', INSTALLED: "{{.INSTALLED}}" }
+        vars:
+          {
+            BINARY: "popeye",
+            PROJECT: "derailed/popeye",
+            TARBALL: "popeye_Linux_x86_64.tar.gz",
+            INSTALLED: "{{.INSTALLED}}",
+          }
     vars:
       INSTALLED:
         sh: popeye version -c | grep Version | tr -d '[:blank:][Version]' | cut -d';' -f 5 | cut -d'm' -f 2 || echo "0.0.0"
@@ -88,7 +104,13 @@ tasks:
     desc: install sops (local)
     cmds:
       - task: github-install-binary
-        vars: { BINARY: 'sops', PROJECT: 'mozilla/sops', BINARY_NAME: 'sops-v3.7.1.linux', INSTALLED: "{{.INSTALLED}}" }
+        vars:
+          {
+            BINARY: "sops",
+            PROJECT: "mozilla/sops",
+            BINARY_NAME: "sops-v3.7.1.linux",
+            INSTALLED: "{{.INSTALLED}}",
+          }
     vars:
       INSTALLED:
         sh: sops --version | cut -d' ' -f 2

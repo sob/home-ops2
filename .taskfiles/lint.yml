@@ -22,5 +22,5 @@ tasks:
   format:
     desc: Lint general formatting
     cmds:
-      - prettier --ignore-path '.github/lint/.prettierignore' --config '.github/lint/.prettierrc.yaml' --check .
+      - npx prettier --ignore-path '.github/lint/.prettierignore' --config '.github/lint/.prettierrc.yaml' --check .
     ignore_errors: true

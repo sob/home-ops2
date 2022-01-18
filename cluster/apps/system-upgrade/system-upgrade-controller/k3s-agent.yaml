@@ -12,16 +12,16 @@ spec:
   cordon: true
   nodeSelector:
     matchExpressions:
-      - {key: k3s-upgrade, operator: NotIn, values: ["disabled", "false"]}
-      - {key: k3os.io/mode, operator: DoesNotExist}
-      - {key: node-role.kubernetes.io/master, operator: NotIn, values: ["true"]}
-      - {key: node-role.kubernetes.io/control-plane, operator: DoesNotExist}
+      - { key: k3s-upgrade, operator: NotIn, values: ["disabled", "false"] }
+      - { key: k3os.io/mode, operator: DoesNotExist }
+      - { key: node-role.kubernetes.io/master, operator: NotIn, values: ["true"] }
+      - { key: node-role.kubernetes.io/control-plane, operator: DoesNotExist }
   serviceAccountName: system-upgrade
   tolerations:
-    - {key: kubernetes.io/arch, effect: NoSchedule, operator: Equal, value: amd64}
-    - {key: kubernetes.io/arch, effect: NoSchedule, operator: Equal, value: arm64}
-    - {key: kubernetes.io/arch, effect: NoSchedule, operator: Equal, value: arm}
-    - {key: arm, operator: Exists}
+    - { key: kubernetes.io/arch, effect: NoSchedule, operator: Equal, value: amd64 }
+    - { key: kubernetes.io/arch, effect: NoSchedule, operator: Equal, value: arm64 }
+    - { key: kubernetes.io/arch, effect: NoSchedule, operator: Equal, value: arm }
+    - { key: arm, operator: Exists }
   prepare:
     image: rancher/k3s-upgrade
     args: ["prepare", "k3s-server"]

@@ -4,5 +4,5 @@
   serial: 1
   roles:
     - role: GROG.reboot
-      reboot_interval: 'true'
+      reboot_interval: "true"
       reboot_interval_seconds: 60
