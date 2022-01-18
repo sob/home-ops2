@@ -47,6 +47,8 @@ spec:
     service:
       main:
         type: LoadBalancer
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
     persistence:
       config:
         enabled: true
