@@ -4,8 +4,11 @@ kind: Plan
 metadata:
   name: k3s-server
   namespace: system-upgrade
+  labels:
+    k3s-upgrade: server
 spec:
   concurrency: 1
+  channel: https://update.k3s.io/v1-release/channels/latest
   cordon: true
   nodeSelector:
     matchExpressions:
@@ -27,4 +30,3 @@ spec:
     force: true
   upgrade:
     image: rancher/k3s-upgrade
-  channel: https://update.k3s.io/v1-release/channels/stable
