@@ -8,4 +8,5 @@ resources:
   - node-red
   - ring-mqtt
   - teslamate
+  - unifi-browser
   - zwavejs2mqtt
