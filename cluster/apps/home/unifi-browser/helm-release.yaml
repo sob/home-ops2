@@ -17,7 +17,7 @@ spec:
   values:
     fullnameOverride: unifi-browser
     image:
-      repository: docker.io/scyto/unifibrowser
+      repository: docker.io/sobrien/unifibrowser
       tag: latest
     env:
       NOAPIBROWSERAUTH: 1
