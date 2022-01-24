@@ -56,21 +56,9 @@ spec:
         name: git-checkout
         image: alpine/git:latest
         command:
-          - /bin/sh
-          - -c
-          - "[[ ! -d /config/.git ]] mkdir -p /config/backup && mv /config/* /config/backup/"
-        volumeMounts:
-          - name: config
-            mountPath: /config
-      git-sync:
-        name: git-sync
-        image: kubernetes/git-sync:latest
-        env:
-          - GIT_SYNC_REPO: https:/sob:${SECRET_GITHUB_TOKEN}@github.com/sob/hass-config.git
-          - GIT_SYNC_BRANCH: main
-          - GIT_SYNC_ROOT: /tmp/checkout
-          - GIT_SYNC_DEST: /config
-          - GIT_SYNC_PASSWORD: ${SECRET_GITHUB_TOKEN}
+          - "/bin/sh"
+          - "-c"
+          - "[[ ! -d /config/.git ]] rm -rf /config/*; rm -rf /config/.*; mkdir -p /config/backup && mv /config/* /config/backup/"
         volumeMounts:
           - name: config
             mountPath: /config
