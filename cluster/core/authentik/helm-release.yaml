@@ -32,6 +32,7 @@ spec:
         host: authentik-redis-master
     env:
       AUTHENTIK_FOOTER_LINKS: "[]"
+      AK_ADMIN_PASS: "${SECRET_AUTHENTIK_ADMIN_PASS}"
     ingress:
       enabled: true
       ingressClassName: "traefik"
