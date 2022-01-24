@@ -58,14 +58,14 @@ spec:
         command:
           - "/bin/sh"
           - "-c"
-          - "[[ ! -d /config/.git ]] rm -rf /config/*; rm -rf /config/.*;"
+          - "if [ ! -d /config/.git ]; then rm -rf /config/*; rm -rf /config/.*; fi"
       git-checkout:
         name: git-checkout
         image: alpine/git:latest
         command:
           - "/bin/sh"
           - "-c"
-          - "[[ ! -d /config/.git ]] git clone https://sob:${SECRET_GITHUB_TOKEN}@github.com/sob/hass-config.git /tmp/config-checkout; mv /tmp/config-checkout/* /config/; mv /tmp/config-checkout/.* /config/"
+          - "if [ ! -d /config/.git ]; then git clone https://sob:${SECRET_GITHUB_TOKEN}@github.com/sob/hass-config.git /tmp/config-checkout; mv /tmp/config-checkout/* /config/; mv /tmp/config/checkout/.* /config/; fi"
         volumeMounts:
           - name: config
             mountPath: /config
