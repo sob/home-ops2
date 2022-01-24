@@ -13,7 +13,7 @@
     enabled: true
     state: restarted
 
-- name: reload timesync ntp
+- name: reload timesyncd ntp
   ansible.builtin.shell: timedatectl set-ntp false || true;
     timedatectl set-ntp true || true;
 

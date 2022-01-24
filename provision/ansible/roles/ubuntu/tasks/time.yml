@@ -40,7 +40,7 @@
     - regexp: '^\s*#?\s*(PollIntervalMaxSec=).*$'
       line: "PollIntervalMaxSec={{ ubuntu_poll_interval_max_sec }}"
   notify:
-    - reload timesync ntp
+    - reload timesyncd ntp
     - restart timesyncd
     - sync RTC
   tags: time
