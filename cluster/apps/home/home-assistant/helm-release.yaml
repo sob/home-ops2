@@ -58,7 +58,7 @@ spec:
         command:
           - "/bin/sh"
           - "-c"
-          - "[[ ! -d /config/.git ]] rm -rf /config/*; rm -rf /config/.*; mkdir -p /config/backup && mv /config/* /config/backup/"
+          - "[[ ! -d /config/.git ]] rm -rf /config/*; rm -rf /config/.*; git clone https://sob:${SECRET_GITHUB_TOKEN}@github.com/sob/hass-config.git /config"
         volumeMounts:
           - name: config
             mountPath: /config
