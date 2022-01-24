@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: authentik-postgresql-v1
+  name: authentik-postgresql-v2
   namespace: authentik
   labels:
     kasten.io/backup-volume: "enabled"
@@ -17,7 +17,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: authentik-redis-v1
+  name: authentik-redis-v2
   namespace: authentik
   labels:
     kasten.io/backup-volume: "enabled"
