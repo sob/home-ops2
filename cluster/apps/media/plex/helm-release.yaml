@@ -20,7 +20,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: node-feature-discovery
-      namespace: kubesystem
+      namespace: kube-system
     - name: intel-gpu-plugin
       namespace: kube-system
   values:
