@@ -8,3 +8,12 @@ tasks:
       - flux reconcile source git flux-system
       - flux reconcile kustomization apps
     silent: true
+
+  bootstrap:
+    desc: Bootstrap flux installation
+    cmds:
+      - flux --kubeconfig=./provision/kubeconfig check --pre
+      - kubectl --kubeconfig=./provision/kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig=./provision/kubeconfig apply -f -
+      - cat ~/.config/sops/age/keys.txt | kubectl --kubeconfig=./provision/kubeconfig -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+      - kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system || kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system
+      - kubectl --kubeconfig=./provision/kubeconfig get pods -n flux-system
