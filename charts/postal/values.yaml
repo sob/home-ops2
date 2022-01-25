@@ -77,7 +77,7 @@ args:
 initContainers:
   bootstrap:
     name: bootstrap
-    image: ruby:2.6-buster
+    image: ghcr.io/postalserver/postal:2.1.0
     command:
       - "/bin/sh"
       - "-c"
