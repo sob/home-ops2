@@ -1,3 +1,4 @@
+---
 apiVersion: v2
 appVersion: 2.1.0
 description: A fully featured open source mail delivery platform for incoming & outgoing e-mail
@@ -19,13 +20,6 @@ dependencies:
   - name: common
     repository: https://library-charts.k8s-at-home.com
     version: 4.3.0
-  - name: mariadb
-    version: 10.2.0
-    repository: https://charts.bitnami.com/bitnami
-    condition: mariadb.enabled
-  - name: rabbitmq
-    version: 8.27.0
-    condition: rabbitmq.enabled
 annotations:
   artifacthub.io/changes: |
     - kind: added
