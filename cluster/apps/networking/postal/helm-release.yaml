@@ -15,7 +15,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    fullnameOverride: postal
     image:
       repository: ghcr.io/postalserver/postal
       tag: 2.1.0
