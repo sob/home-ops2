@@ -8,37 +8,17 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: /charts/kah-common/
+      chart: /charts/postal/
       sourceRef:
         kind: GitRepository
         name: flux-system
         namespace: flux-system
       interval: 5m
-  dependencies:
-    - name: mariadb
-      version: 10.2.0
-      repository: https://charts.bitnami.com/bitnami
   values:
     fullnameOverride: postal
     image:
       repository: ghcr.io/postalserver/postal
       tag: 2.1.0
-    env:
-      POSTAL_CONFIG_ROOT: /config
-      KATAPULT_CONFIG_FILE: /config.yaml
-      WAIT_FOR_TIMEOUT: 90
-        # WAIT_FOR_TARGETS: |-
-        # mariadb:3306
-        # rabbitmq:5672
-    service:
-      main:
-        ports:
-          http:
-            port: 5000
-      smtp:
-        ports:
-          smtp:
-            port: 25
     ingress:
       main:
         enabled: true
