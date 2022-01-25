@@ -1,16 +1,1 @@
 {{ include "common.all" . }}
-
-command:
-  - postal server
-
-initContainers:
-  bootstrap:
-    name: bootstrap
-    image: ruby:2.6-buster
-    command:
-      - "/bin/sh"
-      - "-c"
-      - "if [ ! -d /config/postal.yaml ]; then postal bootstrap postal.${SECRET_DOMAIN} && postal initialze; fi"
-    volumeMounts:
-      - name: config
-        mountPath: /config
