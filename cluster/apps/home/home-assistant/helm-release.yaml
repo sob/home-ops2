@@ -42,6 +42,10 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: home-assistant
           hajimari.io/group: automation
+          flame.pawelmalak/type: app
+          flame.pawelmalak/name: Home Assistant
+          flame.pawelmalak/url: https://hass.${SECRET_DOMAIN}
+          flame.pawelmalak/icon: home-assistant
         hosts:
           - host: hass.${SECRET_DOMAIN}
             paths:
