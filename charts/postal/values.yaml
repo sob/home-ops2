@@ -66,3 +66,7 @@ mariadb:
 # @default -- See values.yaml
 rabbitmq:
   enabled: false
+  auth:
+    username: postal
+    password: postal-pass
+    erlangCookie: postal-secretcookie
