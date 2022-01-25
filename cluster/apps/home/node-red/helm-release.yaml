@@ -19,6 +19,9 @@ spec:
   dependsOn:
     - name: home-assistant
       namespace: home
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+
   values:
     # initContainers:
     #   npm-update-modules:

@@ -62,13 +62,16 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "stone-metal-01"
+          - name: "stone-metal-04"
             devices:
               - name: "sda"
-          - name: "stone-metal-02"
+          - name: "stone-metal-05"
             devices:
               - name: "sda"
-          - name: "stone-metal-03"
+          - name: "stone-metal-06"
+            devices:
+              - name: "sda"
+          - name: "stone-metal-07"
             devices:
               - name: "sda"
     cephBlockPools:
