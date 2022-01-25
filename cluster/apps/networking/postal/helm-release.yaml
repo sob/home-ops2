@@ -58,17 +58,6 @@ spec:
     rabbitmq:
       enabled: true
       existingClaim: postal-rabbitmq-v1
-    initContainers:
-      bootstrap:
-        name: bootstrap
-        image: ruby:2.6-buster
-        command:
-          - "/bin/sh"
-          - "-c"
-          - "if [ ! -d /config/postal.yaml ]; then postal bootstrap postal.${SECRET_DOMAIN} && postal initialze fi"
-        volumeMounts:
-          - name: config
-            mountPath: /config
     addons:
       codeserver:
         enabled: true
