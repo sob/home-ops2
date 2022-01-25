@@ -14,10 +14,10 @@ spec:
         name: flux-system
         namespace: flux-system
       interval: 5m
-    dependencies:
-      - name: mariadb
-        version: 10.2.0
-        repository: https://charts.bitnami.com/bitnami
+  dependencies:
+    - name: mariadb
+      version: 10.2.0
+      repository: https://charts.bitnami.com/bitnami
   values:
     fullnameOverride: postal
     image:
