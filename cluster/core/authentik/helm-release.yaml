@@ -24,15 +24,8 @@ spec:
     image:
       repository: ghcr.io/goauthentik/server
       tag: 2022.1.2
-    authentik:
-      secret_key: "${SECRET_AUTHENTIK_KEY}"
-      postgresql:
-        password: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
       redis:
         host: authentik-redis-master
-    env:
-      AUTHENTIK_FOOTER_LINKS: "[]"
-      AK_ADMIN_PASS: "${SECRET_AUTHENTIK_ADMIN_PASS}"
     ingress:
       enabled: true
       ingressClassName: "traefik"
@@ -56,7 +49,6 @@ spec:
       enabled: true
       postgresqlUsername: authentik
       postgresqlDatabase: authentik
-      postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASS}"
       persistence:
         enabled: true
         existingClaim: authentik-postgresql-v1
@@ -69,3 +61,7 @@ spec:
     prometheus:
       serviceMonitor:
         create: false
+  valuesFrom:
+    - kind: Secret
+      name: "authentik-helm-values"
+      optional: false
