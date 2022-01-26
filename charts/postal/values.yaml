@@ -23,11 +23,6 @@ env:
 postal:
   domain: example.com
   hostname: postal.example.com
-  mariadb:
-    hostname:
-    database:
-    username:
-    password:
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml

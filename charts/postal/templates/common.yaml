@@ -18,6 +18,23 @@
   {{- $_ := set .Values.postal.mariadb "password" .Values.mariadb.auth.password -}}
 {{- end -}}
 
+{{/* if postal.rabbitmq.hostname is not set use internal rabbitmq chart */}}
+{{- if eq .Values.postal.rabbitmq.hostname "" -}}
+  {{- $_ := set .Values.postal.rabbitmq "hostname" (printf "%s-rabbitmq" .Release.Name) -}}
+{{- end -}}
+{{/* if postal.rabbitmq.vhost is not set use internal rabbitmq chart */}}
+{{- if eq .Values.postal.rabbitmq.vhost "" -}}
+  {{- $_ := set .Values.postal.rabbitmq "vhost" .Values.rabbitmq.auth.database -}}
+{{- end -}}
+{{/* if postal.rabbitmq.username is not set use internal rabbitmq chart */}}
+{{- if eq .Values.postal.rabbitmq.username "" -}}
+  {{- $_ := set .Values.postal.rabbitmq "username" .Values.rabbitmq.auth.username -}}
+{{- end -}}
+{{/* if postal.password is not set use internal postal chart */}}
+{{- if eq .Values.postal.rabbitmq.password "" -}}
+  {{- $_ := set .Values.postal.rabbitmq "password" .Values.rabbitmq.auth.password -}}
+{{- end -}}
+
 {{/* Append the hardcoded settings */}}
 {{- define "postal.hardcodedValues" -}}
 

@@ -25,17 +25,17 @@ logging:
 main_db:
   # Specify the connection details for your MariaDB database
   host: {{ .Values.postal.mariadb.hostname }}
-  username: {{ .Values.postal.mariadb.username  }}
+  username: {{ .Values.postal.mariadb.username }}
   password: {{ .Values.postal.mariadb.password }}
-  database: {{ .Values.postal.maridb.database }}
+  database: {{ .Values.postal.mariadb.database }}
 
 message_db:
   # Specify the connection details for your MariaDB server that will house the
   # message databases for mail servers.
   host: {{ .Values.postal.mariadb.hostname }}
-  username: {{ .Values.postal.mariadb.username  }}
+  username: {{ .Values.postal.mariadb.username }}
   password: {{ .Values.postal.mariadb.password }}
-  database: {{ .Values.postal.maridb.database }}
+  database: {{ .Values.postal.mariadb.database }}
   prefix: postal
 
 rabbitmq:
