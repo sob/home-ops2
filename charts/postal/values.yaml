@@ -106,7 +106,9 @@ additionalContainers:
   smtp:
     name: smtp
     image: ghcr.io/postalserver/postal:2.1.0
-    command: postal smtp-server
+    command:
+      - postal
+      - smtp-server
     ports:
       - name: smtp
         containerPort: 25
