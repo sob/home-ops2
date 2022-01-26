@@ -20,16 +20,27 @@ env:
   TZ: UTC
   POSTAL_CONFIG_ROOT: /config
 
+postal:
+  domain: example.com
+  hostname: postal.example.com
+  mariadb:
+    hostname:
+    database:
+    username:
+    password:
+
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
 service:
   main:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
     ports:
       http:
+        enabled: true
         port: 5000
-  smtp:
-    ports:
       smtp:
+        enabled: true
         port: 25
 
 ingress:
@@ -81,7 +92,7 @@ initContainers:
     command:
       - "/bin/sh"
       - "-c"
-      - "if [ ! -d /config/postal.yaml ]; then postal bootstrap postal.${SECRET_DOMAIN} && postal initialze; fi"
+      - "if [ ! -f /config/postal.yaml ]; then postal initialze; fi"
     volumeMounts:
       - name: config
         mountPath: /config

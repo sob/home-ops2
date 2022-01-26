@@ -1,1 +1,45 @@
+{{/* Make sure all variables are set properly */}}
+{{- include "common.values.setup" . }}
+
+{{/* if mariadb.hostname is not set use internal mariadb chart */}}
+{{- if eq .Values.postal.mariadb.hostname "" -}}
+  {{- $_ := set .Values.postal.mariadb "hostname" (printf "%s-mariadb" .Release.Name) -}}
+{{- end -}}
+{{/* if mariadb.database is not set use internal mariadb chart */}}
+{{- if eq .Values.postal.mariadb.database "" -}}
+  {{- $_ := set .Values.postal.mariadb "database" .Values.mariadb.auth.database -}}
+{{- end -}}
+{{/* if mariadb.username is not set use internal mariadb chart */}}
+{{- if eq .Values.postal.mariadb.username "" -}}
+  {{- $_ := set .Values.postal.mariadb "username" .Values.mariadb.auth.username -}}
+{{- end -}}
+{{/* if mariadb.password is not set use internal mariadb chart */}}
+{{- if eq .Values.postal.mariadb.password "" -}}
+  {{- $_ := set .Values.postal.mariadb "password" .Values.mariadb.auth.password -}}
+{{- end -}}
+
+{{/* Append the hardcoded settings */}}
+{{- define "postal.harcodedValues" -}}
+
+configmap:
+  config:
+    enabled: true
+    data:
+      postal.yaml: |
+        {{ tpl (.Files.Get "files/postal.yaml") . | nindent 8 }}
+
+persistence:
+  config:
+    enabled: true
+    mountPath: /config
+    type: configMap
+    name: {{ include "common.names.fullname" . }}-config
+
+command:
+  - /bin/postal
+  - server
+
+{{- end -}}
+{{- $_ := mergeOverwrite .Values (incl[ude "postal.hardcodedValues" . | fromYaml] )-}}
+
 {{ include "common.all" . }}
