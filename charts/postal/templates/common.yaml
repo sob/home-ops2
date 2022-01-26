@@ -37,7 +37,7 @@
 
 {{/* if postal.signing_key is not set, generate a new one */}}
 {{ if eq .Values.postal.signing_key "" -}}
-  {{- $_ := Set .Values.postal "signing_key" (genPrivateKey rsa) -}}
+  {{- $_ := set .Values.postal "signing_key" (genPrivateKey rsa) -}}
 {{- end -}}
 
 {{/* Append the hardcoded settings */}}
