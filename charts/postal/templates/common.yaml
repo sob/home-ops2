@@ -44,7 +44,7 @@ configmap:
   config:
     enabled: true
     data:
-      postal.yaml: |
+      postal.yml: |
         {{ tpl (.Files.Get "files/postal.yml") . | nindent 8 }}
 
 persistence:
