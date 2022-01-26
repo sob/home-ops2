@@ -93,12 +93,12 @@ args:
 
 initContainers:
   bootstrap:
-    name: bootstrap
+    name: initialize
     image: ghcr.io/postalserver/postal:2.1.0
     command:
       - "/bin/sh"
       - "-c"
-      - "if [ ! -f /config/postal.yml ]; then postal initialze; fi"
+      - "(cd ~/app && bundle exec rake db:migrate:status | grep '^\s*exist\*') && /opt/postal/app/bin/postal initialize"
     volumeMounts:
       - name: config
         mountPath: /config
