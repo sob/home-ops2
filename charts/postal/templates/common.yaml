@@ -35,11 +35,6 @@
   {{- $_ := set .Values.postal.rabbitmq "password" .Values.rabbitmq.auth.password -}}
 {{- end -}}
 
-{{/* if postal.signing_key is not set, generate a new one */}}
-{{ if eq .Values.postal.signing_key "" -}}
-  {{- $_ := set .Values.postal "signing_key" (genPrivateKey rsa) -}}
-{{- end -}}
-
 {{/* Append the hardcoded settings */}}
 {{- define "postal.hardcodedValues" -}}
 
@@ -52,7 +47,7 @@ configmap:
       postal.yml: |
         {{ tpl (.Files.Get "files/postal.yml") . | nindent 8 }}
       signing.key: |
-        {{ Values.postal.signing_key . | nindent 8 }}
+        {{ genPrivateKey "rsa" | b64enc | nindent 8 }}
 
 persistence:
   config:
