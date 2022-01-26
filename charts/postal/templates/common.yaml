@@ -38,6 +38,8 @@
 {{/* Append the hardcoded settings */}}
 {{- define "postal.hardcodedValues" -}}
 
+name: web
+
 configmap:
   config:
     enabled: true

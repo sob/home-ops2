@@ -89,6 +89,3 @@ spec:
             - hosts:
                 - postal-config.${SECRET_DOMAIN}
               secretName: postal-config-tls
-        volumeMounts:
-          - name: config
-            mountPath: /config
