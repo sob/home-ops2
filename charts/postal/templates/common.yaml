@@ -40,6 +40,6 @@ command:
   - server
 
 {{- end -}}
-{{- $_ := mergeOverwrite .Values (incl[ude "postal.hardcodedValues" . | fromYaml] )-}}
+{{- $_ := mergeOverwrite .Values (include "postal.hardcodedValues" . | fromYaml) -}}
 
 {{ include "common.all" . }}
