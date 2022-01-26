@@ -19,7 +19,7 @@
 {{- end -}}
 
 {{/* Append the hardcoded settings */}}
-{{- define "postal.harcodedValues" -}}
+{{- define "postal.hardcodedValues" -}}
 
 configmap:
   config:
