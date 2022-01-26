@@ -98,7 +98,7 @@ initContainers:
     command:
       - "/bin/sh"
       - "-c"
-      - "(cd ~/app && bundle exec rake db:migrate:status | grep '*not exist*') && /opt/postal/app/bin/postal initialize"
+      - "(cd ~/app && bundle exec rake db:migrate:status | grep '*not exist*') || /opt/postal/app/bin/postal initialize"
     volumeMounts:
       - name: config
         mountPath: /config
