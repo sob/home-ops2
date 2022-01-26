@@ -92,7 +92,7 @@ initContainers:
     command:
       - "/bin/sh"
       - "-c"
-      - "if [ ! -f /config/postal.yaml ]; then postal initialze; fi"
+      - "if [ ! -f /config/postal.yml ]; then postal initialze; fi"
     volumeMounts:
       - name: config
         mountPath: /config
