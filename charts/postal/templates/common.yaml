@@ -36,8 +36,8 @@ persistence:
     name: {{ include "common.names.fullname" . }}-config
 
 command:
-  - /bin/postal
-  - server
+  - postal
+  - web-server
 
 {{- end -}}
 {{- $_ := mergeOverwrite .Values (include "postal.hardcodedValues" . | fromYaml) -}}

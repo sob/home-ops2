@@ -96,3 +96,14 @@ initContainers:
     volumeMounts:
       - name: config
         mountPath: /config
+
+additionalContainers:
+  smtp:
+    name: smtp
+    image: ghcr.io/postalserver/postal:2.1.0
+    ports:
+      - name: smtp
+        containerPort: 25
+    volumeMounts:
+      - name: config
+        mountPath: /config
