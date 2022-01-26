@@ -33,6 +33,7 @@ postal:
     username: ""
     password: ""
     vhost: ""
+  signing_key: ""
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
