@@ -30,13 +30,13 @@ spec:
                 - "--config"
                 - "/trash.yaml"
                 - "sonarr"
-              volumes:
-                - name: trash-updater-config
-                  projected:
-                    defaultMode: 0640
-                    sources:
-                      - configMap:
-                        name: trash-sync-config.yaml
-                        items:
-                          - key: trash.yaml
-                            path: trash.yaml
+          volumes:
+            - name: trash-updater-config
+              projected:
+                defaultMode: 0640
+                sources:
+                  - configMap:
+                      name: trash-sync-config.yaml
+                      items:
+                        - key: trash.yaml
+                          path: trash.yaml
