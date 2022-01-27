@@ -1,0 +1,36 @@
+---
+api: batch/v1
+kind: CronJob
+metadata:
+  name: trash-updater
+  namespace: media
+spec:
+  schedule: "0 */4 * * *"
+  concurrencyPolicy: forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trash-updater-sonarr
+              image: ghcr.io/sob/trash-updater:latest
+              command:
+                - "/trash"
+                - "--config"
+                - "/trash.yaml"
+                - "sonarr"
+          volumes:
+            - name: trash-updater-config
+              projected:
+                defaultMode: 0640
+                sources:
+                  - configMap:
+                    name: trash-sync-config.yaml
+                    items:
+                      - key: trash.yaml
+                        path: trash.yaml
