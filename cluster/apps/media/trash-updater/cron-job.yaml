@@ -26,9 +26,9 @@ spec:
             - name: trash-updater-sonarr
               image: ghcr.io/sob/trash-updater:latest
               command:
-                - "/trash"
+                - "/app/trash"
                 - "--config"
-                - "/trash.yaml"
+                - "trash.yaml"
                 - "sonarr"
           volumes:
             - name: trash-updater-config
