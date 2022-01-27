@@ -1,19 +1,25 @@
 ---
-api: batch/v1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: trash-updater
   namespace: media
 spec:
-  schedule: "0 * * * *"
-  concurrencyPolicy: forbid
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: "Forbid"
   successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
   jobTemplate:
+    metadata:
+      annotations:
+        botkube.io/disable: "true"
     spec:
       backoffLimit: 3
       ttlSecondsAfterFinished: 300
       template:
+        metadata:
+          annotations:
+            botkube.io/disable: "true"
         spec:
           restartPolicy: Never
           containers:
