@@ -5,7 +5,7 @@ metadata:
   name: trash-updater
   namespace: media
 spec:
-  schedule: "0 */4 * * *"
+  schedule: "0 * * * *"
   concurrencyPolicy: forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 3
