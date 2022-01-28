@@ -25,7 +25,7 @@ spec:
           containers:
             - name: trash-updater-sonarr
               image: ghcr.io/sob/trash-updater:latest
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               env:
                 - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
                   value: "1"
@@ -37,8 +37,6 @@ spec:
 
                   set -o nounset
                   set -o errexit
-
-                  apt-get install unzip
 
                   cd /tmp
                   curl --location https://github.com/rcdailey/trash-updater/releases/latest/download/trash-linux-x64.zip --output ./trash.zip
