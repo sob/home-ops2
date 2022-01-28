@@ -27,7 +27,7 @@ spec:
               image: ghcr.io/sob/trash-updater:v0.0.1
               command:
                 - "/bin/bash"
-                - "ls -la /app"
+                - "ls -la /"
                 # - "/app/trash"
                 # - "--config"
                 # - "/app/trash.yaml"
