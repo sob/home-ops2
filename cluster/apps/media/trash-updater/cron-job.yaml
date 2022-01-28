@@ -30,6 +30,9 @@ spec:
                 - "--config"
                 - "trash.yaml"
                 - "sonarr"
+              volumeMounts:
+                - name: trash-updater-config
+                  mountPath: /app
           volumes:
             - name: trash-updater-config
               projected:
@@ -39,4 +42,4 @@ spec:
                       name: trash-sync-config.yaml
                       items:
                         - key: trash.yaml
-                          path: /app/trash.yaml
+                          path: trash.yaml
