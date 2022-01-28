@@ -42,6 +42,7 @@ spec:
                   curl --location https://github.com/rcdailey/trash-updater/releases/latest/download/trash-linux-x64.zip --output ./trash.zip
                   unzip trash.zip
                   chmod 755 trash
+                  tree .
                   ./trash sonarr --config /opt/trash.yaml
               volumeMounts:
                 - name: config
