@@ -32,7 +32,7 @@ spec:
                 - "sonarr"
               volumeMounts:
                 - name: trash-updater-config
-                  mountPath: /app
+                  mountPath: /config
           volumes:
             - name: trash-updater-config
               projected:
