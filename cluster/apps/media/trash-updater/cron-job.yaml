@@ -27,10 +27,11 @@ spec:
               image: ghcr.io/sob/trash-updater:latest
               command:
                 - "/bin/bash"
-                - "/app/trash"
-                - "--config"
-                - "/app/trash.yaml"
-                - "sonarr"
+                - "ls -la /app"
+                # - "/app/trash"
+                # - "--config"
+                # - "/app/trash.yaml"
+                # - "sonarr"
               volumeMounts:
                 - name: trash-updater-config
                   mountPath: /app/trash.yaml
