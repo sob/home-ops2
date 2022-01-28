@@ -39,4 +39,4 @@ spec:
                       name: trash-sync-config.yaml
                       items:
                         - key: trash.yaml
-                          path: trash.yaml
+                          path: /app/trash.yaml

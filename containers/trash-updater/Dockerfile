@@ -1,31 +1,28 @@
 # Use alpine base image
 FROM ghcr.io/k8s-at-home/ubuntu:latest
 
+USER root
+
 # Install any needed packages
 
-RUN apk update \
-  export EXTRA_INSTALL_ARG="build-essential"; \
+RUN \
   apt-get -qq update \
-  && \
-  apt-get -qq install -y \
+  && apt-get -qq install -y --no-install-recommends \
     unzip \
-    ${EXTRA_INSTALL_ARG} \
-  && \
+    apt-utils \
   && curl -fsSL -o /tmp/app.zip https://github.com/rcdailey/trash-updater/releases/latest/download/trash-linux-x64.zip \
   && unzip -q /tmp/app.zip -d /app \
-  && apt-get remove -y ${EXTRA_INSTALL_ARG} \
-  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && apt-get autoremove -y \
   && apt-get clean \
-  && \
-  rm -rf \
+  && rm -rf \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/ \
   && chown -R kah:kah /app \
-  && chmod -R u=rwX,go=rX /app \
-  && printf "umask %d" "${UMASK}" >> /etc/bash.bashrc \
-  && update-ca-certificates
+  && chmod 755 /app/trash \
+  && printf "umask %d" "${UMASK}" >> /etc/bash.bashrc
+
+ENV DOTNET_BUNDLE_EXTRACT_BASE_DIR=/tmp
 
 USER kah
 
