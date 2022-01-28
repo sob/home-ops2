@@ -21,6 +21,8 @@ RUN \
     curl \
     unzip \
     tzdata \
+    tree \
+    tini \
   && curl -fsSL -o /tmp/app.zip https://github.com/rcdailey/trash-updater/releases/latest/download/trash-linux-x64.zip \
   && unzip -q /tmp/app.zip -d /app \
   && chown -R kah:kah /app \
@@ -33,4 +35,4 @@ RUN \
 
 USER kah
 
-CMD ["/bin/bash", "app/trash"]
+CMD ["/usr/bin/tini", "--h"]
