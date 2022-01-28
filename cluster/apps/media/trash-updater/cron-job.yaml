@@ -39,7 +39,7 @@ spec:
                 defaultMode: 0640
                 sources:
                   - configMap:
-                      name: trash-sync-config.yaml
+                      name: trash-updater-config.yaml
                       items:
                         - key: trash.yaml
                           path: trash.yaml
