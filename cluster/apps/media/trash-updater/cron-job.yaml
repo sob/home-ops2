@@ -24,7 +24,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: trash-updater-sonarr
-              image: ghcr.io/sob/
+              image: ghcr.io/sob/trash-updater:latest
               imagePullPolicy: IfNotPresent
               env:
                 - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
