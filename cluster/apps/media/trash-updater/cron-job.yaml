@@ -24,7 +24,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: trash-updater-sonarr
-              image: ghcr.io/sob/trash-updater:latest
+              image: ghcr.io/sob/trash-updater:v0.0.1
               command:
                 - "/bin/bash"
                 - "ls -la /app"
