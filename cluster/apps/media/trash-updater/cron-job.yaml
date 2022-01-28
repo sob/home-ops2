@@ -32,18 +32,3 @@ spec:
                 # - "--config"
                 # - "/app/trash.yaml"
                 # - "sonarr"
-              volumeMounts:
-                - name: trash-updater-config
-                  mountPath: /app/trash.yaml
-                  subPath: trash.yaml
-                  readOnly: true
-          volumes:
-            - name: trash-updater-config
-              projected:
-                defaultMode: 0640
-                sources:
-                  - configMap:
-                      name: trash-updater-config
-                      items:
-                        - key: trash.yaml
-                          path: trash.yaml
