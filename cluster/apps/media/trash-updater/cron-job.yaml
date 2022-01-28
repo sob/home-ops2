@@ -26,13 +26,16 @@ spec:
             - name: trash-updater-sonarr
               image: ghcr.io/sob/trash-updater:latest
               command:
+                - "/bin/bash"
                 - "/app/trash"
                 - "--config"
-                - "trash.yaml"
+                - "/app/trash.yaml"
                 - "sonarr"
               volumeMounts:
                 - name: trash-updater-config
-                  mountPath: /config
+                  mountPath: /app/trash.yaml
+                  subPath: trash.yaml
+                  readOnly: true
           volumes:
             - name: trash-updater-config
               projected:
