@@ -31,7 +31,6 @@ spec:
                   value: "1"
               command:
                 - "/bin/sh"
-                - "-c"
                 - "/app/trash"
                 - "sonarr"
                 - "--config"
