@@ -31,6 +31,7 @@ spec:
                   value: "1"
               command:
                 - "/bin/sh"
+                - "-c"
                 - "/app/trash"
               volumeMounts:
                 - name: config
