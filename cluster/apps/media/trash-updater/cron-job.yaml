@@ -30,7 +30,8 @@ spec:
                 - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
                   value: "1"
               command:
-                - "/bin/bash"
+                - "/usr/bin/env"
+                - "bash"
                 - "/app/trash"
               volumeMounts:
                 - name: config
