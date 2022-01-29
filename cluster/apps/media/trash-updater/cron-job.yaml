@@ -29,6 +29,9 @@ spec:
               env:
                 - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
                   value: "1"
+              command:
+                - "/bin/sh"
+                - "/app/trash"
               volumeMounts:
                 - name: config
                   mountPath: /opt/trash.yaml
