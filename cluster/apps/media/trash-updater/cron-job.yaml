@@ -31,8 +31,10 @@ spec:
                   value: "1"
               command:
                 - "/bin/sh"
-                - "-c"
-                - "tree /"
+                - "/app/trash"
+                - "--config"
+                - "/opt/trash.yaml"
+                - "sonarr"
               volumeMounts:
                 - name: config
                   mountPath: /opt/trash.yaml
