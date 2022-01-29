@@ -30,7 +30,6 @@ spec:
                 - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
                   value: "1"
               command:
-                - "/bin/sh"
                 - "/app/trash"
                 - "sonarr"
                 - "--config"
