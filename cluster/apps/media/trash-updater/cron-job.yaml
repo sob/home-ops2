@@ -32,7 +32,7 @@ spec:
               command:
                 - "/bin/sh"
                 - "-c"
-                - "/app/trash"
+                - "tree /"
               volumeMounts:
                 - name: config
                   mountPath: /opt/trash.yaml
