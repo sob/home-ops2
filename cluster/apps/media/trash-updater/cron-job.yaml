@@ -5,7 +5,7 @@ metadata:
   name: trash-updater
   namespace: media
 spec:
-  schedule: "*/2 * * * *"
+  schedule: "weekly"
   concurrencyPolicy: "Forbid"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 5
@@ -32,6 +32,22 @@ spec:
               command:
                 - "/app/trash"
                 - "sonarr"
+                - "--config"
+                - "/opt/trash.yaml"
+              volumeMounts:
+                - name: config
+                  mountPath: /opt/trash.yaml
+                  subPath: trash.yaml
+                  readOnly: true
+            - name: trash-updater-radarr
+              image: ghcr.io/sob/trash-updater@sha256:494418c6e9c3bdcaef0dbd13a37e46b37ff14b946bf0a62863f18fa65524039f
+              imagePullPolicy: Always
+              env:
+                - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
+                  value: "1"
+              command:
+                - "/app/trash"
+                - "radarr"
                 - "--config"
                 - "/opt/trash.yaml"
               volumeMounts:
