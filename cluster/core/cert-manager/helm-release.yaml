@@ -15,8 +15,13 @@ spec:
         kind: HelmRepository
         name: jetstack-charts
         namespace: flux-system
+  install:
+    createNamespace: true
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
-    installCRDs: false
+    installCRDs: true
     webhook:
       enabled: true
     extraArgs:
