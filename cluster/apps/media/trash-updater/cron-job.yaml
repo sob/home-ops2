@@ -30,8 +30,8 @@ spec:
                 - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
                   value: "1"
               command:
-                - "/bin/bash"
-                - "/app/trash"
+                - "/bin/sh"
+                - "ls -la /app"
               volumeMounts:
                 - name: config
                   mountPath: /opt/trash.yaml
