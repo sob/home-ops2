@@ -30,7 +30,8 @@ spec:
                 - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
                   value: "1"
               command:
-                - "/bin/bash /app/trash sonarr --config /opt/trash.yaml"
+                - "/bin/bash"
+                - "/app/trash"
               volumeMounts:
                 - name: config
                   mountPath: /opt/trash.yaml
