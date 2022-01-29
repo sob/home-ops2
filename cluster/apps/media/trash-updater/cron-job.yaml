@@ -31,7 +31,9 @@ spec:
                   value: "1"
               command:
                 - "/bin/sh"
-                - "ls -la /app"
+                - "ls"
+                - "-la"
+                - "/app"
               volumeMounts:
                 - name: config
                   mountPath: /opt/trash.yaml
