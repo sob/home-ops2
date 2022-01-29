@@ -33,9 +33,9 @@ spec:
                 - "/bin/sh"
                 - "-c"
                 - "/app/trash"
+                - "sonarr"
                 - "--config"
                 - "/opt/trash.yaml"
-                - "sonarr"
               volumeMounts:
                 - name: config
                   mountPath: /opt/trash.yaml
