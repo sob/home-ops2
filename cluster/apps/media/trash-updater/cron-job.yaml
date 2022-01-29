@@ -31,10 +31,11 @@ spec:
                   value: "1"
               command:
                 - "/bin/sh"
-                - "/app/trash"
-                - "sonarr"
-                - "--config"
-                - "/opt/trash.yaml"
+                - "-ec"
+                - |
+                  #!/bin/sh
+
+                  /app/trash sonarr --config /opt/trash.yaml"
               volumeMounts:
                 - name: config
                   mountPath: /opt/trash.yaml
