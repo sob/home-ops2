@@ -44,7 +44,7 @@ sonarr:
       prefered_ratio: 0.5
     delete_old_formats: true
     custom_formats:
-      - names: BR
+      - names:
           - BR-DISK
           - EVO (no WEB-DL)
           - LQ
