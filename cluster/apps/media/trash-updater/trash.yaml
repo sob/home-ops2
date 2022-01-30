@@ -31,3 +31,25 @@ sonarr:
           include_optional: true
         tags:
           - tv
+
+  - base_url: https://radarr-uhd.56kbps.io
+    api_key: ${SECRET_RADARR_UHD_KEY}
+    quality_definition:
+      type: movie
+
+  - base_url: https://radarr.56kbps.io
+    api_key: ${SECRET_RADARR_KEY}
+    quality_definition:
+      type: movie
+      prefered_ratio: 0.5
+    delete_old_formats: true
+    custom_formats:
+      - names: BR
+          - BR-DISK
+          - EVO (no WEB-DL)
+          - LQ
+          - x265 (720/1080p)
+          - 3D
+        quality_profiles:
+          - name: HD-1080p
+          - name: HD-720p
