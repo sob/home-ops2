@@ -50,6 +50,9 @@ sonarr:
           - LQ
           - x265 (720/1080p)
           - 3D
+          - No-RlsGroup
+          - Obfuscated
+          - DV (WEBDL)
         quality_profiles:
           - name: HD-1080p
           - name: HD-720p
