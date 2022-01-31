@@ -80,6 +80,15 @@ spec:
           configMap:
             name: blocky-whitelist
     affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+                - key: role
+                  operator: In
+                  values:
+                    - master
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
