@@ -11,7 +11,10 @@ fi
 
 [ -f "${PNG}" ] && rm -f "${PNG}"
 
-convert -density 288 -alpha off "${INPUT}" "${PNG}"
-mogrify -crop 1750x1128+348+255 "${PNG}"
-mogrify -rotate 90 "${PNG}"
+convert -density 300 -alpha off "${INPUT}" "${PNG}"
+mogrify -crop 2100x1400+200+200 "${PNG}"
+./innercrop -m crop -o white -p 1 -f 10% "${PNG}" "cropped-${PNG}"
+mogrify -rotate -90 "cropped-${PNG}"
+mv "cropped-${PNG}" "${PNG}"
+
 lpr -P "${PRINTER}" -o PageSize=1744907_4_in_x_6_in -o fit-to-page "${PNG}"
