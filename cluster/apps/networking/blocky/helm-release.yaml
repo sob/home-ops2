@@ -22,7 +22,7 @@ spec:
       tag: v0.17
     controller:
       strategy: RollingUpdate
-      replicas: 4
+      replicas: 3
     env:
       TZ: "${TIMEZONE}"
     service:
@@ -81,14 +81,11 @@ spec:
             name: blocky-whitelist
     affinity:
       nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            preference:
-              matchExpressions:
-                - key: role
-                  operator: In
-                  values:
-                    - master
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: node-role.kubernetes.io/master
+                  operator: Exists
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
