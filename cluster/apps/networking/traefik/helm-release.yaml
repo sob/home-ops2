@@ -22,7 +22,7 @@ spec:
   values:
     deployment:
       kind: Deployment
-      replicas: 3
+      replicas: 4
     service:
       enabled: true
       type: LoadBalancer
@@ -45,6 +45,24 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: node-role.kubernetes.io/worker
+                  operator: Exists
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - traefik
+              topologyKey: kubernetes.io/hostname
     globalArguments:
       - "--api.insecure=true"
       - "--serverstransport.insecureskipverify=true"
