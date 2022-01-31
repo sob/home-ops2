@@ -86,10 +86,10 @@ spec:
             podAffinityTerm:
               labelSelector:
                 matchExpressions:
-                  - key: node-role.kubernetes.io/worker
+                  - key: app.kubernetes.io/name
                     operator: In
                     values:
-                      - worker
+                      - blocky
               topologyKey: kubernetes.io/hostname
     resources:
       requests:
