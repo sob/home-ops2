@@ -4,3 +4,10 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - helm-release.yaml
+namespace: home
+configMapGenerator:
+  - name: zwavejs2mqtt-config
+    files:
+      - settings.json
+generatorOptions:
+  disableNameSuffixHash: true
