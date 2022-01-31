@@ -65,6 +65,15 @@ spec:
           - name: file
             parameters: /etc/coredns/${SECRET_DOMAIN}
     affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+                - key: role
+                  operator: In
+                  values:
+                    - master
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
