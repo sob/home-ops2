@@ -74,3 +74,9 @@ tasks:
     dir: provision/ansible
     cmds:
       - "ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml -a '/usr/bin/systemctl poweroff' --become"
+
+  adhoc:bios_version:
+    desc: Print BIOS versio information of all k8s nodes
+    dir: provision/ansible
+    cmds:
+      - "ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml -a 'cat /sys/devices/virtual/dmi/id/bios_version'"
