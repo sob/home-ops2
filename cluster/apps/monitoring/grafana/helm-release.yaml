@@ -132,6 +132,7 @@ spec:
       enabled: true
     ingress:
       enabled: true
+      pathType: Prefix
       ingressClassName: "traefik"
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
