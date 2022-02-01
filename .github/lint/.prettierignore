@@ -1,0 +1,5 @@
+*.sops.*
+gotk-components.yaml
+GROG.reboot
+kah-common
+xanmanning.k3s

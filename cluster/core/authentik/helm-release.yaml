@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.goauthentik.io/
+      chart: authentik
+      version: 5.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: authentik-charts
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: traefik
+      namespace: networking
+  values:
+    fullnameOverride: authentik
+    image:
+      repository: ghcr.io/goauthentik/server
+      tag: 2022.1.3
+      redis:
+        host: authentik-redis-master
+    ingress:
+      enabled: true
+      ingressClassName: "traefik"
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        external-dns/is-public: "true"
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "passport"
+      hosts:
+        - host: "id.${SECRET_DOMAIN}"
+          paths:
+            - path: "/"
+              pathType: Prefix
+      tls:
+        - hosts:
+            - "id.${SECRET_DOMAIN}"
+          secretName: authentik-tls
+    postgresql:
+      enabled: true
+      postgresqlUsername: authentik
+      postgresqlDatabase: authentik
+      persistence:
+        enabled: true
+        existingClaim: authentik-postgresql-v1
+    redis:
+      enabled: true
+      master:
+        persistence:
+          enabled: true
+          existingClaim: authentik-redis-v1
+    prometheus:
+      serviceMonitor:
+        create: false
+  valuesFrom:
+    - kind: Secret
+      name: "authentik-helm-values"
+      optional: false

@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: postal
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: /charts/postal/
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/postalserver/postal
+      tag: 2.1.0
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "resistor-nodes"
+          hajimari.io/group: "automation"
+        hosts:
+          - host: "postal.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "postal.${SECRET_DOMAIN}"
+            secretName: postal-tls
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 750Mi
+    mariadb:
+      enabled: true
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: postal-mariadb-v1
+    rabbitmq:
+      enabled: true
+      existingClaim: postal-rabbitmq-v1

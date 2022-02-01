@@ -1,0 +1,118 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
+
+image:
+  # -- image repository
+  repository: ghcr.io/postalserver/postal
+  # -- image tag
+  tag: 2.1.0
+  # -- image pull policy
+  pullPolicy: IfNotPresent
+
+# -- environment variables. See more environment variables in the [postal documentation](https://postal.org/docs).
+# @default -- See below
+env:
+  # -- Set the container timezone
+  TZ: UTC
+  POSTAL_CONFIG_ROOT: /config
+
+postal:
+  domain: example.com
+  hostname: postal.example.com
+  mariadb:
+    hostname: ""
+    username: ""
+    password: ""
+    database: ""
+  rabbitmq:
+    hostname: ""
+    username: ""
+    password: ""
+    vhost: ""
+  signing_key: ""
+
+# -- Configures service settings for the chart.
+# @default -- See values.yaml
+service:
+  main:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    ports:
+      http:
+        enabled: true
+        port: 5000
+      smtp:
+        enabled: true
+        port: 25
+
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  main:
+    enabled: false
+
+# -- Configure persistence settings for the chart under this key.
+# @default -- See values.yaml
+persistence:
+  data:
+    enabled: false
+    mountPath: /data
+
+# -- Enable and configure mariadb database subchart under this key.
+#    For more options see [mariadb chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/mariadb)
+# @default -- See values.yaml
+mariadb:
+  enabled: false
+  architecture: standalone
+  auth:
+    database: postal
+    username: postal
+    password: postal-pass
+    rootPassword: postal-rootpass
+  primary:
+    persistence:
+      enabled: false
+      # storageClass: ""
+
+# -- Enable and configure rabbitmq subchart under this key.
+#    For more options see [rabbitmq chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq)
+# @default -- See values.yaml
+rabbitmq:
+  enabled: false
+  auth:
+    username: postal
+    password: postal-pass
+    erlangCookie: postal-secretcookie
+
+args:
+  - "server"
+
+initContainers:
+  bootstrap:
+    name: initialize
+    image: ghcr.io/postalserver/postal:2.1.0
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "(cd ~/app && bundle exec rake db:migrate:status | grep '*not exist*') || /opt/postal/app/bin/postal initialize"
+    volumeMounts:
+      - name: config
+        mountPath: /config
+
+additionalContainers:
+  smtp:
+    name: smtp
+    image: ghcr.io/postalserver/postal:2.1.0
+    command:
+      - postal
+      - smtp-server
+    ports:
+      - name: smtp
+        containerPort: 25
+    volumeMounts:
+      - name: config
+        mountPath: /config

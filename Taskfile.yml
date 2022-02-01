@@ -1,0 +1,24 @@
+---
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: "git rev-parse --show-toplevel"
+  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
+  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
+  TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
+  K3S_PRIMARY_NODE_USERNAME: "ubuntu"
+  K3S_PRIMARY_NODE_ADDR: "10.1.10.101"
+  K3S_LB_ADDR: "10.1.10.254"
+
+env:
+  KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"
+
+includes:
+  ansible: .taskfiles/ansible.yml
+  flux: .taskfiles/flux.yml
+  format: .taskfiles/format.yml
+  lint: .taskfiles/lint.yml
+  pre-commit: .taskfiles/pre-commit.yml
+  terraform: .taskfiles/terraform.yml
+  workstation: .taskfiles/workstation.yml

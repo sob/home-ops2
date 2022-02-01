@@ -1,0 +1,106 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hajimari
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://hajimari.io
+      chart: hajimari
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: hajimari-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/toboshii/hajimari
+      tag: v0.2.0
+    hajimari:
+      defaultEnable: false
+      namespaceSelector:
+        matchNames:
+          - home
+          - media
+          - monitoring
+          - networking
+      name: "SOB"
+      customApps:
+        - name: UNIFi Controller
+          url: https://10.1.0.1
+          icon: router-network
+          group: infrastructure
+        - name: Synology
+          url: https://10.1.0.254:5001
+          icon: nas
+          group: infrastructure
+      groups:
+        - name: Communicate
+          links:
+            - name: Discord
+              url: "https://discord.com"
+            - name: Gmail
+              url: "https://gmail.com"
+            - name: Slack
+              url: "https://slack.com/signin"
+        - name: Cloud
+          links:
+            - name: Cloudflare
+              url: "https://dash.cloudflare.com"
+            - name: OneDrive
+              url: "https://onedrive.live.com"
+            - name: Drive
+              url: "https://drive.google.com"
+        - name: Media
+          links:
+            - name: Spotify
+              url: "http://browse.spotify.com"
+            - name: YouTube
+              url: "https://youtube.com/feed/subscriptions"
+        - name: Reading
+          links:
+            - name: Reddit
+              url: "http://reddit.com"
+        - name: Tech
+          links:
+            - name: Hacker News
+              url: "https://news.ycombinator.com/"
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "weather-sunset"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - host: "hajimari.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: "${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "hajimari.${SECRET_DOMAIN}"
+              - "${SECRET_DOMAIN}"
+            secretName: "hajimari-tls"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: hajimari-config
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "hajimari-settings"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 256Mi

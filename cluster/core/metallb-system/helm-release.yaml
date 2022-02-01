@@ -1,0 +1,52 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: metallb-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://metallb.github.io/metallb
+      chart: metallb
+      version: 0.11.0
+      sourceRef:
+        kind: HelmRepository
+        name: metallb-charts
+        namespace: flux-system
+  values:
+    configInline:
+      address-pools:
+        - name: default
+          protocol: layer2
+          addresses:
+            - "${METALLB_LB_RANGE}"
+        - name: traefik
+          protocol: layer2
+          addresses:
+            - "${METALLB_TRAEFIK_ADDR}/32"
+        - name: coredns
+          protocol: layer2
+          addresses:
+            - "${METALLB_COREDNS_ADDR}/32"
+        - name: blocky
+          protocol: layer2
+          addresses:
+            - "${METALLB_BLOCKY_ADDR}/32"
+        - name: qbittorrent
+          protocol: layer2
+          addresses:
+            - "${METALLB_QBITTORRENT_ADDR}/32"
+        - name: plex
+          protocol: layer2
+          addresses:
+            - "${METALLB_PLEX_ADDR}/32"
+        - name: flood-rtorrent
+          protocol: layer2
+          addresses:
+            - "${METALLB_FLOOD_RTORRENT_ADDR}/32"
+        - name: valheim
+          protocol: layer2
+          addresses:
+            - "${METALLB_VALHEIM_ADDR}/32"

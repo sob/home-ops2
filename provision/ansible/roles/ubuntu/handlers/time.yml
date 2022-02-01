@@ -1,0 +1,17 @@
+---
+- name: reload timesync ntp
+  ansible.builtin.shell: timedatectl set-ntp false || true;
+    tiemdatectl set-ntp true || true;
+
+- name: reload timesyncd
+  ansible.builtin.service:
+    name: systemd-timesyncd
+    state: reloaded
+
+- name: restart timesyncd
+  ansible.builtin.service:
+    name: systemd-timesync
+    state: restarted
+
+- name: sync RTC
+  ansible.builtin.command: timedatectl set-local-rtc 0

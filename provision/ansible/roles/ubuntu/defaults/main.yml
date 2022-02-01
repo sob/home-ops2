@@ -1,0 +1,63 @@
+---
+ubuntu_filesystem_packages:
+  - gdisk
+  - hdparm
+  - lvm2
+  - nfs-common
+  - nvme-cli
+  - open-iscsi
+  - smartmontools
+  - socat
+
+ubuntu_network_packages:
+  - arptables
+  - ebtables
+  - iputils-ping
+  - ipvsadm
+  - net-tools
+
+ubuntu_common_packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - psmisc
+  - software-properties-common
+  - unattended-upgrades
+  - htop
+  - unzip
+
+ubuntu_common_packages_remove:
+  - apparmor
+  - apport
+  - byobu
+  - cloud-init
+  - cloud-guest-utils
+  - cloud-initramfs-copymods
+  - cloud-initramfs-dyn-netconf
+  - friendly-recovery
+  - landscape-common
+  - lxd-agent-loader
+  - ntfs-3g
+  - plymouth
+  - plymouth-theme-ubuntu-text
+  - popularity-contest
+  - snapd
+  - sosreport
+  - ubuntu-advantage-tools
+  - ufw
+
+ubuntu_ntp_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+  - 2.pool.ntp.org
+  - 3.pool.ntp.org
+
+ubuntu_fallback_ntp_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+  - 2.pool.ntp.org
+  - 3.pool.ntp.org
+
+ubuntu_root_distance_max_sec: 5
+ubuntu_poll_interval_max_sec: 2048
+ubuntu_poll_interval_min_sec: 32

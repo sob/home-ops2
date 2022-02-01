@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: media-browser
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: filebrowser
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    fullnameOverride: media-browser
+    image:
+      repository: filebrowser/filebrowser
+      tag: v2.20.1
+    env:
+      FB_DATABASE: "/config/filebrowser.db"
+      FB_ROOT: "/media"
+      FB_LOG: "stdout"
+      FB_NOAUTH: "true"
+      TZ: "${TIMEZONE}"
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/group: "media"
+          hajimari.io/icon: "folder-multiple-images"
+        hosts:
+          - host: "media.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: "files.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "files.${SECRET_DOMAIN}"
+              - "media.${SECRET_DOMAIN}"
+            secretName: media-browser-tls
+    persistence:
+      config:
+        enabled: true
+        existingClaim: media-browser-config-v1
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "10.1.0.254"
+            path: /volume1/Media
+        mountPath: /media
+        readOnly: true
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 750Mi

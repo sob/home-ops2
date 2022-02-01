@@ -1,0 +1,54 @@
+{
+  "mqtt": {
+    "name": "Zwavejs2Mqtt",
+    "host": "${SECRET_ZWAVE_MQTT_HOST}",
+    "port": "${SECRET_ZWAVE_MQTT_PORT}",
+    "qos": 1,
+    "prefix": "zwave",
+    "reconnectPeriod": 3000,
+    "retain": true,
+    "clean": true,
+    "auth": true,
+    "username": "${SECRET_ZWAVE_MQTT_USERNAME}",
+    "password": "${SECRET_ZWAVE_MQTT_PASSWORD}",
+    "_ca": "",
+    "ca": "",
+    "_cert": "",
+    "cert": "",
+    "_key": "",
+    "key": "",
+    "disabled": true
+  },
+  "gateway": {
+    "type": 0,
+    "plugins": [],
+    "authEnabled": false,
+    "payloadType": 0,
+    "nodeNames": true,
+    "hassDiscovery": false,
+    "discoveryPrefix": "homeassistant",
+    "logEnabled": false,
+    "logLevel": "debug",
+    "logToFile": false,
+    "values": []
+  },
+  "zwave": {
+    "port": "${SECRET_ZWAVE_PORT}",
+    "commandsTimeout": 30,
+    "logLevel": "info",
+    "logEnabled": true,
+    "securityKeys": {
+      "S2_Unauthenticated": "${SECRET_ZWAVE_S2_UNAUTHENTICATED}",
+      "S2_Authenticated": "${SECRET_ZWAVE_S2_AUTHENTICATED}",
+      "S2_AccessControl": "${SECRET_ZWAVE_S2_ACCESS_CONTROL}",
+      "S0_Legacy": "${SECRET_ZWAVE_S0_LEGACY}"
+    },
+    "deviceConfigPriorityDir": "/usr/src/app/store/config",
+    "logToFile": true,
+    "serverEnabled": true,
+    "enableSoftReset": true,
+    "enableStatistics": false,
+    "serverPort": 3000,
+    "disclaimerVersion": 1
+  }
+}

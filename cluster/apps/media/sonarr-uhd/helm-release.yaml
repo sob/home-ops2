@@ -1,0 +1,92 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sonarr-uhd
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: sonarr
+      version: 15.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    image:
+      repository: ghcr.io/k8s-at-home/sonarr
+      tag: v3.0.6.1342
+    env:
+      TZ: "${TIMEZONE}"
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "television-box"
+        hosts:
+          - host: "sonarr-uhd.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "sonarr-uhd.${SECRET_DOMAIN}"
+            secretName: sonarr-uhd-tls
+    podSecurityContext:
+      supplementalGroups:
+        - 100
+    metrics:
+      enabled: true
+      serviceMonitor:
+        interval: 3m
+        scrapeTimeout: 1m
+      prometheusRule:
+        enabled: true
+      exporter:
+        image:
+          repository: ghcr.io/onedr0p/exportarr
+          tag: v0.6.2
+        env:
+          port: 9794
+          additionalMetrics: true
+          unknownQueueItems: false
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sonarr-uhd-config-v1
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "10.1.0.254"
+            path: /volume1/Media
+        mountPath: /media
+      backup:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "10.1.0.254"
+            path: /volume1/Data/backups/sonarr-uhd
+        mountPath: /config/Backups
+        readOnly: false
+    resources:
+      requests:
+        memory: 250Mi
+        cpu: 500m
+      limits:
+        memory: 1500Mi

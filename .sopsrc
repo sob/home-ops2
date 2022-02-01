@@ -1,0 +1,4 @@
+---
+sops.enable: true
+sops.binPath:
+sops.creationEnabled: true

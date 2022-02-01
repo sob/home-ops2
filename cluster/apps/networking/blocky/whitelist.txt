@@ -1,0 +1,2 @@
+corpuschristisaints.org
+*.${SECRET_DOMAIN}

@@ -1,0 +1,153 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: home-assistant
+      version: 12.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    image:
+      repository: ghcr.io/home-assistant/home-assistant
+      tag: 2021.12.10
+    env:
+      TZ: America/Chicago
+    envFrom:
+      - secretRef:
+          name: home-assistant
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: networking-authentik@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: home-assistant
+          hajimari.io/group: automation
+          flame.pawelmalak/type: app
+          flame.pawelmalak/name: Home Assistant
+          flame.pawelmalak/url: https://hass.${SECRET_DOMAIN}
+          flame.pawelmalak/icon: home-assistant
+        hosts:
+          - host: hass.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - hass.${SECRET_DOMAIN}
+            secretName: hass-tls
+    initContainers:
+      config-wipe:
+        name: config-wipe
+        image: alpine/git:latest
+        command:
+          - "/bin/sh"
+          - "-c"
+          - "if [ ! -d /config/.git ]; then rm -rf /config/*; rm -rf /config/.*; fi"
+      git-checkout:
+        name: git-checkout
+        image: alpine/git:latest
+        command:
+          - "/bin/sh"
+          - "-c"
+          - "if [ ! -d /config/.git ]; then git clone https://sob:${SECRET_GITHUB_TOKEN}@github.com/sob/hass-config.git /tmp/config-checkout; mv /tmp/config-checkout/* /config/; mv /tmp/config-checkout/.* /config/; fi"
+        volumeMounts:
+          - name: config
+            mountPath: /config
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
+    persistence:
+      config:
+        enabled: true
+        existingClaim: home-assistant-config-v1
+    podAnnotations:
+      secret.reloader.stakater.com/reload: home-assistant
+    influxdb:
+      enabled: true
+      architecture: standalone
+      database: home_assistant
+      authEnabled: true
+      existingSecret: home-assistant-influxdb
+      persistence:
+        enabled: true
+        existingClaim: home-assistant-influxdb-v2
+      resources:
+        requests:
+          cpu: 23m
+          memory: 226M
+        limits:
+          cpu: 23m
+          memory: 226M
+    mariadb:
+      enabled: true
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: home-assistant-mariadb-v1
+      resources:
+        requests:
+          cpu: 15m
+          memory: 298M
+        limits:
+          cpu: 15m
+          memory: 298M
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: ghcr.io/k8s-at-home/code-server
+          tag: v4.0.2
+        git:
+          deployKeySecret: code-server
+        workingDir: /config
+        args:
+          - --auth
+          - none
+          - --user-data-dir
+          - /config/.vscode
+          - --extensions-dir
+          - /config/.vscode
+        ingress:
+          enabled: true
+          ingressClassName: traefik
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            cert-manager.io/cluster-issuer: letsencrypt-production
+            external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+            external-dns/is-public: "true"
+          hosts:
+            - host: hass-config.${SECRET_DOMAIN}
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - hosts:
+                - hass-config.${SECRET_DOMAIN}
+              secretName: hass-config-tls
+        volumeMounts:
+          - name: config
+            mountPath: /config

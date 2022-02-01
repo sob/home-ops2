@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: ring-mqtt
+  name: ring-mqtt
+  namespace: home
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ring-mqtt
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: ring-mqtt
+    spec:
+      containers:
+        - env:
+            - name: ENABLECAMERAS
+              value: "false"
+            - name: LIVESTREAMPASSWORD
+              value: stream_pass
+            - name: LIVESTREAMUSER
+              value: stream_user
+            - name: MQTTHOST
+              value: "mosquitto.home"
+            - name: MQTTPASSWORD
+              value: "${SECRET_MQTT_PASSWORD}"
+            - name: MQTTPORT
+              value: "1883"
+            - name: MQTTUSER
+              value: "${SECRET_MQTT_USERNAME}"
+            - name: RINGTOKEN
+              value: "${SECRET_RING_TOKEN}"
+            - name: SNAPSHOTMODE
+              value: all
+          image: tsightler/ring-mqtt
+          name: ring-mqtt
+          ports:
+            - containerPort: 8554
+          resources:
+            requests:
+              cpu: 15m
+              memory: 105M
+            limits:
+              cpu: 15m
+              memory: 105M
+          volumeMounts:
+            - mountPath: /data
+              name: ring-mqtt-v1
+      restartPolicy: Always
+      volumes:
+        - name: ring-mqtt-v1
+          persistentVolumeClaim:
+            claimName: ring-mqtt-v1

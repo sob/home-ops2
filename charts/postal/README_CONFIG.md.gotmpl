@@ -1,0 +1,11 @@
+{{- define "custom.custom.configuration.header" -}}
+## Custom configuration
+{{- end -}}
+
+{{- define "custom.custom.configuration" -}}
+{{ template "custom.custom.configuration.header" . }}
+
+After you have deployed the Helm chart you need to update your DNS. See
+[Postal DNS Configuration](https://docs.postalserver.io/install/dns-configuration)
+on how to complete this.
+{{- end -}}

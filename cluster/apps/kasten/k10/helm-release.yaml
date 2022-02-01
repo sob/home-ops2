@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: k10
+  namespace: kasten-io
+spec:
+  releaseName: k10
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.kasten.io/
+      chart: k10
+      version: 4.5.7
+      sourceRef:
+        kind: HelmRepository
+        name: kasten-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    eula:
+      accept: true
+      company: STONEHEDGES-CT
+      email: sean@obrienfamily.org
+    global:
+      persistence:
+        enabled: true
+        storageClass: ceph-block
+    auth:
+      tokenAuth:
+        enabled: true
+    clusterName: stonehedges
+    ingress:
+      create: false
+    grafana:
+      enabled: false
