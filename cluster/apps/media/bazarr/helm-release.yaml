@@ -28,8 +28,8 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClass: traefik
         annotations:
-          kubernetes.io/ingress.class: "traefik"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
