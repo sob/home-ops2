@@ -58,6 +58,7 @@ spec:
             type: file
             disableDeletion: false
             editable: true
+            foldersFromFileStructure: true
             options:
               path: /var/lib/grafana/dashboards/default
     datasources:

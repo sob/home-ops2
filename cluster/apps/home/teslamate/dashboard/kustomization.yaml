@@ -13,5 +13,6 @@ generatorOptions:
   disableNameSuffixHash: true
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
+    k8s-sidecar-target-directory: "/tmp/dashboards/tesla"
   labels:
     grafana_dashboard: "true"
