@@ -59,7 +59,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards
+              path: /tmp/dashboards
               foldersFromFilesStructure: true
     datasources:
       datasources.yaml:
