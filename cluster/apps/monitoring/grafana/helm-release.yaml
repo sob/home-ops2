@@ -61,6 +61,15 @@ spec:
             foldersFromFileStructure: true
             options:
               path: /var/lib/grafana/dashboards/default
+          - name: "tesla"
+            orgId: 1
+            folder: "tesla"
+            type: file
+            disableDeletion: false
+            editable: true
+            foldersFromFileStructure: true
+            options:
+              path: /var/lib/grafana/dashboards/tesla
     datasources:
       datasources.yaml:
         apiVersion: 1
