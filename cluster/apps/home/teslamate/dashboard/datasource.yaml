@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: TeslaMate
+  labels:
+    grafana_datasource: "true"
+data:
+  datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: TeslaMate
+        type: Postgresql
+        url: teslamate-postgresql.home.clustrer.local
+        database: teslamate
+        user: postgresql
+        secureJsonData:
+          password: ${SECRET_TESLAMATE_POSTGRES_PASS}
+        jsonData:
+          sslmode: "disable" # disable/require/verify-ca/verify-full
+          maxOpenConns: 0
+          maxIdelConns: 2
+          connMaxLifetime: 14400
+          postgresVersion: 10
+          timescaledb: false
