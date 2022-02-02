@@ -9,8 +9,6 @@ spec:
   ref:
     branch: main
   url: https://github.com/sob/home-ops.git
-  secretRef:
-    name: gotk-sync-secret
   timeout: 60s
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
