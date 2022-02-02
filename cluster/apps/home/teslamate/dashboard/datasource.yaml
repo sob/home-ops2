@@ -11,7 +11,7 @@ data:
     datasources:
       - name: TeslaMate
         type: postgres
-        url: teslamate-postgresql.home.cluster.local:5432
+        url: teslamate-postgresql.home:5432
         database: teslamate
         user: postgres
         secureJsonData:
