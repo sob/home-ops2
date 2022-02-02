@@ -60,7 +60,6 @@ spec:
             editable: true
             options:
               path: /tmp/dashboards
-              foldersFromFilesStructure: true
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -119,6 +118,9 @@ spec:
       dashboards:
         enabled: true
         searchNamespace: ALL
+        folderAnnotation: grafana_folder
+        provider:
+          foldersFromFilesStructure: true
       datasources:
         enabled: true
         searchNamespace: ALL

@@ -54,11 +54,10 @@ configMapGenerator:
   - name: visited.json
     files:
       - visited.json=https://raw.githubusercontent.com/adriankumpf/teslamate/master/grafana/dashboards/visited.json
-
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
-    k8s-sidecar-target-directory: "/tmp/dashboards/tesla"
+    grafana_folder: tesla
   labels:
     grafana_dashboard: "true"
