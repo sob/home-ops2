@@ -59,7 +59,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /tmp/dashboards
+              path: /var/lib/grafana/dashboards/default
     datasources:
       datasources.yaml:
         apiVersion: 1
