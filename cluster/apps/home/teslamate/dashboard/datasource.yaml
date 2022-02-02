@@ -13,7 +13,7 @@ data:
         type: postgres
         url: teslamate-postgresql.home.clustrer.local:5432
         database: teslamate
-        user: postgresql
+        user: postgres
         secureJsonData:
           password: ${SECRET_TESLAMATE_POSTGRES_PASS}
         jsonData:
