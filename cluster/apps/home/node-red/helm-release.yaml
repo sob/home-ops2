@@ -32,8 +32,8 @@ spec:
     #       - name: config
     #         mountPath: /data
     image:
-      repository: ghcr.io/k8s-at-home/node-red
-      tag: v2.2.0
+      repository: ghcr.io/sob/node-red
+      tag: latest
     env:
       TZ: "America/Chicago"
       NODE_RED_ENABLE_PROJECTS: "true"
