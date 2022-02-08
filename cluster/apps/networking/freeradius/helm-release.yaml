@@ -19,8 +19,7 @@ spec:
     image:
       repository: ghcr.io/truecharts/freeradius
       tag: v3.0.25
-    env:
-      NOAPIBROWSERAUTH: 1
+    env: {}
     service:
       main:
         ports:
@@ -34,8 +33,6 @@ spec:
             port: 1813
             protocol: UDP
             targetPort: 1813
-    command:
-      - freeradius
     probes:
       liveness:
         enabled: false
@@ -45,12 +42,6 @@ spec:
         enabled: false
     persistence:
       config:
-        enabled: true
+        enabled: false
         existingClaim: freeradius-config-v1
         mountPath: "/etc/raddb"
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 100m
-      limits:
-        memory: 750Mi
