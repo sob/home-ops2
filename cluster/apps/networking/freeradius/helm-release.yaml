@@ -23,26 +23,19 @@ spec:
       NOAPIBROWSERAUTH: 1
     service:
       main:
-        enabled: false
-      radius-udp:
-        enabled: true
-        type: ClusterIP
-        externalTrafficPolicy: Local
         ports:
-          radius:
-            enabled: true
+          main:
             port: 1812
             protocol: UDP
             targetPort: 1812
-      accounting-udp:
-        enabled: true
-        type: ClusterIP
+      accounting:
         ports:
           accounting:
-            enabled: true
             port: 1813
             protocol: UDP
             targetPort: 1813
+    command:
+      - freeradius
     probes:
       liveness:
         enabled: false
