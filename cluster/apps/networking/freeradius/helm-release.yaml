@@ -34,11 +34,11 @@ spec:
             port: 1812
             protocol: UDP
             targetPort: 1812
-      radius-accounting-udp:
+      accounting-udp:
         enabled: true
         type: ClusterIP
         ports:
-          radius-accounting:
+          accounting:
             enabled: true
             port: 1813
             protocol: UDP
