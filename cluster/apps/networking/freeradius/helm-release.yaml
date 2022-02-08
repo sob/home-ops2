@@ -31,8 +31,9 @@ spec:
       accounting:
         enabled: true
         ports:
-          port: 1813
-          protocol: UDP
+          accounting:
+            port: 1813
+            protocol: UDP
     probes:
       liveness:
         enabled: false
