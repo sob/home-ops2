@@ -17,8 +17,8 @@ spec:
   values:
     fullnameOverride: freeradius
     image:
-      repository: docker.io/freeradius/freeradius-server
-      tag: 3.0.25-alpine
+      repository: ghcr.io/truecharts/freeradius
+      tag: v3.0.25
     env:
       NOAPIBROWSERAUTH: 1
     service:
