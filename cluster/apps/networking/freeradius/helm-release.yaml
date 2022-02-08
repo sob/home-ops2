@@ -30,6 +30,10 @@ spec:
             port: 1812
             protocol: UDP
             targetPort: 1812
+      accounting:
+        type: ClusterIP
+        externalTrafficPolicy: Local
+        ports:
           accounting:
             enabled: true
             port: 1813
