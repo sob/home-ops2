@@ -24,7 +24,7 @@ spec:
     service:
       main:
         ports:
-          main:
+          http:
             port: 1812
     probes:
       liveness:
