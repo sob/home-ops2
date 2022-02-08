@@ -145,7 +145,10 @@ spec:
           default:
             - ads
       clientLookup:
-        upstream: tcp+udp:1.1.1.1
+        upstream: tcp+udp:10.1.0.1
+        singleNameOrder:
+          - 2
+          - 1
       prometheus:
         enable: true
         path: /metrics
