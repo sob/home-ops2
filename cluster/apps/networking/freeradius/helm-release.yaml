@@ -22,14 +22,15 @@ spec:
     env: {}
     service:
       main:
+        type: ClusterIP
         ports:
           main:
+            enabled: true
             port: 1812
             protocol: UDP
             targetPort: 1812
-      accounting:
-        ports:
           accounting:
+            enabled: true
             port: 1813
             protocol: UDP
             targetPort: 1813
