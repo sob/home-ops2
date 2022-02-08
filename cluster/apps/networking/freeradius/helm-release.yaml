@@ -23,7 +23,6 @@ spec:
       NOAPIBROWSERAUTH: 1
     service:
       main:
-        enabled: true
         ports:
           main:
             protocol: UDP
