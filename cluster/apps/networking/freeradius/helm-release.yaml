@@ -22,9 +22,12 @@ spec:
     env:
       NOAPIBROWSERAUTH: 1
     service:
+      main:
+        enabled: false
       radius-udp:
         enabled: true
         type: ClusterIP
+        externalTrafficPolicy: Local
         ports:
           radius:
             enabled: true
