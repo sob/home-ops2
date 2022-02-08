@@ -25,7 +25,6 @@ spec:
       main:
         ports:
           main:
-            protocol: UDP
             port: 1812
     probes:
       liveness:
