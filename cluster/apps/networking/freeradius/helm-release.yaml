@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: freeradius
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: /charts/kah-common/
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 5m
+  values:
+    fullnameOverride: freeradius
+    image:
+      repository: docker.io/freeradius/freeradius-server
+      tag: 3.0.25-alpine
+    env:
+      NOAPIBROWSERAUTH: 1
+    service:
+      main:
+        ports:
+          auth:
+            port: 1812
+            protocol: UDP
+          accounting:
+            port: 1813
+            protocol: UDP
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 750Mi

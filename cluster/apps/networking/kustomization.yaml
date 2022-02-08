@@ -5,6 +5,7 @@ resources:
   - blocky
   - coredns
   - external-dns
+  - freeradius
   - postal
   - traefik
   - wildcard-certificate
