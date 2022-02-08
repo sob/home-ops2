@@ -22,10 +22,24 @@ spec:
     env:
       NOAPIBROWSERAUTH: 1
     service:
-      main:
+      radius-udp:
+        enabled: true
+        type: ClusterIP
         ports:
-          http:
+          radius:
+            enabled: true
             port: 1812
+            protocol: UDP
+            targetPort: 1812
+      radius-accounting-udp:
+        enabled: true
+        type: ClusterIP
+        ports:
+          radius-accounting:
+            enabled: true
+            port: 1813
+            protocol: UDP
+            targetPort: 1813
     probes:
       liveness:
         enabled: false
