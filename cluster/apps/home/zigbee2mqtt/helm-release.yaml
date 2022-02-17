@@ -30,9 +30,9 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        ingressClassName: "traefik"
         hosts:
-          - host: &host "zigbee2mqtt.${SECRET_PUBLIC_DOMAIN}"
+          - host: &host "zigbee2mqtt.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -42,7 +42,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: zigbee2mqtt-config-v2
+        existingClaim: zigbee2mqtt-config-v1
         mountPath: "/data"
     resources:
       requests:
