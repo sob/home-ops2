@@ -9,4 +9,5 @@ resources:
   - ring-mqtt
   - teslamate
   - unifi-browser
+  - zigbee2mqtt
   - zwavejs2mqtt
