@@ -106,6 +106,9 @@ spec:
     config: |
       bootstrapDns: tcp+udp:1.1.1.1
       upstream:
+        kids:
+          - tcp-tls:${SECRET_NEXTDNS_KIDS_ID}.dns.nextdns.io
+          - https://dns.nextdns.io/${SECRET_NEXTDNS_KIDS_ID}
         default:
           - tcp-tls:${SECRET_NEXTDNS_ID}.dns.nextdns.io
           - https://dns.nextdns.io/${SECRET_NEXTDNS_ID}
