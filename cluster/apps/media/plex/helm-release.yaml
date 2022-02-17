@@ -85,11 +85,12 @@ spec:
             path: /volume1/Data/backups/plex
         mountPath: /config/Backups
         readOnly: false
-      profiles:
-        name: plex-profiles
+      shield-profile:
+        name: plex-shield-profile
         enabled: true
         type: configMap
-        mountPath: /usr/lib/plexmediaserver/Resources/Profiles
+        mountPath: "/usr/lib/plexmediaserver/Resources/Profiles/Android-SHEILD Android TV.xml"
+        subPath: shield.xml
       transcode:
         enabled: true
         type: emptyDir
