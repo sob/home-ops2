@@ -6,6 +6,5 @@ resources:
   - coredns
   - external-dns
   - freeradius
-  - postal
   - traefik
   - wildcard-certificate
