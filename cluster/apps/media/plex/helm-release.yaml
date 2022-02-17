@@ -85,6 +85,11 @@ spec:
             path: /volume1/Data/backups/plex
         mountPath: /config/Backups
         readOnly: false
+      profiles:
+        name: plex-profiles
+        enabled: true
+        type: configMap
+        mountPath: /usr/lib/plexmediaserver/Resources/Profiles
       transcode:
         enabled: true
         type: emptyDir
