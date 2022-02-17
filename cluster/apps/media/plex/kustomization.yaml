@@ -8,6 +8,6 @@ namespace: media
 configMapGenerator:
   - name: plex-profiles
     files:
-      - Android-SHIELD Android TV.xml
+      - "Android-SHIELD Android TV.xml"
 generatorOptions:
   disableNameSuffixHash: true
