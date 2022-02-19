@@ -21,22 +21,6 @@ spec:
       namespace: rook-ceph
 
   values:
-    initContainers:
-      npm-update-modules:
-        image: node:17-alpine
-        command:
-          - /bin/bash
-          - -c
-          - |
-            if [[ -f /data/package.json ]]; then
-              npm install --save $(npm outdated | cut -d' ' -f 1 | sed '1d' | xargs -I '$' echo '$@latest' | xargs echo);
-            else
-              echo "Skipping npm updates, no package.json found.";
-            fi
-        workingDir: /data
-        volumeMounts:
-          - name: config
-            mountPath: /data
     image:
       repository: ghcr.io/sob/node-red
       tag: latest
