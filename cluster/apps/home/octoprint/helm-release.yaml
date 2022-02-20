@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: octoprint
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: octoprint
+      version: 4.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: octoprint/octoprint
+      tag: 1.7.3
+    env:
+      TZ: "${TIMEZONE}"
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - host: &host "octoprint.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: octoprint-config-v1
+        mountPath: "/octoprint"
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 500Mi
+    # These config values are not what is my current state of zigbee2mqtt
+    # It's merely a guide for the initial start up on a fresh install
+    # Everything after the first start is managed in the UI

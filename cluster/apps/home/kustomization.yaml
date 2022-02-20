@@ -5,6 +5,7 @@ resources:
   - home-assistant
   - mosquitto
   - node-red
+  - octoprint
   - ring-mqtt
   - teslamate
   - unifi-browser
