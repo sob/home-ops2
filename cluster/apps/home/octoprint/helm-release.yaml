@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: octoprint
-      version: 4.5.0
+      version: 6.2.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -40,10 +40,9 @@ spec:
               - *host
             secretName: *host
     persistence:
-      config:
+      data:
         enabled: true
         existingClaim: octoprint-config-v1
-        mountPath: "/octoprint"
     resources:
       requests:
         memory: 100Mi
