@@ -21,6 +21,7 @@ spec:
       tag: 1.7.3
     env:
       TZ: "${TIMEZONE}"
+      ENABLE_MJPG_STREAMER: "false"
     ingress:
       main:
         enabled: true
