@@ -16,9 +16,16 @@ env:
 
 includes:
   ansible: .taskfiles/ansible.yml
+  docker: .taskfiles/docker.yml
   flux: .taskfiles/flux.yml
   format: .taskfiles/format.yml
   lint: .taskfiles/lint.yml
   pre-commit: .taskfiles/pre-commit.yml
   terraform: .taskfiles/terraform.yml
   workstation: .taskfiles/workstation.yml
+
+tasks:
+  default:
+    cmds:
+      - task -l
+    silent: true
