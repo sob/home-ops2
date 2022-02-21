@@ -19,6 +19,7 @@ spec:
     image:
       repository: ghcr.io/sob/octoprint-socat
       tag: test
+      pullPolicy: Always
     env:
       TZ: "${TIMEZONE}"
       ENABLE_MJPG_STREAMER: "false"
