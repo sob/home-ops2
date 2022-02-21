@@ -1,0 +1,29 @@
+---
+- name: load encrypted credentials
+  community.sops.load_vars:
+    file: ../../../cluster/base/cluster-secrets.sops.yaml
+    expressions: ignore
+  delegate_to: 127.0.0.1
+  run_once: true
+  tags: user
+
+- name: change pi passwod
+  ansible.builtin.user:
+    name: pi
+    password: "{{ stringData.SECRET_HASH_PI }}"
+  tags: user
+
+- name: add the sob user
+  ansible.builtin.user:
+    name: sob
+    comment: Sean O'Brien
+    groups: sudo
+    append: true
+    password: "{{ stringData.SECRET_HASH_SOB }}"
+  tags: user
+
+- name: set the authorized keys from github
+  ansible.posix.authorized_key:
+    user: sob
+    state: present
+    key: https://github.com/sob.keys
