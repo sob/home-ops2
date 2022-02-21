@@ -1,0 +1,12 @@
+---
+- include_tasks: boot-config.yml
+  tags: boot-config
+
+- include_tasks: ser2net.yml
+  tags: ser2net
+
+- include_tasks: packages.yml
+  tags: packages
+
+- include_tasks: user.yml
+  tags: user

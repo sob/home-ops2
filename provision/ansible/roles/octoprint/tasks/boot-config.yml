@@ -1,0 +1,16 @@
+---
+- name: swap GPIO and Bluetooth
+  community.general.ini_file:
+    path: "{{ boot_config_file }}"
+    section: "pi0w"
+    option: "dtoverlay"
+    value: "pi3-miniuart-bt"
+    state: present
+    no_extra_spaces: true
+
+- name: Disable serial console
+  ansible.builtin.replace:
+    path: "{{ boot_cmdline_file }}"
+    regexp: "console=serial0,115200 "
+    replace: ""
+  ignore_errors: true

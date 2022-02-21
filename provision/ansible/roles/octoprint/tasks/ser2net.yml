@@ -1,0 +1,19 @@
+---
+- name: install ser2net package
+  ansible.builtin.package:
+    name: ser2net
+    state: present
+
+- name: enable ser2net
+  ansible.builtin.systemd:
+    name: ser2net
+    enabled: true
+
+- name: install ser2net configuration file
+  ansible.builtin.copy:
+    src: ser2net.yaml
+    dest: /etc/ser2net.yaml
+    mode: 0640
+    owner: root
+    group: root
+  notify: restart ser2net
