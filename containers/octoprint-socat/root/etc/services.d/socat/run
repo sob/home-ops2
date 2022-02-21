@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+exec socat \
+  pty,wait-slave,link=/dev/ttyACM0 \
+  tcp:${SOCAT_TARGET},forever,interval=10,fork

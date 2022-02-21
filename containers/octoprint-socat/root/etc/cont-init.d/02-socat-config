@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+: "${ENABLE_SOCAT:=false}"
+
+# disable socat service if not enabled
+if ! $ENABLE_SOCAT; then
+  rm -rf /etc/services.d/socat
+fi
