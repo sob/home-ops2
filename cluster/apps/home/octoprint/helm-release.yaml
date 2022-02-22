@@ -24,7 +24,7 @@ spec:
       TZ: "${TIMEZONE}"
       ENABLE_MJPG_STREAMER: "false"
       ENABLE_SOCAT: "true"
-      SOCAT_TARGET: "10.1.88.212:2000"
+      SOCAT_TARGET: "10.1.88.213:2000"
       OCTOPRINT_PORT: "5000"
     ingress:
       main:
