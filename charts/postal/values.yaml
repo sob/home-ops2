@@ -9,7 +9,7 @@ image:
   # -- image repository
   repository: ghcr.io/postalserver/postal
   # -- image tag
-  tag: 2.1.0
+  tag: 2.1.1
   # -- image pull policy
   pullPolicy: IfNotPresent
 
@@ -94,7 +94,7 @@ args:
 initContainers:
   bootstrap:
     name: initialize
-    image: ghcr.io/postalserver/postal:2.1.0
+    image: ghcr.io/postalserver/postal:2.1.1
     command:
       - "/bin/sh"
       - "-c"
@@ -106,7 +106,7 @@ initContainers:
 additionalContainers:
   smtp:
     name: smtp
-    image: ghcr.io/postalserver/postal:2.1.0
+    image: ghcr.io/postalserver/postal:2.1.1
     command:
       - postal
       - smtp-server
