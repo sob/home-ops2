@@ -21,7 +21,7 @@ dependencies:
     repository: https://library-charts.k8s-at-home.com
     version: 4.3.0
   - name: mariadb
-    version: 10.3.6
+    version: 10.3.7
     repository: https://charts.bitnami.com/bitnami
     condition: mariadb.enabled
   - name: rabbitmq
