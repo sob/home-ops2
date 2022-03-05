@@ -34,9 +34,9 @@ spec:
       eula: "TRUE"
       version: "LATEST"
       difficulty: normal
-      gameMode: survival
+      gameMode: creative
       ops: "2535432067443552"
       levelName: world
-      serverName: "\u00a79HelmsHold \u00a7c\u00a7lSMP\u00a7c\u00a7l\u00a7k!"
+      serverName: "\u00a79STONEHEDGES \u00a7c\u00a7lSMP\u00a7c\u00a7l\u00a7k!"
       cheats: true
       serviceType: LoadBalancer
