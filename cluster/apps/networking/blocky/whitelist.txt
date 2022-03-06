@@ -1,2 +1,3 @@
 corpuschristisaints.org
 *.${SECRET_DOMAIN}
+assets.adobedtm.com
