@@ -39,6 +39,7 @@ spec:
       # A list of .jar URLs to download into the plugins folder.
       # plugins: []
       serviceType: LoadBalancer
+      loadBalancerIP: 10.0.6.106
       externalTrafficPolicy: Local
       # externalIPs:
       # This can be set to the contents of your config file (only works with yaml currently)
@@ -70,8 +71,20 @@ spec:
         online_mode: true
         servers:
           lobby:
-            motd: '&1stonehedges lobby'
+            motd: '&1eviljungle lobby'
             address: minecraft-lobby-minecraft:25565
+            restricted: false
+          creative:
+            motd: 'creative server'
+            address: mc-minecraft:25565
+            restricted: false
+          survival:
+            motd: 'Private Survival SMP'
+            address: mcsv-minecraft:25565
+            restricted: true
+          survival2:
+            motd: 'Public Survival EZ-mode SMP'
+            address: mcsv2-minecraft:25565
             restricted: false
         listeners:
         - query_port: 25577
@@ -87,7 +100,7 @@ spec:
           ruqkus:
           - admin
           - family
-          dottyparrot:
+          DottyParrot:
           - family
       #    forced_hosts:
       #      pvp.md-5.net: pvp
