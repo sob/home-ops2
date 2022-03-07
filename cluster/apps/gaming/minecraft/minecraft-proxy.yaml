@@ -39,8 +39,9 @@ spec:
       # A list of .jar URLs to download into the plugins folder.
       # plugins: []
       serviceType: LoadBalancer
-      loadBalancerIP: 10.0.6.106
       externalTrafficPolicy: Local
+      annotations:
+          metallb.universe.tf/allow-shared-ip: minecraft
       # externalIPs:
       # This can be set to the contents of your config file (only works with yaml currently)
       config: |
