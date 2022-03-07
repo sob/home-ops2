@@ -40,7 +40,7 @@ spec:
       # plugins: []
       serviceType: LoadBalancer
       externalTrafficPolicy: Local
-      annotations:
+      serviceAnnotations:
           metallb.universe.tf/allow-shared-ip: minecraft
       # externalIPs:
       # This can be set to the contents of your config file (only works with yaml currently)
