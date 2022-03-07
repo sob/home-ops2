@@ -42,6 +42,7 @@ spec:
       onlineMode: false
       difficulty: peaceful
       maxTickTime: -1
+      serviceType: ClusterIP
       gameMode: adventure
       motd: "\u00a7fhelmshold\u00a7 - \u00a7a\u00a7llobby\u00a7"
       icon: https://www.freeiconspng.com/uploads/minecraft-server-icon-13.png

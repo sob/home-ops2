@@ -70,7 +70,7 @@ spec:
         online_mode: true
         servers:
           lobby:
-            motd: '&1creative lobby'
+            motd: '&1stonehedges lobby'
             address: minecraft-lobby-minecraft:25565
             restricted: false
         listeners:
