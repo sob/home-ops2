@@ -31,7 +31,7 @@ spec:
       limits:
         memory: 500Mi
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "waterfall-minecraft-proxy-config"
+      configmap.reloader.stakater.com/reload: "minecraft-proxy-minecraft-proxy-config"
     extraEnv:
       SPIGET_PLUGINS: "78915,75"
     minecraftProxy:
