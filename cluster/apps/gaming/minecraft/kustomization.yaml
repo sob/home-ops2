@@ -5,4 +5,5 @@ resources:
   - minecraft-proxy.yaml
   - minecraft-lobby.yaml
   - minecraft-lobby-pvc.yaml
-  - minecraft-bedrock.yaml
+  - minecraft-creative.yaml
+  - minecraft-creative-pvc.yaml

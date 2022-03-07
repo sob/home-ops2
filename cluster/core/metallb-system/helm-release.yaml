@@ -50,6 +50,10 @@ spec:
           protocol: layer2
           addresses:
             - "${METALLB_FLOOD_RTORRENT_ADDR}/32"
+        - name: minecraft
+          protocol: layer2
+          addresses:
+            - "${METALLB_MINECRAFT_ADDR}/32"
         - name: valheim
           protocol: layer2
           addresses:
