@@ -34,14 +34,16 @@ spec:
       configmap.reloader.stakater.com/reload: "minecraft-proxy-minecraft-proxy-config"
     extraEnv:
       SPIGET_PLUGINS: "78915,75"
+    rconServiceAnnotations:
+      metallb.universe.tf/allow-shared-ip: minecraft
+    serviceAnnotations:
+      metallb.universe.tf/allow-shared-ip: minecraft
     minecraftProxy:
       type: WATERFALL
       # A list of .jar URLs to download into the plugins folder.
       # plugins: []
       serviceType: LoadBalancer
       externalTrafficPolicy: Local
-      serviceAnnotations:
-          metallb.universe.tf/allow-shared-ip: minecraft
       # externalIPs:
       # This can be set to the contents of your config file (only works with yaml currently)
       config: |
