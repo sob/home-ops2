@@ -13,11 +13,11 @@
     "github>sob/home-ops//.github/renovate/semanticCommits"
   ],
   "platform": "github",
-  "username": "pinky-bot[bot]",
+  "username": "stimpy-bot[bot]",
   "repositories": ["sob/home-ops"],
   "onboarding": false,
   "requireConfig": false,
-  "gitAuthor": "pinky-bot <98030736+pinky-bot[bot]@users.noreply.github.com>",
+  "gitAuthor": "stimpy-bot <98030736+stimpy-bot[bot]@users.noreply.github.com>",
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": [
     "prIgnoreNotification"
