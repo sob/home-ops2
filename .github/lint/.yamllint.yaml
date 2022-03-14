@@ -1,5 +1,9 @@
 ---
 ignore: |
+  charts/
+  docs/
+  .vscode/
+  .terraform/
   *.sops.*
   gotk-components.yaml
   GROG.reboot

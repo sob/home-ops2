@@ -1,3 +1,6 @@
+charts/
+docs/
+.vscode/
 *.sops.*
 gotk-components.yaml
 GROG.reboot
