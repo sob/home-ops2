@@ -13,12 +13,21 @@
         "patch"
       ],
       "matchPackageNames": [
+        "fluxcd/flux2",
+        "ghcr.io/k8s-at-home/code-server",
         "ghcr.io/k8s-at-home/prowlarr-nightly",
+        "ghcr.io/k8s-at-home/radarr",
         "ghcr.io/k8s-at-home/readarr-nightly",
         "ghcr.io/k8s-at-home/sonarr",
-        "ghcr.io/k8s-at-home/radarr",
         "ghcr.io/k8s-at-home/sabnzbd",
-        "renovatebot/github-action"
+        "ghcr.io/koenkk/zigbee2mqtt",
+        "ghcr.io/home-assistant/home-assistant",
+        "grafana",
+        "k10",
+        "kube-prometheus-stack",
+        "Lucas-C/pre-commit-hooks",
+        "renovatebot/github-action",
+        "reloader"
       ]
     }
   ]

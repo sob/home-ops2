@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: home-assistant-datasource
+  labels:
+    grafana_datasource: "true"
+data:
+  datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: TeslaMate
+        type: influxdb
+        url: home-assistant-influxdb.home:8086
+        database:
+        user: postgres
+        secureJsonData:
+          password: ${SECRET_TESLAMATE_POSTGRES_PASS}
+        jsonData:
+          sslmode: "disable" # disable/require/verify-ca/verify-full
+          maxOpenConns: 0
+          maxIdelConns: 2
+          connMaxLifetime: 14400
+          postgresVersion: 10
+          timescaledb: false
