@@ -13,6 +13,7 @@
         "patch"
       ],
       "matchPackageNames": [
+        "cloudflare",
         "fluxcd/flux2",
         "ghcr.io/k8s-at-home/code-server",
         "ghcr.io/k8s-at-home/prowlarr-nightly",
@@ -23,9 +24,15 @@
         "ghcr.io/koenkk/zigbee2mqtt",
         "ghcr.io/home-assistant/home-assistant",
         "grafana",
+        "home-assistant",
         "k10",
         "kube-prometheus-stack",
         "Lucas-C/pre-commit-hooks",
+        "minecraft",
+        "minecraft-bedrock",
+        "minecraft-proxy",
+        "photoprism",
+        "quay.io/thanos/thanos",
         "renovatebot/github-action",
         "reloader"
       ]
