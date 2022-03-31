@@ -26,10 +26,6 @@ spec:
           protocol: layer2
           addresses:
             - "${METALLB_TRAEFIK_ADDR}/32"
-        - name: nginx
-          protocol: layer2
-          addresses:
-            - "${METALLB_NGINX_ADDR}/32"
         - name: coredns
           protocol: layer2
           addresses:
