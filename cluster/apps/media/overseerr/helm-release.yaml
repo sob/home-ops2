@@ -23,7 +23,7 @@ spec:
     image:
       repository: ghcr.io/sct/overseerr
     env:
-      TZ: "America/New_York"
+      TZ: "America/Chicago"
       LOG_LEVEL: "info"
     ingress:
       main:
