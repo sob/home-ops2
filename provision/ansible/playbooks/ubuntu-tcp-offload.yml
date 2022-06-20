@@ -1,0 +1,20 @@
+---
+- hosts:
+    - master
+    - worker
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  tasks:
+    - name: create ifup-hooks file
+      ansible.builtin.copy:
+        content: |
+          #!/bin/bash
+
+          ethtool -K eno1 rx off tx off gso off gro off rxvlan off txvlan off
+          ethtool -A eno1 rx off tx off
+          ethtool -G eno1 rx 4096 tx 4096
+        dest: /etc/networkd-dispatcher/routable.d/50-ifup-hooks
+        owner: root
+        group: root
+        mode: 0755
