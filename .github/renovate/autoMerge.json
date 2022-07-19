@@ -1,45 +1,38 @@
 {
   "packageRules": [
     {
-      "matchDatasources": [
-        "docker",
-        "github-tags"
-      ],
+      "description": "Auto merge container digests",
+      "matchDatasources": ["docker"],
       "automerge": true,
       "automergeType": "branch",
       "requiredStatusChecks": null,
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
+      "matchUpdateTypes": ["digest"],
+      "matchPackagePattern": ["ghcr.io/k8s-at-home", "ghcr.io/sob"]
+    },
+    {
+      "description": "Auto merge github actions",
+      "matchDatasources": ["github-tags"],
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames": [
-        "cloudflare",
-        "fluxcd/flux2",
-        "ghcr.io/k8s-at-home/code-server",
-        "ghcr.io/k8s-at-home/plex",
-        "ghcr.io/k8s-at-home/prowlarr-nightly",
-        "ghcr.io/k8s-at-home/radarr",
-        "ghcr.io/k8s-at-home/readarr-nightly",
-        "ghcr.io/k8s-at-home/sonarr",
-        "ghcr.io/k8s-at-home/sabnzbd",
-        "ghcr.io/koenkk/zigbee2mqtt",
-        "ghcr.io/home-assistant/home-assistant",
-        "goldilocks",
-        "grafana",
-        "home-assistant",
-        "k10",
-        "kube-prometheus-stack",
-        "Lucas-C/pre-commit-hooks",
-        "mariadb",
-        "minecraft",
-        "minecraft-bedrock",
-        "minecraft-proxy",
-        "photoprism",
-        "quay.io/thanos/thanos",
-        "rabbitmq",
+        "micalevisk/last-issue-action",
         "renovatebot/github-action",
-        "reloader"
+        "azure/setup-helm",
+        "actions/setup-python",
+        "aquasecurity/trivy-action",
+        "github/codeql-action"
       ]
+    },
+    {
+      "description": "Auto merge Helm charts",
+      "matchDatasources": ["helm"],
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": ["major", "minor", "patch"]
+
     }
   ]
 }
