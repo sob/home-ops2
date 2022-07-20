@@ -4,11 +4,10 @@ kind: Plan
 metadata:
   name: k3s-server
   namespace: system-upgrade
-  labels:
-    k3s-upgrade: server
 spec:
+  serviceAccountName: system-upgrade
   concurrency: 1
-  channel: https://update.k3s.io/v1-release/channels/latest
+  channel: https://update.k3s.io/v1-release/channels/v1.24
   cordon: true
   nodeSelector:
     matchExpressions:
@@ -16,17 +15,12 @@ spec:
         operator: In
         values:
           - "true"
-      - { key: k3os.io/mode, operator: DoesNotExist }
-      - { key: k3s-upgrade, operator: NotIn, values: ["disabled", "false"] }
-      - key: kubernetes.io/arch
+      - key: k3s-upgrade
         operator: In
         values:
-          - "amd64"
-  serviceAccountName: system-upgrade
+          - "true"
   tolerations:
     - key: "node-role.kubernetes.io/master"
       operator: "Exists"
-  drain:
-    force: true
   upgrade:
     image: rancher/k3s-upgrade
