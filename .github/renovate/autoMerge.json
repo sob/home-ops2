@@ -15,16 +15,7 @@
       "automerge": true,
       "automergeType": "branch",
       "requiredStatusChecks": null,
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "matchPackageNames": [
-        "micalevisk/last-issue-action",
-        "renovatebot/github-action",
-        "azure/setup-helm",
-        "actions/setup-python",
-        "aquasecurity/trivy-action",
-        "github/codeql-action",
-        "megalinter/megalinter"
-      ]
+      "matchUpdateTypes": ["major", "minor", "patch"]
     },
     {
       "description": "Auto merge Helm charts",
