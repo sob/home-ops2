@@ -58,8 +58,8 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: "10.1.0.254"
-            path: /volume1/Media/Downloads/rtorrent
+            server: "10.1.0.104"
+            path: /Media/Downloads/rtorrent
       config:
         enabled: true
         existingClaim: flood-config-v1

@@ -54,8 +54,8 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: "10.1.0.254"
-            path: /volume1/Data/backups/tautulli
+            server: "10.1.0.104"
+            path: /Backup/tautulli
         mountPath: /config/backups
         readOnly: false
     resources:

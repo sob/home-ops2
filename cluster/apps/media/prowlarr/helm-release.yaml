@@ -54,8 +54,8 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: "10.1.0.254"
-            path: /volume1/Data/backups/prowlarr
+            server: "10.1.0.104"
+            path: /Backup/prowlarr
         mountPath: /config/Backups
         readOnly: false
     resources:
