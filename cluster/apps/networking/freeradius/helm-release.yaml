@@ -18,7 +18,7 @@ spec:
     fullnameOverride: freeradius
     image:
       repository: ghcr.io/truecharts/freeradius
-      tag: v3.0.25
+      tag: v3.2.0
     env: {}
     service:
       main:
