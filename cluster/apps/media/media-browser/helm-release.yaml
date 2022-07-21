@@ -68,8 +68,8 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: "10.1.0.254"
-            path: /volume1/Media
+            server: "10.1.0.104"
+            path: /Media
         mountPath: /media
         readOnly: true
     resources:
