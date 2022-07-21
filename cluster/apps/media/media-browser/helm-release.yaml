@@ -21,7 +21,7 @@ spec:
     fullnameOverride: media-browser
     image:
       repository: filebrowser/filebrowser
-      tag: v2.21.1
+      tag: v2.22.4
     env:
       FB_DATABASE: "/config/filebrowser.db"
       FB_ROOT: "/media"
