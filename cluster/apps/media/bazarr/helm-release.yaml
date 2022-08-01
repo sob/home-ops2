@@ -51,8 +51,8 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: "10.1.0.254"
-            path: /volume1/Media/Library
+            server: "10.1.0.104"
+            path: /Media
       config:
         enabled: true
         existingClaim: bazarr-config-v1

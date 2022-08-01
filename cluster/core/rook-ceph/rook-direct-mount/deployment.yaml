@@ -71,8 +71,8 @@ spec:
                 path: mon-endpoints
         - name: nas-data
           nfs:
-            server: "10.1.0.254"
-            path: /volume1/Orodruin
+            server: "10.1.0.104"
+            path: /Media
         - name: direct-mount-scripts
           projected:
             defaultMode: 0775
