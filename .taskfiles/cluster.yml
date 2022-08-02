@@ -2,6 +2,29 @@
 version: "3"
 
 tasks:
+  verify:
+    desc: Verify flux meets the prerequisites
+    cmds:
+      - flux check --pre
+
+  install:
+    desc: Install flux into your cluster
+    cmds:
+      - kubectl apply --kustomize {{.CLUSTER_DIR}}/bootstrap/
+      - kubectl apply --kustomize {{.CLUSTER_DIR}}/flux/flux-system
+      - task: reconcile
+
+  reconcile:
+    desc: Force update flux to pull changes from your repository
+    cmds:
+      - flux reconcile -n flux-system source git flux-cluster
+      - flux reconcile -n flux-system kustomization flux-cluster
+
+  nodes:
+    desc: List all nodes in your cluster
+    cmds:
+      - kubectl get nodes {{.CLI_ARGS | default "-o wide"}}
+
   list-dockerhub:
     desc: Find dockerhub images running in the cluster
     cmds:
