@@ -32,6 +32,7 @@ spec:
       ADVERTISE_IP: https://plex.56kbps.io:443
       VERSION: docker
       PLEX_PREFERENCE_1: "FriendlyName=kubernetes"
+      PLEX_CLAIM: "claim-o_5yxqVAGak3StU8pyct"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
