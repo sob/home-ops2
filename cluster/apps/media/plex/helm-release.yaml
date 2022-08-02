@@ -25,13 +25,18 @@ spec:
       namespace: kube-system
   values:
     image:
-      repository: ghcr.io/k8s-at-home/plex
+      repository: ghcr.io/onedr0p/plex
+      tag: 1.28.0.5999-97678ded3@sha256:cf235b17f4a43d02bd111761b3c7a8f04d9b15bf841f81683f3aaede428446b7
     env:
       TZ: "${TIMEZONE}"
       ADVERTISE_IP: https://plex.56kbps.io:443
       VERSION: docker
       PLEX_PREFERENCE_1: "FriendlyName=kubernetes"
     podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
       supplementalGroups:
         - 44
         - 109
