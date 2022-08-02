@@ -7,8 +7,6 @@ metadata:
 spec:
   interval: 30m
   url: https://github.com/rook/rook.git
-  ref:
-    # renovate: registryUrl=https://charts.rook.io/release chart=rook-ceph
   ignore: |
     # exclude all
     /*
