@@ -5,7 +5,5 @@ resources:
   - authentik
   - namespaces
   - cert-manager
-  - kube-system
   - metallb-system
   - rook-ceph
-  - system-upgrade
