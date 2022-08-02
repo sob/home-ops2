@@ -65,7 +65,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: plex-config-v1
+        existingClaim: plex-config-v2
       media:
         enabled: true
         type: custom
