@@ -6,5 +6,5 @@ resources:
   - coredns
   - external-dns
   - freeradius
-  - traefik
+  - ingress-nginx
   - wildcard-certificate
