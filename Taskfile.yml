@@ -16,10 +16,12 @@ env:
 
 includes:
   ansible: .taskfiles/ansible.yml
+  cluster: .taskfiles/cluster.yml
   docker: .taskfiles/docker.yml
   flux: .taskfiles/flux.yml
   format: .taskfiles/format.yml
   lint: .taskfiles/lint.yml
+  rook: .taskfiles/rook.yml
   pre-commit: .taskfiles/pre-commit.yml
   terraform: .taskfiles/terraform.yml
   workstation: .taskfiles/workstation.yml
