@@ -5,5 +5,4 @@ resources:
   - authentik
   - namespaces
   - cert-manager
-  - metallb-system
   - rook-ceph

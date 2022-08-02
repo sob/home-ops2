@@ -7,4 +7,5 @@ resources:
   - external-dns
   - freeradius
   - ingress-nginx
+  - metallb
   - wildcard-certificate
