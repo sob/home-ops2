@@ -69,7 +69,7 @@ spec:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: prefix
+                pathType: Prefix
         tls:
           - hosts:
               - *host
