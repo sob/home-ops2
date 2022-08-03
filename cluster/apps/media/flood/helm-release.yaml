@@ -16,9 +16,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     image:
       repository: jesec/flood
@@ -30,28 +27,24 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClass: traefik
         annotations:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/enable: "false"
           hajimari.io/icon: "cloud-download"
         hosts:
-          - host: torrent.${SECRET_DOMAIN}
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
-          - host: flood.${SECRET_DOMAIN}
+          - host: torrent.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
+              - *host
               - torrent.${SECRET_DOMAIN}
-              - flood.${SECRET_DOMAIN}
-            secretName: flood-tls
     persistence:
       data:
         enabled: true
