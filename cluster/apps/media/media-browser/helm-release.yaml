@@ -2,23 +2,28 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: media-browser
+  name: &app media-browser
   namespace: media
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
-      chart: filebrowser
+      chart: kah-common-chart
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
-      interval: 5m
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
-    fullnameOverride: media-browser
+    global:
+      nameOverride: *app
     image:
       repository: filebrowser/filebrowser
       tag: v2.22.4
@@ -32,16 +37,29 @@ spec:
       main:
         ports:
           http:
-            port: 80
+            port: &port 80
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /health
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/enable: "true"
           hajimari.io/group: "media"
           hajimari.io/icon: "folder-multiple-images"
@@ -58,7 +76,6 @@ spec:
           - hosts:
               - "files.${SECRET_DOMAIN}"
               - "media.${SECRET_DOMAIN}"
-            secretName: media-browser-tls
     persistence:
       config:
         enabled: true
