@@ -64,7 +64,6 @@ spec:
           external-dns/cloudflare-proxied: "false"
           hajimari.io/enable: "false"
           hajimari.io/icon: "plex"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
