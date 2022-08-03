@@ -87,4 +87,4 @@ spec:
         domain: ${SECRET_DOMAIN}
         contents: |
           ${SECRET_DOMAIN}.   IN SOA etta.ns.cloudflare.com. dns.cloudflare.com. 2020100600 10000 2400 604800 3600
-          *.${SECRET_DOMAIN}. IN A ${METALLB_TRAEFIK_ADDR}
+          *.${SECRET_DOMAIN}. IN A ${METALLB_NGINX_ADDR}
