@@ -1,106 +1,86 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-    name: readarr
-    namespace: media
+  name: &app readarr
+  namespace: media
 spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: kah-common-chart
-            version: 1.2.2
-            sourceRef:
-                kind: HelmRepository
-                name: k8s-at-home-charts
-                namespace: flux-system
-            interval: 15m
-    install:
-        createNamespace: true
-        remediation:
-            retries: 5
-    upgrade:
-        remediation:
-            retries: 5
-    values:
-        global:
-            nameOverride: readarr
-        image:
-            repository: ghcr.io/onedr0p/readarr-nightly
-            tag: 0.1.1.1402@sha256:d0b946577038d98f49b29f61099b5dfacb45bc52b8f822af82077a101f97b1e0
-        env:
-            TZ: ${TIMEZONE}
-            READARR__INSTANCE_NAME: Readarr (Audio)
-            READARR__PORT: 80
-            READARR__LOG_LEVEL: info
-        envFrom:
-            - secretRef:
-                name: readarr
-        service:
-            main:
-                ports:
-                    http:
-                        port: 80
-        ingress:
-            main:
-                enabled: true
-                ingressClassName: nginx
-                annotations:
-                    auth.home.arpa/enabled: "true"
-                    external-dns.home.arpa/enabled: "true"
-                    nginx.ingress.kubernetes.io/configuration-snippet: |-
-                        proxy_set_header Accept-Encoding "";
-                        sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_PUBLIC_DOMAIN}/css/base/readarr/nord.css"></head>';
-                        sub_filter_once on;
-                hosts:
-                    - host: '{{ .Release.Name }}.${SECRET_PUBLIC_DOMAIN}'
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                tls:
-                    - hosts:
-                        - '{{ .Release.Name }}.${SECRET_PUBLIC_DOMAIN}'
-        podSecurityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-                - 100
-        persistence:
-            config:
-                enabled: true
-                existingClaim: readarr-config-v1
-            media:
-                enabled: true
-                type: nfs
-                server: 10.1.0.104
-                path: /Media
-                mountPath: /media
-        podAnnotations:
-            secret.reloader.stakater.com/reload: readarr
-        resources:
-            requests:
-                cpu: 10m
-                memory: 250Mi
-            limits:
-                memory: 1000Mi
-sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age:
-        - recipient: age179qz74lpav0lcywkjzujhnlu3ukq9kgz9jdxm2u59w47j337kc2q0e8q20
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBlQ1FHY3RSNWpLTFIwaVZS
-            Zlpnb2xpVGE5WFJJZzVIclNTdGNVUXY3K2owCjArUG1BZGVQUFdBZmxoZ2VUbnl1
-            eTd2M20yMTFubkN4NzNIbHpOMk1yVUUKLS0tIGljQ2dOTVkwUzdtd3dWejVrNnBj
-            OC8vU2RCaEZHVkJWaWlGckdBODhOeWMKiBbvGeRC0j1h1YVgi5glubjHPNR51cVd
-            5J5K1UbafTaB09/cVWvQ4yB8JBnBpFWuHawRPFZEfUtVwLYFurJlwg==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-08-07T03:19:37Z"
-    mac: ENC[AES256_GCM,data:tHPq+wL0E2G1T8SvDFJwi8u9GU2Ob8Mjo/2U65CgzuoVvl6qOa3Lh4iggWfy69Hsvd3HW39xPQTAsNw+LLUETWWJgUx7VzIicDQ+qw8Tz3FBQzRPZzBK5mXjiigPZf9FEHHsIC+bgSMlpUgCEBmYzNYNdFHoQ7qhvxlnZJIsFNQ=,iv:9bzHEvtsWpdEd6JT8gMPOqZ67GCLND3hbJhe7n/t8cE=,tag:5MaYsR5sZZ/riGes7cHnww==,type:str]
-    pgp: []
-    encrypted_regex: ^(data|stringData)$
-    version: 3.7.3
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: ghcr.io/onedr0p/readarr-nightly
+      tag: 0.1.1.1402@sha256:d0b946577038d98f49b29f61099b5dfacb45bc52b8f822af82077a101f97b1e0
+    env:
+      TZ: "${TIMEZONE}"
+      READARR__INSTANCE_NAME: Readarr (Audio)
+      READARR__PORT: &port 80
+      READARR__LOG_LEVEL: info
+    envFrom:
+      - secretRef:
+          name: *app
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          external-dns.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/configuration-snippet: |-
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_DOMAIN}/css/base/readarr/nord.css"></head>';
+            sub_filter_once on;
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+    persistence:
+        config:
+            enabled: true
+            existingClaim: readarr-config-v1
+        media:
+            enabled: true
+            type: nfs
+            server: 10.1.0.104
+            path: /Media
+            mountPath: /media
+    podAnnotations:
+        secret.reloader.stakater.com/reload: readarr
+    resources:
+        requests:
+            cpu: 10m
+            memory: 250Mi
+        limits:
+            memory: 1000Mi
