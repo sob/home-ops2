@@ -5,7 +5,7 @@ metadata:
   name: flood
   namespace: media
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
-      interval: 5m
+      interval: 15m
   values:
     image:
       repository: jesec/flood
@@ -27,8 +27,8 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: "nginx"
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
           hajimari.io/enable: "false"
           hajimari.io/icon: "cloud-download"
@@ -61,22 +61,6 @@ spec:
         type: emptyDir
         # medium: Memory
         mountPath: /tmp
-    probes:
-      liveness:
-        enabled: true
-        initialDelaySeconds: 30
-        failureThreshold: 5
-        timeoutSeconds: 10
-      readiness:
-        enabled: true
-        initialDelaySeconds: 30
-        failureThreshold: 5
-        timeoutSeconds: 10
-      startup:
-        enabled: true
-        initialDelaySeconds: 5
-        failureThreshold: 30
-        periodSeconds: 10
     resources:
       requests:
         memory: 50Mi
