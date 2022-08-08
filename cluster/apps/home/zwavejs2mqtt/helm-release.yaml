@@ -33,6 +33,9 @@ spec:
       tag: 6.15.2
     env:
       TZ: "${TIMEZONE}"
+    envFrom:
+      - secretRef:
+          name: *app
     service:
       main:
         ports:
@@ -70,13 +73,6 @@ spec:
         type: hostPath
         hostPath: /dev/serial/by-id/usb-0658_0200-if00
         hostPathType: CharDevice
-      settings:
-        enabled: true
-        mountPath: /usr/src/app/store/settings.json
-        type: custom
-        volumeSpec:
-          configMap:
-            name: zwavejs2mqtt-config
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
