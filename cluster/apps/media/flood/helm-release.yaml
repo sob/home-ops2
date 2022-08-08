@@ -21,7 +21,7 @@ spec:
       repository: jesec/flood
       tag: 4.7.0
     env:
-      FLOOD_OPTION_RUNDIR: /config
+      FLOOD_OPTION_RUNDIR: "/config"
       FLOOD_OPTION_AUTH: "none"
       FLOOD_OPTION_RTSOCKET: "/tmp/rtorrent.sock"
     ingress:
@@ -68,8 +68,8 @@ spec:
       limits:
         memory: 640Mi
     additionalContainers:
-      - name: rtorrent
-        # image: billimek/alpine-rtorrent:0.9.8-1
+      rtorrent:
+        name: rtorrent
         image: billimek/rtorrent:latest
         env:
           - name: TZ
