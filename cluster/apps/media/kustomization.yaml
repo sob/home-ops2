@@ -12,8 +12,8 @@ resources:
   - radarr
   - radarr-uhd
   - readarr
+  - recyclarr
   - sabnzbd
   - sonarr
   - sonarr-uhd
   - tautulli
-  - trash-updater
