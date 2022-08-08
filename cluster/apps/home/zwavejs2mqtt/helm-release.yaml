@@ -2,32 +2,38 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: zwavejs2mqtt
+  name: &app zwavejs2mqtt
   namespace: home
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: zwavejs2mqtt
-      version: 5.4.2
+      chart: app-template
+      version: 0.1.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 5m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: node-feature-discovery
+      namespace: kube-system
   values:
+    global:
+      nameOverride: *app
     image:
       repository: ghcr.io/zwave-js/zwavejs2mqtt
-      tag: 6.13.0
+      tag: 6.15.2
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
     service:
-      annotations:
-        external-dns.alpha.kubernetes.io/hostname: zwave.${SECRET_DOMAIN}
       main:
         ports:
           http:
@@ -38,15 +44,12 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: "router-wireless"
           hajimari.io/group: "automation"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns/is-public: "true"
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
         hosts:
           - host: "zwave.${SECRET_DOMAIN}"
             paths:
@@ -55,7 +58,6 @@ spec:
         tls:
           - hosts:
               - "zwave.${SECRET_DOMAIN}"
-            secretName: "zwavejs2mqtt-tls"
     securityContext:
       privileged: true
     persistence:
@@ -77,3 +79,9 @@ spec:
                   operator: In
                   values:
                     - "true"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 500Mi
