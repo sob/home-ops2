@@ -12,5 +12,11 @@ spec:
     storageClass: ceph-block
   superuserSecret:
     name: home-assistant-postgres-superuser
+  bootstrap:
+    initdb:
+      database: app
+      owner: home-assistant
+      secret:
+        name: home-assistant-postgres-app
   monitoring:
     enablePodMonitor: true
