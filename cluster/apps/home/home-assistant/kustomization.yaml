@@ -8,4 +8,5 @@ resources:
   - helm-release.yaml
   - influxdb-pvc.yaml
   - mariadb-pvc.yaml
+  - postgres-cluster.yaml
   - secret.sops.yaml
