@@ -1,0 +1,16 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: home-assistant
+  namespace: home
+spec:
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 20Gi
+    storageClass: ceph-block
+  superuserSecret:
+    name: home-assistant-postgres-superuser
+  monitoring:
+    enablePodMonitor: true

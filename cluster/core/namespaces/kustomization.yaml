@@ -10,4 +10,5 @@ resources:
   - media.yaml
   - monitoring.yaml
   - networking.yaml
+  - postgres-operator.yaml
   - rook-ceph.yaml
