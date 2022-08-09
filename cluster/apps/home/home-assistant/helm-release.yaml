@@ -32,20 +32,12 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        ingressClassName: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
           external-dns/is-public: "true"
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: networking-authentik@kubernetescrd
           hajimari.io/enable: "true"
           hajimari.io/icon: home-assistant
           hajimari.io/group: automation
-          flame.pawelmalak/type: app
-          flame.pawelmalak/name: Home Assistant
-          flame.pawelmalak/url: https://hass.${SECRET_DOMAIN}
-          flame.pawelmalak/icon: home-assistant
         hosts:
           - host: hass.${SECRET_DOMAIN}
             paths:
@@ -133,11 +125,8 @@ spec:
           - /config/.vscode
         ingress:
           enabled: true
-          ingressClassName: traefik
+          ingressClassName: nginx
           annotations:
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
-            cert-manager.io/cluster-issuer: letsencrypt-production
-            external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
             external-dns/is-public: "true"
           hosts:
             - host: hass-config.${SECRET_DOMAIN}
