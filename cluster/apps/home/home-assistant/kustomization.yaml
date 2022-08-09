@@ -9,4 +9,5 @@ resources:
   - influxdb-pvc.yaml
   - mariadb-pvc.yaml
   - postgres-cluster.yaml
+  - postgres-secret.sops.yaml
   - secret.sops.yaml
