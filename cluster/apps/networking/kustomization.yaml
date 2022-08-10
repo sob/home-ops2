@@ -7,3 +7,4 @@ resources:
   - external-dns
   - ingress-nginx
   - metallb
+  - static-routes
