@@ -102,19 +102,6 @@ spec:
         limits:
           cpu: 23m
           memory: 226M
-    mariadb:
-      enabled: true
-      primary:
-        persistence:
-          enabled: true
-          existingClaim: home-assistant-mariadb-v1
-      resources:
-        requests:
-          cpu: 15m
-          memory: 298M
-        limits:
-          cpu: 15m
-          memory: 298M
     addons:
       codeserver:
         enabled: true
