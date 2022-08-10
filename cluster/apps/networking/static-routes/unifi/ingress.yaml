@@ -4,7 +4,6 @@ kind: Ingress
 metadata:
   name: unifi
   namespace: networking
-  ingressClassName: "nginx"
   annotations:
     nginx.kubernetes.io/backend-protocol: HTTPS
     nginx.kubernetes.io/proxy-ssl-verify: "off"
@@ -13,6 +12,7 @@ metadata:
     hajimari.io/icon: "router-wireless"
     hajimari.io/appName: "unifi"
 spec:
+  ingressClassName: "nginx"
   rules:
     - host: &host unifi.${SECRET_DOMAIN}
       http:
@@ -25,4 +25,5 @@ spec:
                 port:
                   name: https
   tls:
-    - hosts: *host
+    hosts:
+      - *host
