@@ -54,7 +54,6 @@ spec:
         tls:
           - hosts:
               - hass.${SECRET_DOMAIN}
-            secretName: hass-tls
     initContainers:
       config-wipe:
         name: config-wipe
@@ -131,7 +130,6 @@ spec:
           tls:
             - hosts:
                 - hass-config.${SECRET_DOMAIN}
-              secretName: hass-config-tls
         volumeMounts:
           - name: config
             mountPath: /config
