@@ -25,7 +25,7 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: mariadb.enabled
   - name: rabbitmq
-    version: 12.1.7
+    version: 12.2.0
     repository: https://charts.bitnami.com/bitnami
     condition: rabbitmq.enabled
 annotations:
