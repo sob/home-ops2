@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: teslamate/teslamate
-      tag: 1.27.1
+      tag: 1.27.4
     env:
       TZ: "${TIMEZONE}"
     ingress:
