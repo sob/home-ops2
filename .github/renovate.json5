@@ -1,7 +1,7 @@
 {
   "extends": [
     ":enableRenovate",
-    "config:base",
+    "config:recommended",
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
@@ -14,9 +14,11 @@
   ],
   "platform": "github",
   "username": "stimpy-bot[bot]",
-  "repositories": ["sob/home-ops"],
+  "repositories": [
+    "sob/home-ops"
+  ],
   "onboarding": false,
-  "requireConfig": false,
+  "requireConfig": "optional",
   "gitAuthor": "stimpy-bot <101597957+stimpy-bot[bot]@users.noreply.github.com>",
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": [
@@ -24,7 +26,6 @@
   ],
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
-  // set up ignored deps
   "ignoreDeps": [
     "ghcr.io/fluxcd/helm-controller",
     "ghcr.io/fluxcd/image-automation-controller",
@@ -33,7 +34,6 @@
     "ghcr.io/fluxcd/notification-controller",
     "ghcr.io/fluxcd/source-controller"
   ],
-  // set up renovate managers
   "docker-compose": {
     "fileMatch": [
       "provision/ansible/.+/docker-compose.*\\.ya?ml(\\.j2)?$"
@@ -59,23 +59,23 @@
       "cluster/.+\\.ya?ml$"
     ]
   },
-  "regexManagers": [
-    // Read and process GitHub Releases
+  "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": [
         "cluster/.+\\.ya?ml$",
         "provision/ansible/.+\\.ya?ml$",
         "hack/.+\\.sh$"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n",
+        "datasource=(?<datasource>.*?)\n *url: https://github\\.com/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n",
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_version: \"(?<currentValue>.*)\"\n",
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_VERSION=\"(?<currentValue>.*)\"\n"
       ],
       "datasourceTemplate": "github-releases"
     },
-    // Read and process Custom Resource Definitions
     {
+      "customType": "regex",
       "fileMatch": [
         "cluster/.+\\.ya?ml$"
       ],
@@ -85,8 +85,8 @@
       ],
       "datasourceTemplate": "helm"
     },
-    // Read and process Custom Resources
     {
+      "customType": "regex",
       "fileMatch": [
         "cluster/.+\\.ya?ml$"
       ],
@@ -97,7 +97,6 @@
     }
   ],
   "packageRules": [
-    // setup datasources
     {
       "matchDatasources": [
         "helm"
@@ -110,7 +109,6 @@
       ],
       "commitMessageExtra": "to {{newVersion}}"
     },
-    // packages with custom versioning
     {
       "matchDatasources": [
         "docker"
@@ -129,7 +127,6 @@
         "quay.io/minio/minio"
       ]
     },
-    // packages with loose versioning
     {
       "matchDatasources": [
         "docker",
@@ -142,7 +139,6 @@
         "Hypfer/Valetudo"
       ]
     },
-    // group packages
     {
       "groupName": "rook-ceph-suite",
       "matchDatasources": [
