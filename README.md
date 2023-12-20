@@ -140,7 +140,7 @@ source ~/.bashrc
 
 In order to use Terraform and `cert-manager` with the Cloudflare DNS challenge you will need to create a API key.
 
-1. Head over to Cloudflare and create a API key by going [here](https://dash.cloudflare.com/profile/api-tokens).
+1. Head over to Cloudflare and create a API key by going 
 
 2. Under the `API Keys` section, create a global API Key.
 
@@ -293,8 +293,6 @@ Our Check out our [wiki](https://github.com/k8s-at-home/template-cluster-k3s/wik
 ## :grey_question:&nbsp; What's next
 
 The world is your cluster, try installing another application or if you have a NAS and want storage back by that check out the helm charts for [democratic-csi](https://github.com/democratic-csi/democratic-csi), [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs) or [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner).
-
-If you plan on exposing your ingress to the world from your home. Checkout [our rough guide](https://docs.k8s-at-home.com/guides/dyndns/) to run a k8s `CronJob` to update DDNS.
 
 ## :handshake:&nbsp; Thanks
 
