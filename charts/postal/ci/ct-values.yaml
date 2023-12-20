@@ -1,4 +1,0 @@
----
-service:
-  main:
-    type: ClusterIP
