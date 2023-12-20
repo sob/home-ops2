@@ -3,8 +3,6 @@
 This repository _is_ my home k8s cluster managed managed by [Flux](https://github.com/fluxcd/flux2)
 based on the YAML configuration files in my [cluster](./cluster) folder.
 
-This repository was made possible by the fine folks at [k8s-at-home/template-cluster/k3s](https://github.com/k8s-at-home/template-cluster-k3s) and their template repository.
-
 ## Cluster components
 
 - [rook-ceph](https://rook.io/): Provides persistent storage volumes.
